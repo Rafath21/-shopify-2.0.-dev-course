@@ -9,7 +9,7 @@
         width: 100%;
         max-width: 100%;
     }
-
+    
     .header__inline h1,
     .header__inline h2,
     .header__inline h3,
@@ -160,7 +160,6 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 1;
-        font-family: 'Helvetica', 'Arial', sans-serif;
     }
 
     .GiftKartModalContent-right {
@@ -918,9 +917,7 @@
 
 </style>
 <style>
-
 .gktGiftCardModalWrapper {
-   
     display: none;
     width: 100%;
     height: 100vh;
@@ -934,20 +931,21 @@
     animation-name: fadeIn_Container;
     animation-duration: .2s
  }
- 
+ .gktGiftCardModalWrapper{
+    background-color: #2229;
+ }
   /* Modal Content */
  .gktGiftCardModal {
     position: fixed;
     top: 25%;
     left: 50%;
     max-width: 600px;
-    width: 45vw !important;
+    width: 55vw !important;
     margin: 10px auto;
-    padding:10px;
+    padding:20px 30px 30px;
     margin-top: 20vh !important;
     border-radius: 4px;
     background: #fefefe;
-    box-shadow: 0 0 10px #000;
     animation-name: fadeIn_Modal;
     animation-duration: .2s;
     transform: translate(-50%, -50%);
@@ -957,7 +955,6 @@
     overflow-x: hidden;
     color: black !important;
   }
-  
 .gktGiftCardInputFieldsDiv{
     display: grid;
 }
@@ -977,8 +974,8 @@
      
  }
  .gktGiftCardModalClose{
-     fill: rgba(255,255,255,0.851);
-     background: rgba(32,33,36,0.4);
+     fill: white;
+     background: #000000;
      -webkit-border-radius: 50%;
      border-radius: 50%;
      width: 24px;
@@ -991,6 +988,9 @@
      cursor: pointer;
  }
  
+ .gktGiftCardContent hr{
+     unset:all;
+ }
    
  .gktGiftCardModalClose:hover,
    .gktGiftCardModalClose:focus {
@@ -1008,32 +1008,48 @@
         margin-bottom:0px;
         font-size: 14px;
         color:black !important;
+        padding-bottom:10px;
+ }
+
+ .gktGiftCardModalCheckbox{
+     display: block !important;
+ }
+.gktGiftCardModalCheckbox input[type="checkbox"]{
+        display: inline-block;
+        margin-right: 10px;
+        margin-left: 0px;
+        width: auto;
+ }
+ .gktGiftCardModalCheckbox .gktGiftCardModalCheckboxLabel{
+        display: inline-block;
+        margin-right: 10px;
+        margin-left: 0px;
+        width: auto;
  }
 
 
- .gktGiftCardDetailsContent .gktGiftCardGreetingCardContent{
-     height: 450px;
- }
-
- .gktGiftCardContainer{
-     height:450px;
- }
+ .gktGiftCardContainer {
+    height: 400px;
+    border-top: 1px solid #A2A2A2 !important;
+    display: grid;
+    grid-template-rows: 1fr 9fr;
+}
 
  .gktGiftCardDetailsContent input{
     margin:0px;
     padding: 10px 18px;
     width: 100%;
-    border: 1px solid #cccccc;
     background-color: #ffffff;
     color: #000000;
     max-width: 100%;
     line-height: 1.2;
     border-radius: 2px;
     padding-bottom: 10px;
+    border: 1px solid #A2A2A2;
     font-size:14px !important;
  }
 
- .gktGiftCardDetailsContent textarea {
+ .gktGiftCardMessageInputFieldsDiv textarea {
     margin:0px;
     padding: 10px 18px;
     width: 100%;
@@ -1044,33 +1060,46 @@
     line-height: 1.2;
     border-radius: 2px;
     padding-bottom: 10px;
-    max-height: 100px !important;
+    max-height: 70px !important;
     min-height:50px !important;
+    border: 1px solid #A2A2A2;
+    resize: none;
+    width: 100%;
+    height: 126px;
+    padding: 10px;
+}
+  .greetingCardMainBody,.gktGiftCardDetailsContent,.gktGiftCardMessageContent{
+    background: #F2F2F2 0% 0% no-repeat padding-box;
+    padding:20px; 
     font-size:14px !important;
  }
 
+ .greetingCardMainBody{
+    padding:0px;
+    // why are we declaring this here? 
+    // because we dont want to have padding for scroll
+ }
+ .gktGiftCardMessageDivider{
+    display: block !important;
+    border: 1px solid #A2A2A2 !important;
+    height: 0px;
+    opacity: 0.5;
+ }
+.gktGiftCardMessageLabel{
+    text-align: left;
+    letter-spacing: 0px;
+    display: block;
+    color: #000000;
+    padding-bottom: 10px;
+    opacity: 1;
+}
 
 
- .gktGiftCardDetailsContent{
-     font-size: 16px;
- }
-//  .gktGiftCardModalSubText{
-//     padding:10px;
-//  }
- .old-code{
-     .gktGiftCardDetailsContent{
-        display:grid;
-        grid-template-rows: 1fr 1fr;
-        grid-gap: 10px;
-     }
-     .gktGiftCardContentFooterBtn1{
-        margin: 0 20%;  
-     }
- }
+
  .gktGiftCardDetailsContent {
-     padding: 5px;
-     margin:5px 10px;
-     font-size: 30px;
+    font-size: 16px;
+    height: 400px;
+    overflow-y: auto;
  }
  .gktGiftCardEmailValidation,.gktGiftCardDateValidation{
     color: red;
@@ -1083,6 +1112,13 @@
     margin-right: 4px;
     color: red;
   }
+  .gktGiftCardDateLabel{
+    margin:0px !important;
+    padding:0px !important;
+  }
+  .gktGiftCardInputRow5{
+      padding:0px !important;
+  }
  
  .gktGiftCardContentHeader{
  
@@ -1092,7 +1128,7 @@
  }
  .gktGiftCardContentFooterBtn1{
     cursor: pointer;
-    padding: 6px 12px;
+    padding: 12px 12px;
     font-weight: 500;
     text-align: center;
     background-color: #A96668;
@@ -1106,24 +1142,15 @@
  .gktGiftCardContentFooterBtn2{
  
  }
- @media screen and (max-width: 900px) {
-    .gktGiftCardModal {
-        top: 25%;
-        left: 50%;
-        min-width: 250px;
-        width: 90vw !important;
-        margin: 10px auto;
-        padding:10px;
-        margin-top: 22vh !important;
-    }
- }
 
 
-.greetingCardMainBody{
-    display:grid;
+
+ .greetingCardMainBody {
+    height: 100%;
+    display: grid;
     grid-template-columns: 1fr;
+    overflow-y: hidden;
 }
-
 .greetingCardCategoryListItemText{
     text-align: center;
     line-height: 30px;
@@ -1131,7 +1158,6 @@
     display: block;
     text-decoration: none;
     color: #008060;
-    text-transform: capitalize;
     font-size: 16px;
 }
 
@@ -1149,10 +1175,9 @@
     display:none;
 }
 .activeGreetingCardCategory a, .greetingCardCategoryListItem a:hover {
-    background-color: black;
-    color:white !important;
-    border-radius:5px;
+    color:black !important;
     cursor:pointer;
+    border-bottom: 1px solid black;
 }
 
 .greetingCardImage:hover{
@@ -1173,9 +1198,10 @@ OLD .greetingCardCategoryListItem{
     text-align: left;
     list-style: none;
     display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3,min-content);
     padding: 0;
-    margin: 0 0 15px;
+    margin: 10px 0 15px;
+    grid-gap:25px;
 }
 
 .greetingCardCategoryListItem{
@@ -1188,7 +1214,7 @@ OLD .greetingCardCategoryListItem{
 }
 
 .activeGreetingCard{
-    border:2px solid #A96668;  
+    border:2px solid black;  
     border-radius:5px;  
 }
 
@@ -1203,14 +1229,17 @@ OLD .greetingCardCategoryListItem{
 
 .greetingCardImageList{
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     overflow-x: hidden;
     overflow-y: auto;
     padding-right:5px;
     height:350px;
+    padding:20px;
 }
 
-
+.gktVideoMsgCheckboxField{
+    visibility:hidden;
+}
 
 .greetingCardImageList .greetingCardImageLabel img{
     max-width:100%;
@@ -1230,10 +1259,9 @@ OLD .greetingCardCategoryListItem{
     display: inline-block;
     justify-content: center;
     cursor: pointer;
-    background: #fff;
     line-height: 30px;
     margin:0px;
-    padding:0px;
+    padding:6px;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 12px;
@@ -1241,16 +1269,18 @@ OLD .greetingCardCategoryListItem{
     border: 1px solid #f3f3f3;
     border-top: 0 solid #f3f3f3;
     border-color: #f3f3f3!important;
+    transition: transform .2s;
+    font-family:inherit;
 }
 
 .gktGiftCardSendNowButton:hover, .gktGiftCardSendLaterButton:hover{
-   
+
+    transform: scale(0.95);
+
 }
 
 .activeDeliveryOption{
-    background: #A96668;
-    color: #fff;
-    box-shadow: inset 2px 2px 3px 0 rgb(0 0 0 / 13%), inset 0 0 5px -1px rgb(0 0 0 / 1%);
+    border: 1px solid #A2A2A2 !important;
 }
 
 /*** Giftcard Modal Css ***/
@@ -1267,40 +1297,105 @@ OLD .greetingCardCategoryListItem{
     font-weight:bold;
     color:black;
 }
-
+.gktGiftCardModalNavForMobile{
+    display:none;
+}
 .gktDeliveryOptions{
     display:grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap:10px;
     margin:10px 0px;
+    grid-gap: 5px;
 }
 
 .gktGiftCardModalBackButton{
     cursor:pointer;
     font-size: 14px;
     position: absolute;
+    color:black;
     top: 10px;
     padding-top: 10px;
-}
-.greetingCardHeading{
-    font-size:16px;
-    margin:0 0 15px;
+    display: inline-grid;
+    grid-auto-flow: column;
+    justify-items: center;
+    align-items: center;
+    left: 30px;
+    top: 10px;
 
 }
 
+.gktGiftCardModalNav{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-bottom: 10px !important;
+    padding-top:10px !important;
+}
+
+.gktGiftCardModalNav li{    
+    display:inline-block;
+    margin:0;
+    padding:0 10px;
+    list-style: none;
+    color: grey;
+}
+.gktGiftCardModalNavListItem.activeNavItem{
+    color: black;
+}
+.gktGiftCardModalNavListItem{
+    font-size: 16px;
+}
 @media screen and (max-width: 600px) {
+    .gktGiftCardModal {
+        top: 25%;
+        left: 50%;
+        min-width: 250px;
+        width: 100vw !important;
+        padding: 10px 20px;
+        margin-top: 0 !important;
+        top: 0;
+        left: 0;
+        transform: translate(0px, 0px);
+        border-radius: 0px;
+        height: 100vh !important;
+        max-height: 100vh !important;
+    }
+    .gktGiftCardContainer,.gktGiftCardDetailsContent {
+        height: max-content;  
+        grid-template-rows: auto auto;
+    }
     .greetingCardMainBody{
         grid-template-columns: 1fr;
+        height: fit-content;
+        
     }
     .greetingCardImagePreview{
         display:none;
         width:0;
     }
-
+    .greetingCardImageList{
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        height: fit-content;
+        max-height: 65vh;
+    }
+    .greetingCardCategoryList{
+        grid-template-columns: repeat(3,1fr);
+    }    
     .gktDeliveryOptions{
         display:grid;
         grid-template-columns: 1fr 1fr;
-        grid-gap:10px;
+    }
+    .gktGiftCardModalNav{
+        display:none;
+    }
+    .gktGiftCardModalNavForMobile{
+            display:block;
+            padding-top: 20px;
+            padding-bottom:20px;
+    }
+    .gktGiftCardModalBackButton{
+        left: 10px;
+        top: 5px;
     }
    
  }
@@ -1350,6 +1445,111 @@ OLD .greetingCardCategoryListItem{
     left:8px;
     top:12px;
 }
+.gktGiftCardMessageContent{
+    margin:0 !important;
+    display:grid;
+    background: #F2F2F2 0% 0% no-repeat padding-box;
+    grid-gap:20px;
+    overflow-y: auto;
+}
+
+
+.gktVideoMessageCheckboxRow{
+    display: grid;
+    grid-auto-flow: column;
+
+}
+.gktVideoMsgCheckboxLabel{
+    text-align: left;
+    letter-spacing: 0px;
+    color: #000000;
+}
+ .gktVideoMsgCheckboxWrapper {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    justify-self: end;
+    height: 26px;
+  }
+  
+.gktVideoMsgToggle input{ 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+.gktVideoMsgSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    border: 1px solid black;    
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+ .gktVideoMsgSlider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    top:2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+   input:checked + .gktVideoMsgSlider {
+    background-color: black;
+  }
+  
+ input:checked + .gktVideoMsgSlider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    
+    transform: translateX(16px);
+  }
+  
+  .gktGiftCardContent ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .gktGiftCardContent  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+   .gktGiftCardContent  ::-webkit-scrollbar-thumb {
+    background: #2c2c2c 0% 0% no-repeat padding-box;
+  }
+  
+  /* Handle on hover */
+  .gktGiftCardContent  ::-webkit-scrollbar-thumb:hover {
+    background: #000000 0% 0% no-repeat padding-box;
+  }
+  /* Rounded sliders */
+  .slider.round, .gktVideoMsgSlider {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before, .gktVideoMsgSlider:before {
+    border-radius: 50%;
+    border: 1px solid black;
+  }
+
+  .gktGiftCardModalNavListItemSpan{
+    display: inline-grid;
+    align-items: center;
+  }
+
+
+
 
 </style>
 <style>
@@ -1811,6 +2011,367 @@ textarea.gktFreeGiftcardPopupTextArea{
         font-size: 14px;
     }
 
+  </style> <style>.gktVideoPlayerHide {
+    display: none !important;
+  }
+
+  .gktVideoMsgPlayerWrapper {
+    /* height: 100vh; */
+    z-index: 10000000000000;
+    display: none;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    /* position: fixed; */
+    top: 30px;
+    margin: 10px auto;
+  }
+
+  .gktRecorder {
+    width: 100%;
+    min-height: 250px;
+    position: relative;
+    border-radius: 2%;
+    overflow: hidden;
+  }
+
+  .gktVideoPlayer,
+  .gktVideoPlayerRecording {
+    width: 100%;
+    height: auto;
+  }
+ 
+  .gktRecorderCloseBtn {
+    position: absolute;
+    z-index: 1;
+    left: 2%;
+    top: 5%;
+    background: transparent;
+    border: none;
+    display: none;
+  }
+
+  .gktRecorderCloseBtn img {
+    height: 30px;
+    width: 30px;
+    filter: invert(90%);
+    cursor: pointer;
+  }
+
+  .gktVideoPlayerStartBtn,
+  .gktVideoPlayerStopBtn {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+  }
+
+  .gktVideoPlayerStartBtn {
+    background-color: white;
+  }
+
+  .gktVideoPlayerStopBtn {
+    background-color: red;
+  }
+
+  .gktVideoPlayerRedDot,
+  .gktVideoPlayerRedSquare {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .gktVideoPlayerRedDot {
+    background-color: red;
+    border-radius: 50%;
+  }
+
+  .gktVideoPlayerRedSquare {
+    background-color: white;
+    border-radius: 10%;
+  }
+
+  .gktPermissionDenied {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2rem;
+  }
+
+  .gktVideoPlayerTimeLeft {
+    position: absolute;
+    bottom: 4%;
+    right: 4%;
+    color: white;
+    font-size: 12px;
+    background: black;
+    padding: 4px;
+    color: white;
+    opacity: 0.4;  
+  }
+
+  .gktVideoPlayerStatus {
+    position: absolute;
+    bottom: 4%;
+    left: 4%;
+    font-size: 12px;
+    padding: 4px;
+    background-color: black;
+    color: white;
+    opacity: 0.4;
+  }
+
+  
+
+  .gktVideoPlayerControls {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .gktLoadingHeading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    color: white;
+    font-size: 20px;
+  }
+
+  .gktUploadingVideoHeading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    color: #e3dada;
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+  }
+
+  .gktVideoPlayerControlsAcceptBtnDiv, 
+  .gktVideoPlayerControlsPlayBtnDiv, 
+  .gktVideoPlayerControlsReStartBtnDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .gktVideoPlayerControlsBtnDivInfo{
+    font-size: 16px;
+    color: white;
+    margin: 0 0 8px 0; 
+  }
+
+  .gktVideoPlayerControlsAcceptBtn,
+  .gktVideoPlayerControlsPlayBtn,
+  .gktVideoPlayerControlsReStartBtn {
+    background-color: transparent;
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    cursor: pointer;
+    /* margin-right: 20px; */
+  }
+
+  .gktVideoPlayerControlsAcceptBtn {
+    border: 5px solid .3ce669;
+  }
+
+  .gktVideoPlayerControlsPlayBtn {
+    border: 5px solid .fff;
+  }
+
+  .gktVideoPlayerControlsReStartBtn {
+    border: 5px solid .e03838;
+  }
+
+  .gktVideoPlayerControlsAcceptBtnImg,
+  .gktVideoPlayerControlsPlayBtnImg,
+  .gktVideoPlayerControlsReStartBtnImg {
+    height: 40px;
+    width: 40px;
+  }
+
+  .gktVideoPlayerControlsAcceptBtnImg {
+    filter: invert(69%) sepia(59%) saturate(537%) hue-rotate(80deg) brightness(98%) contrast(93%);
+  }
+
+  .gktVideoPlayerControlsPlayBtnImg {
+    filter: invert(100%) sepia(0) saturate(7500%) hue-rotate(116deg) brightness(80%) contrast(109%);
+  }
+
+  .gktVideoPlayerControlsReStartBtnImg {
+    filter: invert(23%) sepia(77%) saturate(3858%) hue-rotate(348deg) brightness(98%) contrast(80%);
+  }
+
+  /* 500px and down */
+  @media only screen and (max-width: 600px) {
+    .gktVideoPlayerRecording {
+      object-fit: cover;
+      height: 100%;
+    }
+    .gktRecorder {
+      min-height: 36vh;
+    }
+    .gktVideoPlayer,
+  .gktVideoPlayerRecording{
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    height: 100%;
+  }
+    .gktVideoPlayerControlsAcceptBtn,
+    .gktVideoPlayerControlsPlayBtn,
+    .gktVideoPlayerControlsReStartBtn {
+      height: 50px;
+      width: 50px;
+    }
+
+    .gktVideoPlayerControlsAcceptBtnImg,
+    .gktVideoPlayerControlsPlayBtnImg,
+    .gktVideoPlayerControlsReStartBtnImg {
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  /* 350px and down */
+  @media only screen and (max-width: 600px) {
+
+
+
+    
+    .gktVideoPlayerStartBtn,
+    .gktVideoPlayerStopBtn {
+      height: 40px;
+      width: 40px;
+    }
+
+    .gktVideoPlayerRedDot,
+    .gktVideoPlayerRedSquare {
+      width: 10px;
+      height: 10px;
+    }
+
+  }
+  .gktGiftCardMessageContent{
+    overflow-y:auto;
+  }
+  .gktGiftCardMessageContent ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .gktGiftCardMessageContent  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+   .gktGiftCardMessageContent  ::-webkit-scrollbar-thumb {
+    background: #2c2c2c 0% 0% no-repeat padding-box;
+  }
+  
+  /* Handle on hover */
+  .gktGiftCardMessageContent  ::-webkit-scrollbar-thumb:hover {
+    background: #000000 0% 0% no-repeat padding-box;
+  }
+
+  /* Extra small devices (phones, 600px and down) */
+  /* @media only screen and (max-width: 800px) {
+    .gktRecorder {
+      width: 375px;
+      height: 650px;
+      background-color: black;
+    }
+
+    .gktVideoPlayer,
+    .gktVideoPlayerRecording {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .gktVideoPlayerRecording {
+      object-fit: contain;
+    }
+
+    .gktVideoPlayerControls {
+      width: 80%;
+    }
+
+    .gktVideoPlayerControlsAcceptBtn,
+    .gktVideoPlayerControlsPlayBtn,
+    .gktVideoPlayerControlsReStartBtn {
+      margin-right: 7px;
+    }
+
+    .gktVideoPlayerTimeLeft,
+    .gktVideoPlayerStatus {
+      font-size: 18px;
+      background-color: rgba(0,0,0,0.2);
+      padding: 2px 4px;
+    }
+
+  } */
+
+
+  /* @media only screen and (max-width: 850px) {} */
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  /* @media only screen and (min-width: 600px) {} */
+
+  /* Medium devices (landscape tablets, 768px and up) */
+  /* @media only screen and (min-width: 768px) {} */
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 900px) {
+    .gktRecorder {
+      min-height: 180px;
+      height: 100%;
+    }
+    .gktRecord,.gktRecorded{
+      height: 100%;
+    }
+    .gktVideoPlayer, .gktVideoPlayerRecording{
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+    }
+    .gktVideoMsgPlayerWrapper{
+      height: 300px;  
+    }
+   
+    .gktGiftCardMessageContent{
+      max-height: 350px;
+    } 
+
+  }
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  /* @media only screen and (min-width: 1200px) {}  */
   </style>
 <style>
 
@@ -1970,12 +2531,14 @@ textarea.gktFreeGiftcardPopupTextArea{
             </div>
         </div>
         <div class="gktGiftCardContent">
+            
             <div class="gktGiftCardContentHeader"></div>
             <form>
                 <div class="gktGiftCardGreetingCardContent">
                    
                 </div>
                 <div class="gktGiftCardDetailsContent"></div>
+                <div class="gktGiftCardMessageContent"></div>
             </form>
             <div class="gktGiftCardContentFooter">
                 <div class="gktGiftCardContentFooterBtn1"></div>
@@ -1991,12 +2554,14 @@ textarea.gktFreeGiftcardPopupTextArea{
 </div>
 <div class="gktNotificationWrapper"></div>
 
+<!-- <div class="gktVideoMsgPlayerWrapper"></div> -->
+
 <link rel="stylesheet" href="https://cdn.quilljs.com/1.2.6/quill.snow.css">
 
 
 <script async>
 
-    let tmpCartSettings = {"_id":"625e892200c021b18c68fb4b","cartPageText":"<p><strong style=\"font-size: 18px; color: rgb(230, 0, 0);\">🎁 Add Gift Wrap</strong></p>","popupCheckBoxText":"<p>Add Gift Wrap</p>","popupHeadingText":"<p><strong style=\"color: rgb(230, 0, 0); font-size: 34px;\">🎁 GIFT OPTIONS<span class=\"ql-cursor\"></span></strong></p>","popupImgUrl":"https://db07ji0eqime4.cloudfront.net/gift_popup/Pink-gifting.png","saveButtonBackgroundColor":"#353535","saveButtonTextColor":"#FFFFFF","saveButtonText":"SAVE","cartPopupBackgroundColor":"#FFFFFF","messageBoxplaceholder":"Add a personlized gift message here...","giftWrapImgUrl":"https://db07ji0eqime4.cloudfront.net/public/giftWrap_image.png","giftWrapShopifyImgUrl":"https://db07ji0eqime4.cloudfront.net/public/giftWrap_image.png","giftWrapTitle":"Wrap","giftWrapDesc":"All gift items are wrapped in high quality gift wrap before being securely packaged for delivery.","giftWrapPrice":"0.0","messageCheckboxHeading":"<p>Add Gift Message</p>","giftWrapCheckboxHeading":"<p>Add Gift Wrap</p>","enabledGifiting":"CART_PAGE","giftWrapHandle":null,"isVisibleOnCart":false,"isVisibleOnAllProductPages":false,"isVisibleOnSpecificProductPages":false,"visibleOnSpecificProductPages":[],"shopName":"bathbombsssq.myshopify.com","isGiftField":false,"isGiftWrap":false,"isGiftPrice":false,"productId":null,"productVariantId":null,"currency":"INR","themeId":"121711591529","createdAt":"2022-04-19T10:04:18.718Z","updatedAt":"2022-04-19T10:04:21.684Z","combos":[],"oneClickUpsells":[],"giftCards":[{"_id":"625ed1f12daf672cf754efa8","shopName":"bathbombsssq.myshopify.com","productId":"6843952595049","title":"GK1","shopifyData":{"id":6843952595049,"title":"GK1","body_html":"You can't go wrong with a gift card. Choose an amount and write a personalized message to make this gift your own.","vendor":"bathbombsssq.myshopify.com","product_type":"Gift Card","created_at":"2022-04-19T20:44:56+05:30","handle":"gk1","updated_at":"2022-04-20T11:47:03+05:30","published_at":"2022-04-19T20:44:56+05:30","template_suffix":null,"status":"active","published_scope":"web","tags":"gkt-gift-card(do not remove)","admin_graphql_api_id":"gid://shopify/Product/6843952595049","variants":[{"id":39979920326761,"product_id":6843952595049,"title":"10.00","price":"10.00","sku":"","position":1,"inventory_policy":"continue","compare_at_price":null,"fulfillment_service":"manual","inventory_management":null,"option1":"10.00","option2":null,"option3":null,"created_at":"2022-04-19T20:44:57+05:30","updated_at":"2022-04-19T20:44:57+05:30","taxable":false,"barcode":null,"grams":0,"image_id":null,"weight":0,"weight_unit":"kg","inventory_item_id":42076976513129,"inventory_quantity":0,"old_inventory_quantity":0,"requires_shipping":false,"admin_graphql_api_id":"gid://shopify/ProductVariant/39979920326761"},{"id":39979920359529,"product_id":6843952595049,"title":"20.00","price":"20.00","sku":"","position":2,"inventory_policy":"continue","compare_at_price":null,"fulfillment_service":"manual","inventory_management":null,"option1":"20.00","option2":null,"option3":null,"created_at":"2022-04-19T20:44:57+05:30","updated_at":"2022-04-19T20:44:57+05:30","taxable":false,"barcode":null,"grams":0,"image_id":null,"weight":0,"weight_unit":"kg","inventory_item_id":42076976545897,"inventory_quantity":0,"old_inventory_quantity":0,"requires_shipping":false,"admin_graphql_api_id":"gid://shopify/ProductVariant/39979920359529"},{"id":39979920392297,"product_id":6843952595049,"title":"30.00","price":"30.00","sku":"","position":3,"inventory_policy":"continue","compare_at_price":null,"fulfillment_service":"manual","inventory_management":null,"option1":"30.00","option2":null,"option3":null,"created_at":"2022-04-19T20:44:57+05:30","updated_at":"2022-04-19T20:44:57+05:30","taxable":false,"barcode":null,"grams":0,"image_id":null,"weight":0,"weight_unit":"kg","inventory_item_id":42076976578665,"inventory_quantity":0,"old_inventory_quantity":0,"requires_shipping":false,"admin_graphql_api_id":"gid://shopify/ProductVariant/39979920392297"}],"options":[{"id":8748893798505,"product_id":6843952595049,"name":"Value","position":1,"values":["10.00","20.00","30.00"]}],"images":[{"id":29614398505065,"product_id":6843952595049,"position":1,"created_at":"2022-04-20T11:47:03+05:30","updated_at":"2022-04-20T11:47:03+05:30","alt":null,"width":1600,"height":900,"src":"https://cdn.shopify.com/s/files/1/0555/8966/6921/products/1_d4ce15ea-7eb4-4391-97ed-286b50e44b29.png?v=1650435423","variant_ids":[],"admin_graphql_api_id":"gid://shopify/ProductImage/29614398505065"}],"image":{"id":29614398505065,"product_id":6843952595049,"position":1,"created_at":"2022-04-20T11:47:03+05:30","updated_at":"2022-04-20T11:47:03+05:30","alt":null,"width":1600,"height":900,"src":"https://cdn.shopify.com/s/files/1/0555/8966/6921/products/1_d4ce15ea-7eb4-4391-97ed-286b50e44b29.png?v=1650435423","variant_ids":[],"admin_graphql_api_id":"gid://shopify/ProductImage/29614398505065"}},"isDeleted":false,"createdAt":"2022-04-19T15:14:57.674Z","updatedAt":"2022-04-20T06:17:03.371Z","__v":0}],"giftMessage":{"_id":"625e892300c021b18c68fb58","shopName":"bathbombsssq.myshopify.com","isDeleted":false,"isGiftMessageEnabled":false,"isVisibleOnCart":false,"isVisibleOnAllProductPages":false,"isVisibleOnSpecificProductPages":false,"visibleOnSpecificProductPages":[],"createdAt":"2022-04-19T10:04:19.325Z","updatedAt":"2022-04-19T10:04:19.325Z","__v":0},"userData":{"shopName":"bathbombsssq.myshopify.com","countryCode":"IN","countryName":"India","currency":"INR","currencyInfo":{"code":"INR","symbol":"₹","thousandsSeparator":",","decimalSeparator":".","symbolOnLeft":true,"spaceBetweenAmountAndSymbol":false,"decimalDigits":2},"customSettings":{"initialModalPopupCnt":0,"disableCartSettings":false,"addToCartBtnSelectors":null,"checkoutBtnSelectors":null,"customStyle":null,"addAfterAddTocartBtn":false,"addAftercheckoutBtn":false,"disableApp":false},"email":"rafathsweb@gmail.com"},"languageData":{"_id":"625e8922bd7f1643da8e15a4","shopName":"bathbombsssq.myshopify.com","__v":0,"createdAt":"2022-04-19T10:04:18.745Z","freeGiftcardPopup":{"freeGiftcardPopupHeading":{"id":"freeGiftcardPopupHeading","value":"You've unlocked a Free Gift Card! Share it with your friend now!","label":"Popup Heading","type":"text"},"namePlaceholder":{"id":"namePlaceholder","value":"Recipient Name","label":"Name Placeholder","type":"text"},"emailPlaceholder":{"id":"emailPlaceholder","value":"Recipient Email","label":"Email Placeholder","type":"text"},"notePlaceholder":{"id":"notePlaceholder","value":"Write a note","label":"Note Placeholder","type":"text"},"saveDetails":{"id":"saveDetails","value":"Save Details","label":"Save Detail Button","type":"text"},"checkoutButtonText":{"id":"checkoutButtonText","value":"Proceed to Checkout","label":"Checkout Button Text","type":"text"},"loadingCheckoutButtonText":{"id":"loadingCheckoutButtonText","value":"Loading...","label":"Loading Checkout Button Text","type":"text"},"emailErrorText":{"id":"emailErrorText","value":"Please enter a valid email address","label":"Email Error Text","type":"text"},"confirmationPageDescription":{"id":"confirmationPageDescription","value":"Recipient Details Saved. Gift Card will be sent once the Order is placed!","label":"Confirmation Page Description","type":"text"},"continueShoppingButtonText":{"id":"continueShoppingButtonText","value":"Continue Shopping","label":"Continue Shopping Button Text","type":"text"}},"giftcard":{"redemptionPageFields":[{"id":"pageHeading","label":"Page heading","type":"text","value":"Redeem Gift Card"},{"id":"giftcardCode","label":"Gift card code label","type":"text","value":"Gift Card Code"},{"id":"clipboardTooltipText","label":"Clipboard tooltip text","type":"text","value":"Copy the gift card code to your clipboard"},{"id":"clipboardTooltipConfirmationText","label":"Clipboard tooltip confirmation text","type":"text","value":"Copied to clipboard"},{"id":"balance","label":"Balance label","type":"text","value":"Balance"},{"id":"total","label":"Value label","type":"text","value":"Value"},{"id":"startShoppingBtn","label":"Start Shopping Button Text","type":"text","value":"Start Shopping"},{"id":"to","label":"To label","type":"text","value":"To"},{"id":"from","label":"From label","type":"text","value":"From"}],"purchasePageFields":{"modalDescription":{"id":"modalDescription","label":"Popup Description Text","type":"text","value":"Please provide the recipient's name and email address and we will send your gift card."},"recipientName":{"id":"recipientName","label":"Recipient name label","type":"text","value":"Recipient Name"},"recipientNamePlaceholder":{"id":"recipientNamePlaceholder","label":"Recipient name Placeholder","type":"text","value":"Recipient Name","optional":true},"recipientEmail":{"id":"recipientEmail","label":"Recipient email label","type":"text","value":"Recipient Email"},"recipientEmailPlaceholder":{"id":"recipientEmailPlaceholder","label":"Recipient email Placeholder","type":"text","value":"Recipient Email","optional":true},"senderName":{"id":"senderName","label":"Sender name label","type":"text","value":"Sender Name"},"senderNamePlaceholder":{"id":"senderNamePlaceholder","label":"Sender Name Placeholder","type":"text","value":"Sender Name...","optional":true},"giftNote":{"id":"giftNote","label":"Gift note label","type":"text","value":"Gift Note"},"giftNotePlaceholder":{"id":"giftNotePlaceholder","label":"Gift note placeholder","type":"text","value":"Enter a message for the recipient","optional":true},"buyNowButtonText":{"id":"buyNowButtonText","label":"Buy Now Button text","type":"text","value":"Send Gift Card"},"buyNowButtonTextLoading":{"id":"buyNowButtonTextLoading","label":"Buy Now Button text Loading","type":"text","value":"Loading checkout page"},"addToCartButtonText":{"id":"addToCartButtonText","label":"Send Gift Card button text","type":"text","value":"Send Gift Card"},"sendNowButtonText":{"id":"sendNowButtonText","label":"Send Now Button Text","value":"Send Now","type":"text"},"sendLaterButtonText":{"id":"sendLaterButtonText","label":"Send Later Button Text","value":"Send Later","type":"text"},"deliveryDate":{"id":"deliveryDate","label":"Delivery Date","value":"Delivery Date","type":"text"},"backButtonText":{"id":"backButtonText","label":"Back Button Text","value":"Back","type":"text"}},"greetingCardFields":{"greetingCardHeading":{"id":"greetingCardHeading","label":"Greeting Card Heading","type":"text","value":"Select a greeting Card"},"greetingCardContinueButtonText":{"id":"greetingCardContinueButtonText","label":"Greeting Card Continue Button Text","type":"text","value":"Continue"},"greetingCardCategory1":{"id":"greetingCardCategory1","label":"Greeting Card Category 1","type":"text","value":"General"},"greetingCardCategory2":{"id":"greetingCardCategory2","label":"Greeting Card Category 2","type":"text","value":"Occasion"},"greetingCardCategory3":{"id":"greetingCardCategory3","label":"Greeting Card Category 3","type":"text","value":"Holiday"}}},"isDeleted":false,"updatedAt":"2022-04-19T10:04:19.324Z","giftMessage":{"giftMessageHeadingLabel":"<p>Add Gift Note</p>","giftMessagePlaceholderText":"Enter your note here..."}},"greetingCardData":{"_id":"625e892400c021b18c68fb66","shopName":"bathbombsssq.myshopify.com","isDeleted":false,"isGreetingCardEnabled":false,"greetingCardImgs":[{"id":1,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/1.png","category":"Occasion","categoryId":"greetingCardCategory2"},{"id":2,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/2.png","category":"Occasion","categoryId":"greetingCardCategory2"},{"id":3,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/3.png","category":"Holiday","categoryId":"greetingCardCategory3"},{"id":4,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/4.png","category":"Holiday","categoryId":"greetingCardCategory3"},{"id":5,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/5.png","category":"General","categoryId":"greetingCardCategory1"},{"id":6,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/6.png","category":"General","categoryId":"greetingCardCategory1"},{"id":7,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/7.png","category":"General","categoryId":"greetingCardCategory1"},{"id":8,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/8.png","category":"General","categoryId":"greetingCardCategory1"},{"id":9,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/9.png","category":"General","categoryId":"greetingCardCategory1"},{"id":10,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/10.png","category":"General","categoryId":"greetingCardCategory1"},{"id":11,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/11.png","category":"General","categoryId":"greetingCardCategory1"},{"id":12,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/12.png","category":"Holiday","categoryId":"greetingCardCategory3"},{"id":13,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/13.png","category":"General","categoryId":"greetingCardCategory1"},{"id":14,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/14.png","category":"Occasion","categoryId":"greetingCardCategory2"},{"id":15,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/15.png","category":"Occasion","categoryId":"greetingCardCategory2"},{"id":16,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/16.png","category":"Occasion","categoryId":"greetingCardCategory2"},{"id":17,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/17.png","category":"Holiday","categoryId":"greetingCardCategory3"},{"id":18,"src":"https://db07ji0eqime4.cloudfront.net/public/greetingCardImages/18.png","category":"Holiday","categoryId":"greetingCardCategory3"}],"createdAt":"2022-04-19T10:04:20.113Z","updatedAt":"2022-04-19T10:04:20.113Z","__v":0},"freeGiftcardPopup":{}};//CART_SETTINGS_END
+    {% include "giftkart_script_data" %}
 
     let DEFAULT_addToCartBtnSelectors = 'input[name="add"], button[name="add"], form[action*="/cart/add"] input[type="submit"], form[action*="/cart/add"] button[type="submit"], form[action*="/cart/add"] button:not([type="button"]), form[action*="/cart/add"] .gkt__add-to-cart';
     let DEFAULT_checkoutBtnSelectors = 'button[name="checkout"], input[name="checkout"], form[action*="/cart"] a[href="/checkout"], a[href="/checkout"], form[action="/cart"] input[type="submit"][name="checkout"], form[action="/cart"] button[type="submit"][name="checkout"]';
@@ -2034,11 +2599,12 @@ textarea.gktFreeGiftcardPopupTextArea{
         giftingOptions: {
             isGiftWrapEnabled: tmpCartSettings.isGiftWrap,
             isGiftMessageEnabled: tmpCartSettings.isGiftField,
-            // enabledGifiting: "PRODUCT_PAGES_AND_CART_PAGE", "PRODUCT_PAGES", "CART_PAGE", "NONE",
             enabledGifiting: tmpCartSettings.enabledGifiting,
             shopifyPageinnerHTML: tmpCartSettings.cartPageText
         },
+        videoMessage: tmpCartSettings.videoMessageData,
         pageWrapper: { cartPageText: tmpCartSettings.cartPageText },
+
         combos: tmpCartSettings.combos || [],
         oneClickUpsells: tmpCartSettings.oneClickUpsells || [],
         giftCards: tmpCartSettings.giftCards || [],
@@ -2054,6 +2620,25 @@ textarea.gktFreeGiftcardPopupTextArea{
             sideCartSelectors: tmpCartSettings.userData.customSettings.sideCartSelectors || DEFAULT_sideCartSelectors,
             // cartDrawerSelectors: tmpCartSettings.userData.customSettings.cartDrawerSelectors || DEFAULT_cartDrawerSelectors,
             // sideCartDrawerOverlay: tmpCartSettings.userData.customSettings.sideCartDrawerOverlay || DEFAULT_sideCartDrawerOverlay,
+
+            themeFontFamily: tmpCartSettings.userData.customSettings.themeFontFamily || "",
+            themeFontColor: tmpCartSettings.userData.customSettings.themeFontColor || "",
+
+            themeButtonBackgroundColor: tmpCartSettings.userData.customSettings.themeButtonBackgroundColor || "",
+            themButtonTextColor: tmpCartSettings.userData.customSettings.themButtonTextColor || "",
+            themeButtonBorderColor: tmpCartSettings.userData.customSettings.themeButtonBorderColor || "",
+            themeButtonBoxShadow: tmpCartSettings.userData.customSettings.themeButtonBoxShadow || "",
+            //button font family
+            themeButtonFontFamily: tmpCartSettings.userData.customSettings.themeButtonFontFamily || "",
+
+
+            themeHeaderFontFamily: tmpCartSettings.userData.customSettings.themeHeaderFontFamily || "",
+            themeHeaderFontColor: tmpCartSettings.userData.customSettings.themeHeaderFontColor || "",
+
+            themeLabelFontColor: tmpCartSettings.userData.customSettings.themeLabelFontColor || "",
+            themeLabelFontFamily: tmpCartSettings.userData.customSettings.themeLabelFontFamily || "",
+
+
             buyNowBtn: tmpCartSettings.userData.customSettings.buyNowBtn || DEFAULT_buyNowBtn,
             cartForm: tmpCartSettings.userData.customSettings.cartForm || DEFAULT_cartForm,
             addAfterAddTocartBtn:tmpCartSettings.userData.customSettings.addAfterAddTocartBtn || false,
@@ -2061,6 +2646,7 @@ textarea.gktFreeGiftcardPopupTextArea{
         },
         merchantInfo: tmpCartSettings.userData,
         languageData: tmpCartSettings.languageData,
+        SERVER_URL: tmpCartSettings.SERVER_URL
     }
 
     let shopifyLiquidValues = {
@@ -2143,11 +2729,54 @@ textarea.gktFreeGiftcardPopupTextArea{
 
             bootstrap: function (settings) {
                 console.log("bootstap?");
+                gkt.f.initThemeCSS(settings);
                 gkt.f.globalListener(settings)
                 // gkt.gktGiftMsgAndWrap.init(settings);
                 gkt.storage.loadValuesFromStorage(gkt.settings);
                 gkt.themeSpecificCode.init(gkt.settings)
+            },
+            initThemeCSS: function (){
+                console.log("initThemeCSS?",gkt.selectors.addToCart);
+                let  addToCartBtnEle =  gkt.$(document).find(gkt.selectors.addToCart)
 
+                if(gkt.settings.app.themeFontFamily == "" && gkt.$("body").length>0){
+                    gkt.settings.app.themeFontFamily = gkt.$("body").css("font-family");
+                }
+                //find the font color of the theme
+                if(gkt.settings.app.themeFontColor == "" && gkt.$("p").length > 0){
+                    gkt.settings.app.themeFontColor = gkt.$("p").css("color");
+                }
+                if(gkt.settings.app.themeLabelFontColor == "" && gkt.$("label").length > 0){
+                    gkt.settings.app.themeLabelFontColor = gkt.$("label").css("color");
+                }
+                // themeLabelFontFamily
+                if(gkt.settings.app.themeLabelFontFamily == "" && gkt.$("label").length > 0){
+                    gkt.settings.app.themeLabelFontFamily = gkt.$("label").css("font-family");
+                }
+                if(gkt.settings.app.themeButtonBackgroundColor == "" && gkt.$(addToCartBtnEle).length > 0 ){
+                    gkt.settings.app.themeButtonBackgroundColor = gkt.$(addToCartBtnEle).css("background-color");
+                }
+                if(gkt.settings.app.themButtonTextColor == "" && gkt.$(addToCartBtnEle).length > 0){
+                    gkt.settings.app.themButtonTextColor = gkt.$(addToCartBtnEle).css("color");
+                }
+                if(gkt.settings.app.themeButtonBorderColor == "" && gkt.$(addToCartBtnEle).length > 0){
+                    gkt.settings.app.themeButtonBorderColor = gkt.$(addToCartBtnEle).css("border-color");
+                }
+                //box shadow
+                if(gkt.settings.app.themeButtonBoxShadow == "" && gkt.$(addToCartBtnEle).length > 0){
+                    gkt.settings.app.themeButtonBoxShadow = gkt.$(addToCartBtnEle).css("box-shadow");
+                }
+                // button font family
+                if(gkt.settings.app.themeButtonFontFamily == "" && gkt.$(addToCartBtnEle).length > 0){
+                    gkt.settings.app.themeButtonFontFamily = gkt.$(addToCartBtnEle).css("font-family");
+                }
+                if(gkt.settings.app.themeHeaderFontFamily == "" && gkt.$("h1").length > 0){
+                    gkt.settings.app.themeHeaderFontFamily = gkt.$("h1").css("font-family");
+                }
+                if(gkt.settings.app.themeHeaderFontColor == "" && gkt.$("h1").length > 0){
+                    gkt.settings.app.themeHeaderFontColor = gkt.$("h1").css("color");
+                }
+                
             },
             getPageType: function () {
                 var pageType = "";
@@ -2177,6 +2806,55 @@ textarea.gktFreeGiftcardPopupTextArea{
                 }
                 return "undefined"
 
+            },
+            applyButtonCSS : function(element){
+                //apply gkt.settings.app.themButtonTextColor themeButtonBackgroundColor themeButtonBorderColor to the button
+                if(gkt.settings.app.themButtonTextColor != ""){
+                    element.css("color", gkt.settings.app.themButtonTextColor);
+                }
+                if(gkt.settings.app.themeButtonBackgroundColor != ""){
+                    element.css("background-color", gkt.settings.app.themeButtonBackgroundColor);
+                }
+                if(gkt.settings.app.themeButtonBorderColor != ""){
+                    element.css("border","1px solid")
+                    element.css("border-color", gkt.settings.app.themeButtonBorderColor);
+                }
+                // box shadow
+                if(gkt.settings.app.themeButtonBoxShadow != ""){
+                    element.css("box-shadow", gkt.settings.app.themeButtonBoxShadow);
+                }
+                //themeButtonFontFamily
+                if(gkt.settings.app.themeButtonFontFamily != ""){
+                    element.css("font-family", gkt.settings.app.themeButtonFontFamily);
+                }
+                
+              
+            },
+            resetButtonCSS: function (element){
+                //reset the button css
+                element.css("color","");
+                element.css("background-color","");
+                element.css("border","");
+                element.css("border-color","");
+                element.css("box-shadow","");
+            },
+            applyHeaderCSS: function (element){
+                //apply gkt.settings.app.themeFontFamily themeFontColor to the header
+                if(gkt.settings.app.themeHeaderFontFamily != ""){
+                    element.css("font-family", gkt.settings.app.themeHeaderFontFamily);
+                }
+                if(gkt.settings.app.themeHeaderFontColor != ""){
+                    element.css("color", gkt.settings.app.themeHeaderFontColor);
+                }
+            },
+            applyLabelCSS: function (element){
+                //apply gkt.settings.app.themeLabelFontColor to the label
+                if(gkt.settings.app.themeLabelFontColor != ""){
+                    element.css("color", gkt.settings.app.themeLabelFontColor);
+                }
+                if(gkt.settings.app.themeLabelFontFamily != ""){
+                    element.css("font-family", gkt.settings.app.themeLabelFontFamily);
+                }
             },
             getSelectedVariant: function () {
                 if ("product" === gkt.state.page_type) {
@@ -2286,8 +2964,8 @@ textarea.gktFreeGiftcardPopupTextArea{
                                     const freeGiftcardPopupLanguage = gkt.settings.languageData.freeGiftcardPopup
                                     if(freeGiftcardPopupLanguage?.BuyMoreItemHeading.value && freeGiftcardPopupLanguage?.BuyMoreItemHeading.value != ""){
                                         let gktFreeGiftcardBuyMoreProductNotificationSubHeading = gkt.$('<div>').addClass("gktFreeGiftcardBuyMoreProductNotification")
-                                                                                                  .html(freeGiftcardPopupLanguage?.BuyMoreItemSubHeading?.value)
-                                        gkt.gktNotification.f.addNotificationItemType1(freeGiftcardPopupLanguage?.BuyMoreItemHeading?.value, gktFreeGiftcardBuyMoreProductNotificationSubHeading, 100)
+                                                                                                  .html(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemSubHeading))
+                                        gkt.gktNotification.f.addNotificationItemType1(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemHeading), gktFreeGiftcardBuyMoreProductNotificationSubHeading, 100)
                                         gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown = true
 
                                     }
@@ -2499,7 +3177,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                 }
             },
             cloneAddToCartBtn: function () {
-
+            
             },
             overWriteBuyNowBtn: function (){
                 
@@ -2571,7 +3249,14 @@ textarea.gktFreeGiftcardPopupTextArea{
 
                     return true;
                 },
-            slider: {
+            renderLanguageValue: function (parent) {
+                if (parent){
+                    return parent.value;
+                }
+                return;
+            },
+
+                slider: {
                 state: {
                     slideIndex: 0,
                 },
@@ -3657,21 +4342,24 @@ textarea.gktFreeGiftcardPopupTextArea{
                 greetingCardSelectedCategory: undefined,
                 giftCardDeliveryOption: "sendNow",
                 greetingCardImageListDiv: undefined,
+                modalNavList : [],
             },
             initialize: async function (settings, parent) {
                 let productHandle = gkt.f.getProductPageHandle()
                 let giftCardProduct = gkt.gktGiftCard.f.checkIfGiftCardProduct(productHandle, settings.giftCards)
 
                 if (giftCardProduct) {
+
+                    
                     gkt.gktGiftCard.state.giftCardData = giftCardProduct
                     gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite()
                     gkt.gktGiftCard.f.giftCardBuyNowButtonOverwrite()
-                    gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.settings.languageData.giftcard.purchasePageFields.addToCartButtonText.value)
+                    gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.addToCartButtonText))
                     gkt.gktGiftCard.f.initializeModal()
                     console.log("giftCardProduct", giftCardProduct)
 
                     // initialize video messages 
-                    // gkt.gktVideoMsg.init(settings, parent)
+                    gkt.gktVideoMsg.init(settings, parent)
                 }
                 console.log("gktGiftCard initialize")
                 console.log("settings.giftCard")
@@ -3723,17 +4411,22 @@ textarea.gktFreeGiftcardPopupTextArea{
                     gkt.$(document).on("click", ".gktGiftCardModalClose", gkt.gktGiftCard.action.onModalClose)
                 },
                 initializeModal: function () {
-                    if(gkt.settings.greetingCards.isGreetingCardEnabled &&
-                        gkt.settings.greetingCards.greetingCardImgs &&
-                        gkt.settings.greetingCards.greetingCardImgs.length>0
-                        ){
+                    const isGreetingCardEnabled = gkt.settings.greetingCards.isGreetingCardEnabled &&
+                                                  gkt.settings.greetingCards.greetingCardImgs &&
+                                                  gkt.settings.greetingCards.greetingCardImgs.length>0;
+
+                    if(isGreetingCardEnabled){
                         gkt.gktGiftCard.f.prepareGreetingCardUI()
+                        gkt.gktGiftCard.f.populateModalNavList();
+                        gkt.gktGiftCard.f.displayGreetingCardForm()
                     }
                     else{
                         gkt.$('.greetingCardImageList').remove()
-                        gkt.gktGiftCard.f.modalBuyNowButton();
+                        gkt.gktGiftCard.f.populateModalNavList();
+                        gkt.gktGiftCard.f.displayGiftCardDetailsForm()    
                     }
                     gkt.gktGiftCard.f.prepareGiftCardUI();
+                    gkt.gktGiftCard.f.prepareGiftCardMessage();
                 },
                 renderGreetingCardImages:function(imageList){
                     if(imageList){
@@ -3762,7 +4455,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                       }
                     // if greetingCardImageList has no elements then return that there are no Images to display
                     if (greetingCardImageList.children().length == 0) {
-                        return gkt.$("<div>").addClass('greetingCardImageList').html("No Images to display")
+                        return gkt.$("<div>").addClass('greetingCardImageList').html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.noImagesAvailable))
                         }
                     return greetingCardImageList;
                     }
@@ -3790,7 +4483,6 @@ textarea.gktFreeGiftcardPopupTextArea{
                 prepareGreetingCardUI : function (){
                     console.log("gktGiftCard.f.prepareGreetingCardUI")
                     const greetingCardFields = gkt.settings.languageData.giftcard.greetingCardFields
-                    const heading = greetingCardFields.greetingCardHeading;
                     const continueButtonText = greetingCardFields.greetingCardContinueButtonText;
                     const greetingCardCategory = greetingCardFields.greetingCardCategory;
                     // This is where we have the greeting card categories, we need to render them in the modal as list items
@@ -3798,11 +4490,9 @@ textarea.gktFreeGiftcardPopupTextArea{
 
                     let greetingCardContainer = gkt.$("<div>").addClass('gktGiftCardContainer')
                     let greetingCardMainBody = gkt.$("<div>").addClass('greetingCardMainBody')
-                    let greetingCardHeading = gkt.$("<div>").addClass('greetingCardHeading')
 
                     
                     
-                    greetingCardHeading.html(heading.value)
 
                     // add a line of categories which the user can click on
                     let greetingCardCategoryList = gkt.$("<ul>").addClass('greetingCardCategoryList')
@@ -3811,6 +4501,9 @@ textarea.gktFreeGiftcardPopupTextArea{
                     let imageInput = undefined;
                     let imageList =  gkt.settings.greetingCards.greetingCardImgs;
                     
+                    gkt.f.applyLabelCSS(greetingCardCategoryListItemText)
+
+
                     const getFirstImageFromGeneralCategory = imageList.find(x=>x.categoryId=="greetingCardCategory1");
                     if(getFirstImageFromGeneralCategory){
                         gkt.gktGiftCard.state.greetingCardActiveImageSrc = getFirstImageFromGeneralCategory.src
@@ -3821,8 +4514,8 @@ textarea.gktFreeGiftcardPopupTextArea{
                     for (let i = 0; i < greetingCardCategories.length; i++) {
                         let greetingCardCategoryListItemClone = gkt.$(greetingCardCategoryListItem).clone()
                         let greetingCardCategoryListItemTextClone = gkt.$(greetingCardCategoryListItemText).clone()
-                        greetingCardCategoryListItemTextClone.html(greetingCardCategories[i].value)
-                      
+                        greetingCardCategoryListItemTextClone.html(gkt.utility.renderLanguageValue(greetingCardCategories[i]))
+                        
                         // Select the first category as default (General)
                         if(i == 0){
                             const _this =  greetingCardCategoryListItemClone[0];
@@ -3837,90 +4530,96 @@ textarea.gktFreeGiftcardPopupTextArea{
                         greetingCardCategoryList.append(greetingCardCategoryListItemClone)
                     }
                    
-                    // REASON: Planned of using a preview, but later dropped. This is hidden in the css file display:none
-                    // greetingCardImagePreview.append(gkt.$("<img>").addClass('greetingCardImagePreview').attr("src",))
-                   
-                    // greetingCardMainBody.append(greetingCardImagePreview)
-                    // remove duplicates of greetingCardImageList and just keep the first one
-
-                    // const duplicates = gkt.$(".greetingCardImageList").length;
-                    // for(let i=0; i<duplicates-1; i++){
-                    //     gkt.$(".greetingCardImageList").first().remove()
-                    // }
                     let imageListFiltered = gkt.gktGiftCard.f.filterGreetingCardImages(imageList,greetingCardCategories[0])
                     let greetingCardImageListHTML =  gkt.gktGiftCard.f.renderGreetingCardImages(imageListFiltered)
                     greetingCardMainBody.html(greetingCardImageListHTML)
 
-                    greetingCardContainer.append(greetingCardHeading)
                     greetingCardContainer.append(greetingCardCategoryList)
                     greetingCardContainer.append(greetingCardMainBody)
 
                     let gktGiftCardGreetingCardContent = gkt.$(".gktGiftCardGreetingCardContent")
                     gktGiftCardGreetingCardContent.append(greetingCardContainer)
-                    gkt.$(".gktGiftCardContentFooterBtn1").html(continueButtonText.value);
-                    gkt.gktGiftCard.action.hideGiftcardDetailsBody();
-                    gkt.gktGiftCard.f.modalNextButton();
-
+                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(continueButtonText));
                 },
                 prepareGiftCardUI: function () {
                     console.log("gktGiftCard.f.prepareGiftCardUI")
-
-                    console.log("line 1670", gkt.settings.languageData.giftcard.purchasePageFields);
+                    const inputFieldsHTML = gkt.gktGiftCard.f.renderInputFieldsForGiftCardDetails();                    
+                    let gktGiftCardDetailsContent = gkt.$(".gktGiftCardDetailsContent")
+                    //TODO prepareBackButton()
+                    const isGreetingCardEnabled = gkt.settings.greetingCards.isGreetingCardEnabled 
+                                                  && gkt.settings.greetingCards.greetingCardImgs
+                                                  && gkt.settings.greetingCards.greetingCardImgs.length>0;
+                    let gktGiftCardModalBackButton;
+                     if(isGreetingCardEnabled){
+                            gktGiftCardModalBackButton = gkt.gktGiftCard.f.prepareBackButton(gkt.gktGiftCard.f.displayGreetingCardForm);
+                            gktGiftCardDetailsContent.append(gktGiftCardModalBackButton);
+                        }
+                    
+                    gktGiftCardDetailsContent.append(inputFieldsHTML)
+                    // gktGiftCardDetailsContent.append(gktVideoMsgButton)
+                },
+                prepareBackButton: function (callback){
+                    let gktGiftCardModalBackButton = gkt.$("<div>").addClass("gktGiftCardModalBackButton")
+                    let gktGiftCardModalBackButtonSVG = gkt.$("<div>").addClass("gktGiftCardModalBackButtonSVG")
+                    gktGiftCardModalBackButtonSVG.append('<svg class="svg-icon" style="width: 16px; height: 16px;vertical-align: middle;fill: currentColor;overflow: hidden; transform: rotate(180deg);" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M682.666667 533.333333a21.333333 21.333333 0 0 1-15.146667-6.186666l-298.666667-298.666667a21.333333 21.333333 0 0 1 30.293334-30.293333l298.666666 298.666666a21.333333 21.333333 0 0 1 0 30.293334A21.333333 21.333333 0 0 1 682.666667 533.333333z" fill="#333333" /><path d="M384 832a21.333333 21.333333 0 0 1-15.146667-6.186667 21.333333 21.333333 0 0 1 0-30.293333l298.666667-298.666667a21.333333 21.333333 0 0 1 30.293333 30.293334l-298.666666 298.666666A21.333333 21.333333 0 0 1 384 832z" fill="#333333" /></svg>')
+                    let gktGiftCardModalBackButtonText =  gkt.$("<div>").addClass("gktGiftCardModalBackButtonText").append(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.backButtonText))
+                    gktGiftCardModalBackButton.append(gktGiftCardModalBackButtonSVG)
+                    gktGiftCardModalBackButton.append(gktGiftCardModalBackButtonText)
+                        gktGiftCardModalBackButton.on("click", function () {
+                            callback()       
+                        })
+                    return gktGiftCardModalBackButton;
+                },
+                renderInputFieldsForGiftCardDetails: function(){
                     let { modalHeading, modalDescription, recipientName, recipientNamePlaceholder, recipientEmail, recipientEmailPlaceholder, senderName, senderNamePlaceholder, giftNote, giftNotePlaceholder, buyNowButtonText,backButtonText,deliveryDate,sendNowButtonText,sendLaterButtonText } = gkt.settings.languageData.giftcard.purchasePageFields;
                     
                     let gktGiftCardModalPopupHeading = gkt.$("gktGiftCardModalPopupHeading")
                     let gktGiftCardModalHeader = gkt.$(".gktGiftCardModalHeader")
 
-                    let gktGiftCardModalSubText = gkt.$("<div>").addClass("gktGiftCardModalSubText")
-                    gktGiftCardModalSubText.append(modalDescription.value);
-                    // introduce a Back button as well
-                    if(gkt.settings.greetingCards.isGreetingCardEnabled && 
-                        gkt.settings.greetingCards.greetingCardImgs &&
-                        gkt.settings.greetingCards.greetingCardImgs.length>0){
-
-                        var gktGiftCardModalBackButton = gkt.$("<div>").addClass("gktGiftCardModalBackButton")
-                        gktGiftCardModalBackButton.html("< ").append(backButtonText.value)
-                        gktGiftCardModalBackButton.on("click", function () {
-                        gkt.gktGiftCard.action.hideGiftcardDetailsBody();
-                        gkt.gktGiftCard.action.showGreetingCardBody();
-                        })
-                    }
-                  
-                    //commented as we no longer use the modal header as Back button is the one on the top 
-                    // gktGiftCardModalPopupHeading.html(modalHeading.value)
-
-                    //insert gktGiftCardModalSubText after gktGiftCardModalHeader
+                    let gktGiftCardToInputField = gkt.$("<input>").attr("type", "text").attr("placeholder", gkt.utility.renderLanguageValue(recipientNamePlaceholder)).addClass("gktGiftCardToInputField");
+                    let gktGiftCardEmailInputField = gkt.$("<input>").attr("type", "email").attr("placeholder",  gkt.utility.renderLanguageValue(recipientEmailPlaceholder)).addClass("gktGiftCardEmailInputField");
+                    let gktGiftCardFromInputField = gkt.$("<input>").attr("type", "text").attr("placeholder",  gkt.utility.renderLanguageValue(senderNamePlaceholder)).addClass("gktGiftCardFromInputField");
+                    // attach a checkbox, 
+                    let gktGiftCardModalCheckbox = gkt.$("<div>").addClass("gktGiftCardModalCheckbox")
+                    let gktGiftCardInputCheckbox = gkt.$("<input>").attr("type","checkbox").addClass("gktGiftCardModalCheckboxInput").attr("name","gktGiftCardModalCheckbox")
+                                                    .on("change",function(){
+                                                        gkt.gktGiftCard.action.onSendSelfClick();
+                                                    })
+                    let gktGiftCardModalCheckboxLabel = gkt.$("<label>").addClass("gktGiftCardModalCheckboxLabel").attr("for","gktGiftCardModalCheckbox")
                    
-
-                    let gktGiftCardToInputField = gkt.$("<input>").attr("type", "text").attr("placeholder", recipientNamePlaceholder.value).addClass("gktGiftCardToInputField");
-                    let gktGiftCardEmailInputField = gkt.$("<input>").attr("type", "email").attr("placeholder", recipientEmailPlaceholder.value).addClass("gktGiftCardEmailInputField");
-                    let gktGiftCardFromInputField = gkt.$("<input>").attr("type", "text").attr("placeholder", senderNamePlaceholder.value).addClass("gktGiftCardFromInputField");
+                    
                     // a date picker 
                     let gktGiftCardDatePicker = gkt.$("<input>").attr("type", "date").addClass("gktGiftCardDatePicker"); 
                     //  todays date is the default value
                     gktGiftCardDatePicker.attr("value", new Date().toISOString().slice(0, 10));  
-                    let gktGiftCardMessageInputField = gkt.$("<textarea>").attr("type", "text").attr("placeholder", giftNotePlaceholder.value).addClass("gktGiftCardMessageInputField").attr("rows", "4");
+                    let gktGiftCardMessageInputField = gkt.$("<textarea>").attr("type", "text").attr("placeholder", gkt.utility.renderLanguageValue(giftNotePlaceholder)).addClass("gktGiftCardMessageInputField").attr("rows", "4");
 
 
                     let gktGiftCardEmailValidation = gkt.$("<p>", { class: "gktGiftCardEmailValidation" });
                     let gktGiftCardDateValidation = gkt.$("<p>", { class: "gktGiftCardDateValidation" });
                     // add a label to all of these fields
-                    let gktGiftCardToLabel = gkt.$("<label>").addClass("gktGiftCardToLabel").html(recipientName.value)
-                    let gktGiftCardFromLabel = gkt.$("<label>").addClass("gktGiftCardFromLabel").html(senderName.value)
-                    let gktGiftCardEmailLabel = gkt.$("<label>").addClass("gktGiftCardEmailLabel").html(recipientEmail.value)
-                    let gktGiftCardMessageLabel = gkt.$("<label>").addClass("gktGiftCardMessageLabel").html(giftNote.value)
-                    let gktGiftCardDateLabel = gkt.$("<label>").addClass("gktGiftCardDateLabel").html(deliveryDate.value)  
+                    let gktGiftCardToLabel = gkt.$("<label>").addClass("gktGiftCardToLabel").html(gkt.utility.renderLanguageValue(recipientName));
+                    let gktGiftCardFromLabel = gkt.$("<label>").addClass("gktGiftCardFromLabel").html(gkt.utility.renderLanguageValue(senderName))
+                    let gktGiftCardEmailLabel = gkt.$("<label>").addClass("gktGiftCardEmailLabel").html(gkt.utility.renderLanguageValue(recipientEmail))
+                    // let gktGiftCardMessageLabel = gkt.$("<label>").addClass("gktGiftCardMessageLabel").html(giftNote.value)
+                    let gktGiftCardDateLabel = gkt.$("<label>").addClass("gktGiftCardDateLabel").html(gkt.utility.renderLanguageValue(deliveryDate))
                         
+                    // applyLabelCSS to all of these fields
+                    gkt.f.applyLabelCSS(gktGiftCardToLabel)
+                    gkt.f.applyLabelCSS(gktGiftCardFromLabel)
+                    gkt.f.applyLabelCSS(gktGiftCardEmailLabel)
+                    gkt.f.applyLabelCSS(gktGiftCardDateLabel)
+
+
                     // create two buttons, detailing Delivery Options
                     let gktDeliveryOptions = gkt.$("<div>").addClass("gktDeliveryOptions")
-                    let gktGiftCardSendNowButton = gkt.$("<button>").addClass("gktGiftCardSendNowButton").html(sendNowButtonText.value);
-                    let gktGiftCardSendLaterButton = gkt.$("<button>").addClass("gktGiftCardSendLaterButton").html(sendLaterButtonText.value);
-
+                    let gktGiftCardSendNowButton = gkt.$("<button>").addClass("gktGiftCardSendNowButton").html(gkt.utility.renderLanguageValue(sendNowButtonText));
+                    let gktGiftCardSendLaterButton = gkt.$("<button>").addClass("gktGiftCardSendLaterButton").html(gkt.utility.renderLanguageValue(sendLaterButtonText));
+                    
+                    
                     // type as button else they autosubmit the form.
                     gktGiftCardSendNowButton.attr("type", "button");
                     
-                    gktGiftCardSendNowButton.addClass("activeDeliveryOption");
-
                     gktGiftCardSendLaterButton.attr("type", "button");
                     
                     gktDeliveryOptions.append(gktGiftCardSendNowButton)
@@ -3928,29 +4627,38 @@ textarea.gktFreeGiftcardPopupTextArea{
                     // add all of these to the gktGiftCardDateLabel
                     gktGiftCardDateLabel.append(gktDeliveryOptions)
 
-                    //create add video message 
-                    // let gktVideoMsgButton = gkt.$("<button>").addClass("gktVideoMsgButton").html("Send a video message");
+                    gktGiftCardSendNowButton.addClass("activeDeliveryOption");
 
+                    gktGiftCardSendNowButton.css("font-family", gkt.settings.app.themeButtonFontFamily);
+                    gktGiftCardSendLaterButton.css("font-family", gkt.settings.app.themeButtonFontFamily);
+                    gkt.f.applyButtonCSS(gktGiftCardSendNowButton)
+ 
                     //add onClickFunctionality to Send Later which opens up a date picker
                     gktGiftCardSendLaterButton.on("click", function () {
                         gktGiftCardDatePicker.css("display", "block");
-                        gktGiftCardSendLaterButton.addClass("activeDeliveryOption")
+                        gkt.f.applyButtonCSS(gktGiftCardSendLaterButton);
+                        
+                        gkt.f.resetButtonCSS(gktGiftCardSendNowButton)
+                        gktGiftCardSendLaterButton.addClass("activeDeliveryOption");
+                        gktGiftCardSendNowButton.removeClass("activeDeliveryOption");
                         gkt.gktGiftCard.state.giftCardDeliveryOption = "sendLater"
-                        gktGiftCardSendNowButton.removeClass("activeDeliveryOption")
                         gktGiftCardDateLabel.append(gktGiftCardDatePicker).append(gktGiftCardDateValidation)
                     })
 
                     gktGiftCardSendNowButton.on("click", function () {
                         gktGiftCardDatePicker.css("display", "none");
-                        gktGiftCardSendNowButton.addClass("activeDeliveryOption")
-                        gktGiftCardSendLaterButton.removeClass("activeDeliveryOption")
+                        gkt.f.applyButtonCSS(gktGiftCardSendNowButton)
+                        //add activeDeliveryOption class to the button
+                        gktGiftCardSendNowButton.addClass("activeDeliveryOption");
+                        gkt.f.resetButtonCSS(gktGiftCardSendLaterButton)
+                        gktGiftCardSendLaterButton.removeClass("activeDeliveryOption");
                         gkt.gktGiftCard.state.giftCardDeliveryOption = "sendNow"
                     })
 
                     gktGiftCardToLabel.attr("required", true)
                     gktGiftCardFromLabel.attr("required", true)
                     gktGiftCardEmailLabel.attr("required", true)
-                    gktGiftCardMessageLabel.attr("required", true)
+                    // gktGiftCardMessageLabel.attr("required", true)
                     // add todays date as default value
                     gktGiftCardDatePicker.attr("value", new Date().toISOString().slice(0, 10))
                     //attach a date min and max value attr to the date picker
@@ -3960,89 +4668,262 @@ textarea.gktFreeGiftcardPopupTextArea{
 
                     // add all of these fields to a div
                     let gktGiftCardInputFieldsDiv = gkt.$("<div>").addClass("gktGiftCardInputFieldsDiv")
-                    let gktGiftCardInputRow1 = gkt.$("<div>").addClass("gktGiftCardInputRow1")
+                  
+                    let gktGiftCardInputReceiverName = gkt.$("<div>").addClass("gktGiftCardInputReceiverName")
                     // let gktGiftCardInputRow1Div1 = gkt.$("<div>").addClass("gktGiftCardInputRow1Div1")
                     // let gktGiftCardInputRow1Div2 = gkt.$("<div>").addClass("gktGiftCardInputRow1Div2")
-                    let gktGiftCardInputRow2 = gkt.$("<div>").addClass("gktGiftCardInputRow2")
+                    let gktGiftCardInputReceiverEmail = gkt.$("<div>").addClass("gktGiftCardInputReceiverEmail")
                     let gktGiftCardInputRow3Div1 = gkt.$("<div>").addClass("gktGiftCardInputRow3Div1")
-                    let gktGiftCardInputRow3 = gkt.$("<div>").addClass("gktGiftCardInputRow3")
+                    let gktGiftCardInputSenderName = gkt.$("<div>").addClass("gktGiftCardInputSenderName")
 
-                    let gktGiftCardInputRow4 = gkt.$("<div>").addClass("gktGiftCardInputRow4")
                     let gktGiftCardInputRow5 = gkt.$("<div>").addClass("gktGiftCardInputRow5")
 
                     // gktGiftCardInputRow1.append(gktGiftCardInputRow1Div1).append(gktGiftCardInputRow1Div2)
-                    gktGiftCardInputRow1.append(gktGiftCardToLabel).append(gktGiftCardToInputField)
-                    gktGiftCardInputRow2.append(gktGiftCardEmailLabel).append(gktGiftCardEmailInputField).append(gktGiftCardEmailValidation)
+                    gktGiftCardInputReceiverName.append(gktGiftCardToLabel).append(gktGiftCardToInputField)
+                    gktGiftCardInputReceiverEmail.append(gktGiftCardEmailLabel).append(gktGiftCardEmailInputField).append(gktGiftCardEmailValidation)
                     // gktGiftCardInputRow3Div1.
-                    gktGiftCardInputRow3.append(gktGiftCardFromLabel).append(gktGiftCardFromInputField)
-                    gktGiftCardInputRow4.append(gktGiftCardMessageLabel).append(gktGiftCardMessageInputField)
+                    gktGiftCardInputSenderName.append(gktGiftCardFromLabel).append(gktGiftCardFromInputField)
                     gktGiftCardInputRow5.append(gktGiftCardDateLabel)
 
-                    gktGiftCardInputFieldsDiv.append(gktGiftCardInputRow1)
-                    gktGiftCardInputFieldsDiv.append(gktGiftCardInputRow2)
-                    gktGiftCardInputFieldsDiv.append(gktGiftCardInputRow3)
-                    gktGiftCardInputFieldsDiv.append(gktGiftCardInputRow4)
+                    gktGiftCardModalCheckboxLabel.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.sendToSelfText));
+                    gktGiftCardModalCheckbox.append(gktGiftCardInputCheckbox)
+                    gktGiftCardModalCheckbox.append(gktGiftCardModalCheckboxLabel)
+
+                    gktGiftCardInputFieldsDiv.append(gktGiftCardModalCheckbox)
+                    gktGiftCardInputFieldsDiv.append(gktGiftCardInputReceiverName)
+                    gktGiftCardInputFieldsDiv.append(gktGiftCardInputReceiverEmail)
+                    gktGiftCardInputFieldsDiv.append(gktGiftCardInputSenderName)
                     gktGiftCardInputFieldsDiv.append(gktGiftCardInputRow5)
 
+                    return gktGiftCardInputFieldsDiv;
+                },
+                prepareGiftCardMessage : function (){
                     
-                    let gktGiftCardDetailsContent = gkt.$(".gktGiftCardDetailsContent")
+                    let gktGiftCardMessage = gkt.$(".gktGiftCardMessageContent");
+                    // a label field
+                    let gktGiftCardMessageLabel = gkt.$("<label>").addClass("gktGiftCardMessageLabel").attr("for", "gktGiftCardMessage").text(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.giftNote));
+                    let gktGiftCardMessageInputField = gkt.$("<textarea>").addClass("gktGiftCardMessageInputField").attr("placeholder", gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.giftNotePlaceholder))
+                    let gktVideoMsgButton;
 
-                    gktGiftCardDetailsContent.append(gktGiftCardModalSubText)
 
-                    if(gkt.settings.greetingCards.isGreetingCardEnabled &&
-                        gkt.settings.greetingCards.greetingCardImgs &&
-                        gkt.settings.greetingCards.greetingCardImgs.length>0
-                        ){
-                        gktGiftCardDetailsContent.append(gktGiftCardModalBackButton)
+                    gkt.f.applyLabelCSS(gktGiftCardMessageLabel)
+
+                    // create an empty divider to separate the message and the video message button
+                    let gktGiftCardMessageDivider = gkt.$("<div>").addClass("gktGiftCardMessageDivider")
+                    let gktVideoMsgCheckboxWrapper;
+                    let gktVideoMsgCheckboxLabel;
+                    if(gkt.settings.videoMessage.isVideoMessagingEnabled){
+                        //gktVideoMsgButton  = gkt.$("<button>").addClass("gktVideoMsgButton").attr("type", "button").text(gkt.settings.languageData.videoMessage.sendVideoMessageText.value);
+                        gktVideoMsgButton  = gkt.$("<button>").addClass("gktVideoMsgButton").attr("type", "button").text("Video Msg");
+                        gktVideoMsgCheckboxLabel = gkt.$("<label>").addClass("gktVideoMsgCheckboxLabel").attr("for", "gktVideoMsgCheckbox").text(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.recordVideoLabel));
+                        // create a label with switch classname
+                        
+                        gkt.f.applyLabelCSS(gktVideoMsgCheckboxLabel)
+                        
+                        gktVideoMsgCheckboxWrapper = gkt.$("<label>").addClass("gktVideoMsgCheckboxWrapper").attr("for", "gktVideoMsg")
+
+                        //input which is type of checkbox
+                        let gktVideoMsgCheckboxField = gkt.$("<input>").addClass("gktVideoMsgCheckboxField").attr("type", "checkbox").attr("id", "gktVideoMsg");
+
+                        // a span which is round and slider css
+                        let gktVideoMsgSlider = gkt.$("<span>").addClass("gktVideoMsgSlider").attr("id", "gktVideoMsgSlider");
+                        
+                        gktVideoMsgCheckboxField.on("change", function(event){
+                            if(gktVideoMsgCheckboxField.is(":checked")){
+                                console.log("it is checked");
+                                gkt.gktVideoMsg.actions.gktVideoMsgButton(event);
+                            }else{
+                                gktVideoMsgSlider.removeClass("gktVideoMsgSliderActive")
+                                gkt.gktVideoMsg.f.clickClose(event);
+                            }
+                        })
+                        gktVideoMsgCheckboxWrapper.append(gktVideoMsgCheckboxField)
+                        gktVideoMsgCheckboxWrapper.append(gktVideoMsgSlider)
+
+                    }
+                    // gktGiftCardMessageInputField and gktGiftCardMessageLabel are added to same parent div
+                    let gktVideoMessageCheckboxRow = gkt.$("<div>").addClass("gktVideoMessageCheckboxRow")
+                    gktVideoMessageCheckboxRow.append(gktVideoMsgCheckboxLabel).append(gktVideoMsgCheckboxWrapper)
+
+                    let gktGiftCardMessageInputFieldsDiv = gkt.$("<div>").addClass("gktGiftCardMessageInputFieldsDiv")
+                    gktGiftCardMessageInputFieldsDiv.append(gktGiftCardMessageLabel).append(gktGiftCardMessageInputField)
+                    gktGiftCardModalBackButton = gkt.gktGiftCard.f.prepareBackButton(gkt.gktGiftCard.f.displayGiftCardDetailsForm);
+                    gktGiftCardMessage.append(gktGiftCardModalBackButton);
+                    gktGiftCardMessage.append(gktGiftCardMessageInputFieldsDiv)
+                    gktGiftCardMessage.append(gktGiftCardMessageDivider)
+                    // gktGiftCardMessage.append(gktVideoMsgButton)
+                    gktGiftCardMessage.append(gktVideoMessageCheckboxRow)
+                    //    gkt.$(".gktGiftCardModalPopupHeading").append(gktGiftCardModalBackButton)
+
+
+                },
+                populateModalNavList : function(){
+                    let isGreetingCardEnabled = gkt.settings.greetingCards.isGreetingCardEnabled &&
+                                                gkt.settings.greetingCards.greetingCardImgs &&
+                                                gkt.settings.greetingCards.greetingCardImgs.length>0;
+                    let isSendToSelfChecked =gkt.$(".gktGiftCardModalCheckbox").find("input").is(":checked");
+                    if(isGreetingCardEnabled){
+                       gkt.gktGiftCard.state.modalNavList.push({id:"GREETING_CARD", name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.navigationFields.greetingCardNavItem), visited:false,active:false});
+                    }
+                    //("Gift Card Details");
+                    gkt.gktGiftCard.state.modalNavList.push({id:"GIFT_CARD_DETAILS", name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.navigationFields.giftCardDetailsNavItem), visited:false,active:false});
+                    if(!isSendToSelfChecked){
+                        gkt.gktGiftCard.state.modalNavList.push({id:"GIFT_MESSAGE", name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.navigationFields.giftcardMessageNavItem), visited:false,active:false});
+                    }
+                    
+                },
+                renderGiftCardModalNav: function(){
+                    console.log("rendering gift card modal nav");
+                    let gktGiftCardModalNavHTML = gkt.$("<div>").addClass("gktGiftCardModalNav");
+                    let gktGiftCardModalNavForMobileHTML = gkt.$("<div>").addClass("gktGiftCardModalNavForMobile");
+                    const isGreetingCardEnabled = gkt.settings.greetingCards.isGreetingCardEnabled &&
+                                                  gkt.settings.greetingCards.greetingCardImgs &&
+                                                  gkt.settings.greetingCards.greetingCardImgs.length>0;
+                   
+                    if (gkt.gktGiftCard.state.modalNavList.length<1){
+                        gkt.gktGiftCard.f.populateModalNavList();
+                    }
+                    
+                    gktGiftCardModalNavList = gkt.gktGiftCard.state.modalNavList;
+
+                    // now create the nav list and append it to the modal nav while attaching a span for ">"
+                    for(let i=0; i<gktGiftCardModalNavList.length; i++){
+                            let gktGiftCardModalNavListItem = gkt.$("<div>").addClass("gktGiftCardModalNavListItem").html(gktGiftCardModalNavList[i].name);
+                            gkt.f.applyHeaderCSS(gktGiftCardModalNavListItem);
+
+                            //if modal the item has visited true then set it as activeNavItem
+                            if(gktGiftCardModalNavList[i].visited){
+                                gktGiftCardModalNavListItem.addClass("activeNavItem");
+                            }
+                            
+                            let gktGiftCardModalNavListItemSpan;
+                            if(i < gktGiftCardModalNavList.length-1){
+                                gktGiftCardModalNavListItemSpan  = gkt.$("<div>").addClass("gktGiftCardModalNavListItemSpan").html('<svg class="svg-icon" style="width: 16px; height: 16px;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M682.666667 533.333333a21.333333 21.333333 0 0 1-15.146667-6.186666l-298.666667-298.666667a21.333333 21.333333 0 0 1 30.293334-30.293333l298.666666 298.666666a21.333333 21.333333 0 0 1 0 30.293334A21.333333 21.333333 0 0 1 682.666667 533.333333z" fill="#333333" /><path d="M384 832a21.333333 21.333333 0 0 1-15.146667-6.186667 21.333333 21.333333 0 0 1 0-30.293333l298.666667-298.666667a21.333333 21.333333 0 0 1 30.293333 30.293334l-298.666666 298.666666A21.333333 21.333333 0 0 1 384 832z" fill="#333333" /></svg>');
+                            }
+                            if(gktGiftCardModalNavList[i].active){
+                                gktGiftCardModalNavListItem.addClass("activeNavItem");
+                                gktGiftCardModalNavForMobileHTML.html(gktGiftCardModalNavListItem.clone())
+                            }                          
+                        gktGiftCardModalNavHTML.append(gktGiftCardModalNavListItem)
+                        gktGiftCardModalNavHTML.append(gktGiftCardModalNavListItemSpan)
+                    }
+                    // if gktGiftCardModalNav is not present in the DOM, then append it else replace it
+                    if(gkt.$(".gktGiftCardModalNav").length){
+                        gkt.$(".gktGiftCardModalNav").replaceWith(gktGiftCardModalNavHTML)
+                    }
+                    else{
+                        gkt.$(".gktGiftCardModalHeader").append(gktGiftCardModalNavHTML)
                     }
 
-                    gktGiftCardDetailsContent.append(gktGiftCardInputFieldsDiv)
-                    // gktGiftCardDetailsContent.append(gktVideoMsgButton)
-                    
+                    if(gkt.$(".gktGiftCardModalNavForMobile").length){
+                        gkt.$(".gktGiftCardModalNavForMobile").replaceWith(gktGiftCardModalNavForMobileHTML)
+                    }
+                    else{
+                        gkt.$(".gktGiftCardModalHeader").append(gktGiftCardModalNavForMobileHTML)
+                    }
 
                 },
-                modalBuyNowButton: function () {
-                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.settings.languageData.giftcard.purchasePageFields.buyNowButtonText.value);
-                    gkt.$(".gktGiftCardContentFooterBtn1").css("background-color", "#ffffff");
-                    gkt.$(".gktGiftCardContentFooterBtn1").css("color", "#000000");
-                    gkt.$(".gktGiftCardContentFooterBtn1").css("border", "1px solid #000000");
+                attachEventsToDetailsForm: function () {
+                    // cleanup the previous attached events
+                    gkt.$(".gktGiftCardContentFooterBtn1").off("click");
+
+                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.giftcardDetailsButton));
+                    gkt.f.applyButtonCSS(gkt.$(".gktGiftCardContentFooterBtn1"));
                     gkt.$(".gktGiftCardContentFooterBtn1").on("click", function (event) {
                         gkt.$(this).attr("disabled", true);
                         setTimeout(() => { gkt.$(this).attr("disabled", false); }, 4000)
-                        gkt.gktGiftCard.action.onModalBuyNowButton(event)
+                        gkt.gktGiftCard.action.onDetailsSubmit(event)
                     })
-
+                    gkt.gktGiftCard.f.renderGiftCardModalNav();
                     gkt.$(".gktGiftCardContentFooter").append(gkt.gktGiftCard.state.giftCardAddToCartButtonClone)
                 },
-                modalNextButton : function(){
-                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.settings.languageData.giftcard.greetingCardFields.greetingCardContinueButtonText.value || "Next" );
-                    gkt.$(".gktGiftCardContentFooterBtn1").css("background-color", "#ffffff");
-                    gkt.$(".gktGiftCardContentFooterBtn1").css("color", "#000000");
-                    gkt.$(".gktGiftCardContentFooterBtn1").css("border", "1px solid #000000");
+                attachEventsToGreetingCardForm : function(){
+                    // cleanup the previous attached events
+                    gkt.$(".gktGiftCardContentFooterBtn1").off("click");
+
+                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.greetingCardFields.greetingCardContinueButtonText));
+                    gkt.f.applyButtonCSS(gkt.$(".gktGiftCardContentFooterBtn1"));
                     gkt.$(".gktGiftCardContentFooterBtn1").on("click", function (event) {
                         gkt.$(this).attr("disabled", true);
                         setTimeout(() => { gkt.$(this).attr("disabled", false); }, 4000)
-                        
-                        gkt.gktGiftCard.action.onModalNextButton(event)
+                        gkt.gktGiftCard.action.onGreetingCardSubmit(event)
                     })
+                    // set the first nav item as active
+                    gkt.gktGiftCard.f.renderGiftCardModalNav();
                 },
-                
-                validateForm: function () {
-                    let isValid = true
-                    gkt.$(".gktGiftCardInputFieldsDiv input").each(function () {
-                        if (gkt.$(this).val() == "") {
-                            gkt.$(this).css("border", "1px solid red")
-                            isValid = false
-                        } else {
-                            gkt.$(this).css("border", "1px solid #cccccc")
+                attachEventsToMessageForm : function (){
+                    // cleanup the previous attached events
+                    gkt.$(".gktGiftCardContentFooterBtn1").off("click");
+                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.buyNowButtonText));
+                    gkt.f.applyButtonCSS(gkt.$(".gktGiftCardContentFooterBtn1"));
+                    gkt.$(".gktGiftCardContentFooterBtn1").on("click", function (event) {
+                        gkt.$(this).attr("disabled", true);
+                        setTimeout(() => { gkt.$(this).attr("disabled", false); }, 4000)
+                        gkt.$(this).html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.buyNowButtonTextLoading));
+                        gkt.gktGiftCard.action.onMessageSubmit(event)
+                    })
+                    
+                    gkt.gktGiftCard.f.renderGiftCardModalNav();
+                },
+                displayGreetingCardForm:function(){
+                    gkt.gktGiftCard.action.hideGiftCardMessageBody();
+                    gkt.gktGiftCard.action.hideGiftCardDetailsBody();
+                   
+                    gkt.gktGiftCard.state.modalNavList.find(function(item){
+                        if(item.id == "GREETING_CARD"){
+                            item.visited = true;
+                            item.active = true;
+                        }
+                        else{
+                            item.active = false;
                         }
                     })
-                    gkt.$(".gktGiftCardInputFieldsDiv textarea").each(function () {
-                        if (gkt.$(this).val() == "") {
-                            gkt.$(this).css("border", "1px solid red")
-                            isValid = false
-                        } else {
-                            gkt.$(this).css("border", "1px solid #cccccc")
+                    gkt.gktGiftCard.action.showGreetingCardBody();
+                    gkt.gktGiftCard.f.attachEventsToGreetingCardForm();
+                },
+                displayGiftCardDetailsForm : function (){
+                    gkt.gktGiftCard.action.hideGreetingCardBody();
+                    gkt.gktGiftCard.action.hideGiftCardMessageBody();
+                    gkt.gktGiftCard.state.modalNavList.find(function(item){
+                        if(item.id == "GIFT_CARD_DETAILS"){
+                            item.visited = true;
+                            item.active = true;
+                        }
+                        else{
+                         item.active = false;
+                        }
+                    });
+                    gkt.gktGiftCard.action.showGiftCardDetailsBody()
+                    gkt.gktGiftCard.f.attachEventsToDetailsForm();
+                },
+                displayMessageForm: function(){
+                        gkt.gktGiftCard.action.hideGreetingCardBody();
+                        gkt.gktGiftCard.action.hideGiftCardDetailsBody();
+                        gkt.gktGiftCard.state.modalNavList.find(function(item){
+                            if(item.id == "GIFT_MESSAGE"){
+                                item.visited = true;
+                                item.active = true;
+                            }else{
+                                item.active = false;
+                            }
+                        });
+                        //and all the other nav items are inactive
+
+                        gkt.gktGiftCard.action.showGiftCardMessageBody();
+                        gkt.gktGiftCard.f.attachEventsToMessageForm();
+                },
+                validateForm: function () {
+                    let isValid = true
+                    console.log("validateForm");
+                    // run validation on all fields which are visible
+                    gkt.$(".gktGiftCardInputFieldsDiv input").each(function () {
+                        if(gkt.$(this).is(":visible")){
+                            if (gkt.$(this).val().trim() == "") {
+                                gkt.$(this).css("border", "1px solid red")
+                                isValid = false
+                            } else {
+                                gkt.$(this).css("border", "1px solid #cccccc")
+                            }
                         }
                     })
                     return isValid;
@@ -4076,6 +4957,29 @@ textarea.gktFreeGiftcardPopupTextArea{
                         return true
                     }
                 },
+                performFormValidation : function (e){
+                    // let gkGifttCardEmailValueIsValid = gkt.f.validateEmail(gkGifttCardEmailValue)
+                    let gkGifttCardEmailValue = gkt.$(".gktGiftCardEmailInputField").val()
+                    let gkGifttCardDateValue = gkt.$(".gktGiftCardDatePicker").val()
+                    let emailValid = gkt.gktGiftCard.f.emailValidation(gkGifttCardEmailValue);
+                    let isFormValid = gkt.gktGiftCard.f.validateForm();
+                    let dateValid = gkt.gktGiftCard.f.dateValidation(gkGifttCardDateValue);
+                    if (isFormValid && emailValid && dateValid) {
+                        gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.buyNowButtonTextLoading));
+                        return true;
+                    } else if (!emailValid) {
+                        //TODO
+                        gkt.$(".gktGiftCardEmailValidation").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.emailValidationError));
+                        return;
+                    }else if (!dateValid){
+                        gkt.$(".gktGiftCardDateValidation").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.dateValidationError));
+                        return;
+                    }
+                    else {
+                       return;
+                    }
+
+                },
             },
             action: {
                 giftCardAddToCartButton: async function (e) {
@@ -4092,7 +4996,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                 },
                 onModalBack:function(e){
                     gkt.gktGiftCard.action.showGreetingCardBody()
-                    gkt.gktGiftCard.action.hideGiftcardDetailsBody()
+                    gkt.gktGiftCard.action.hideGiftCardDetailsBody()
                 },
                 removeCheckmarkDivsFromSiblings: function(element){
                     element.siblings().find(".gkt_checkmark").remove()
@@ -4133,7 +5037,31 @@ textarea.gktFreeGiftcardPopupTextArea{
                     gkt.$(this).siblings().removeClass("activeGreetingCardCategory")
                     gkt.gktGiftCard.f.changeGreetingCardImageList(gkt.gktGiftCard.state.greetingCardSelectedCategory);
                 },
-                onModalBuyNowButton: async function (e) {
+                onSendSelfClick : function(){
+                    // todo
+                    let isSendToSelfChecked =gkt.$(".gktGiftCardModalCheckbox").find("input").is(":checked");
+                    if(!isSendToSelfChecked){
+                        gkt.$(".gktGiftCardInputSenderName").show();
+                        gkt.$(".gktGiftCardInputReceiverName").show();
+                        //find id GIFT_MESSAGE if not found then push
+                        if (gkt.gktGiftCard.state.modalNavList.indexOf("GIFT_MESSAGE") == -1) {
+                            gkt.gktGiftCard.state.modalNavList.push({id:"GIFT_MESSAGE",name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.navigationFields.giftcardMessageNavItem),visited:false,active:false})
+                        }
+                    }
+                    else{
+                        gkt.$(".gktGiftCardInputSenderName").hide();
+                        gkt.$(".gktGiftCardInputReceiverName").hide();
+                        gkt.gktGiftCard.state.modalNavList.find(function(element){
+                        if(element.id == "GIFT_MESSAGE"){
+                            gkt.gktGiftCard.state.modalNavList.splice(gkt.gktGiftCard.state.modalNavList.indexOf(element),1)
+                        }
+                    })
+                    }
+                    //remove array element assoicated with the id = GIFT_MESSAGE in gkt.gktgiftCard.state.modalNavList
+                    
+                    gkt.gktGiftCard.f.renderGiftCardModalNav();
+                },
+                onMessageSubmit: async function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     let greetingCardSelected = undefined;
@@ -4142,7 +5070,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                      greetingCardSelected = gkt.gktGiftCard.state.greetingCardActiveImageSrc;
                      categorySelected = gkt.gktGiftCard.state.greetingCardSelectedCategory;
                     }
-
+                    // TODO: Do we need a validation for the form on the final page aswell?
                     let selectedVariantId = gkt.f.getSelectedVariant()
                     let gkGifttCardFromValue = gkt.$(".gktGiftCardFromInputField").val()
                     let gkGifttCardToValue = gkt.$(".gktGiftCardToInputField").val()
@@ -4154,21 +5082,15 @@ textarea.gktFreeGiftcardPopupTextArea{
                     if (gkt.gktGiftCard.state.giftCardDeliveryOption == "sendNow") {
                         gkGifttCardDateValue = new Date().toISOString().slice(0, 10);
                     }
-                    // let gkGifttCardEmailValueIsValid = gkt.f.validateEmail(gkGifttCardEmailValue)
-                    let isFormValid = gkt.gktGiftCard.f.validateForm();
-                    let emailValid = gkt.gktGiftCard.f.emailValidation(gkGifttCardEmailValue);
-                    let dateValid = gkt.gktGiftCard.f.dateValidation(gkGifttCardDateValue);
-                    if (isFormValid && emailValid && dateValid) {
-                        gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.settings.languageData.giftcard.purchasePageFields.buyNowButtonTextLoading.value);
-                    } else if (!emailValid) {
-                        gkt.$(".gktGiftCardEmailValidation").html("Please enter a valid email address")
-                        return;
-                    }else if (!dateValid){
-                        gkt.$(".gktGiftCardDateValidation").html("Cant schedule giftcard more than 30 days from today")
-                        return;
+
+                    const isSendToSelfChecked = gkt.$(".gktGiftCardModalCheckbox").find("input").is(":checked");
+
+                    if(isSendToSelfChecked){
+                        gkGifttCardFromValue = null;
+                        gkGifttCardToValue = null;
                     }
-                    else {
-                        return;
+                    if(gkt.$(".gktVideoMsgCheckboxField").is(":checked")!=true){
+                        gkt.gktVideoMsg.state.uploadedVideoId = null;
                     }
                     let clearCart = await gkt.utility.clearCart()
                     let resAddToCart = await gkt.utility.addToCartV2({
@@ -4182,7 +5104,10 @@ textarea.gktFreeGiftcardPopupTextArea{
                                     "Note": gkGifttCardMessageValue,
                                     "Recipient Email": gkGifttCardEmailValue,
                                     "Delivery Date": gkGifttCardDateValue,
-                                    "_Greeting Card Image": greetingCardSelected
+                                    "_Greeting Card Image": greetingCardSelected,
+                                    "Greeting Card Selected": greetingCardSelected? "yes" : null,
+                                    "Video Recorded" : gkt.gktVideoMsg.state.uploadedVideoId ? "yes": null,
+                                    "_Video Id": gkt.gktVideoMsg.state.uploadedVideoId
                                 }
                             }
                         ],
@@ -4190,20 +5115,30 @@ textarea.gktFreeGiftcardPopupTextArea{
                     
                     window.location.href = window.location.origin + "/cart/checkout"
 
-                    console.log("onModalBuyNowButton-clicked")
+                    console.log("onMessageSubmit-clicked")
                 },
-
-                onModalNextButton: async function (e){
+                onGreetingCardSubmit: async function (e){
                     e.preventDefault();
                     e.stopPropagation();
                     let greetingCardSelected = gkt.gktGiftCard.state.greetingCardActiveImageSrc;
                     let categorySelected = gkt.gktGiftCard.state.greetingCardSelectedCategory;
 
-                    gkt.gktGiftCard.action.hideGreetingCardBody()
-                    gkt.gktGiftCard.action.showGiftcardDetailsBody()
-                    // gktGiftCardModalSubText.append(gkt.$("<span>").addClass('gktGiftCardModalSubTextBack').text("Back").on("click", gkt.gktGiftCard.action.onModalBack()))                      
+                    gkt.gktGiftCard.f.displayGiftCardDetailsForm();
+                },
+                onDetailsSubmit: async function (e){
+                    e.preventDefault();
+                    console.log("onDetailsSubmit-clicked")
+                    let formValid = gkt.gktGiftCard.f.performFormValidation();
+                    let isSendToSelfChecked = gkt.$(".gktGiftCardModalCheckbox").find("input").is(":checked");
 
-                    gkt.gktGiftCard.f.modalBuyNowButton();
+                    if(formValid){
+                        if(isSendToSelfChecked){
+                            gkt.gktGiftCard.action.onMessageSubmit(e);
+                            return;
+                        }
+                        gkt.gktGiftCard.f.displayMessageForm();
+                    }
+                    else return;
                 },
                 hideGreetingCardBody: function () {
                     gkt.$(".gktGiftCardGreetingCardContent").hide();
@@ -4212,11 +5147,17 @@ textarea.gktFreeGiftcardPopupTextArea{
                 showGreetingCardBody: function () {
                     gkt.$(".gktGiftCardGreetingCardContent").show();
                 },
-                showGiftcardDetailsBody: function () {
+                showGiftCardDetailsBody: function () {
                     gkt.$(".gktGiftCardDetailsContent").show();
                 },
-                hideGiftcardDetailsBody: function () {
+                hideGiftCardDetailsBody: function () {
                     gkt.$(".gktGiftCardDetailsContent").hide();
+                },
+                hideGiftCardMessageBody: function () {
+                    gkt.$(".gktGiftCardMessageContent").hide();
+                },
+                showGiftCardMessageBody: function () {
+                    gkt.$(".gktGiftCardMessageContent").show();
                 },
             },
          },
@@ -4386,16 +5327,28 @@ textarea.gktFreeGiftcardPopupTextArea{
                         // })
                 }
             }
+        
         },
         gktVideoMsg: {
             init: function (settings, parent) {
                 gkt.gktVideoMsg.initialize(settings, parent)
+             
+            },
+            state: {
+                elements: {},
+                uploadedVideoId: null,
+                recordingTimeMS: 60000,
+                recordingTime: "1:00",
+                recordedBlob: "",
+                mediaRecorder: null,
+                interval: undefined
             },
             initialize: function (settings, parent) {
                 let productHandle = gkt.f.getProductPageHandle(settings)
-                let isVideoMsgEnabled = true
-
-                if(isVideoMsgEnabled){
+                console.log("videoMesageInitialize");
+                if(gkt.settings.videoMessage.isVideoMessagingEnabled){
+                    gkt.gktVideoMsg.f.registerEvents()
+                    gkt.gktVideoMsg.f.prepareVideoMsgPlayer()
                     // // let oneClickUpsellProductPageHTML = gkt.gktOneClickUpsell.f.prepareUI(settings, variantListToBeShownOnProductPage, parent)
                     // let giftMessageProductPageHTML = gkt.gktMessage.f.prepareUI(settings, productHandle, parent)
                     // gkt.gktMessage.f.insertIntoProductPageWrapper(settings, giftMessageProductPageHTML)
@@ -4404,7 +5357,387 @@ textarea.gktFreeGiftcardPopupTextArea{
                 }
 
             },
-        },
+            f:{
+                registerEvents: function () {
+                    gkt.$(document).on("click", ".gktVideoMsgButton", gkt.gktVideoMsg.actions.gktVideoMsgButton)
+                },
+                prepareVideoMsgPlayer: function () {
+
+                    let gktVideoMsgPlayerWrapper = gkt.$("<div>").addClass("gktVideoMsgPlayerWrapper");
+                    
+                    let gktRecorder  =  gkt.$("<div>").addClass("gktRecorder")
+                    console.log("prepareVideoMsgPlayer");
+                    let gktRecorderCloseBtn  =  gkt.$("<button>").addClass("gktRecorderCloseBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickClose(e) })
+                    let gktRecorderCloseBtnImg =  gkt.$("<img>").attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/close-video.svg")
+                    gktRecorderCloseBtn.append(gktRecorderCloseBtnImg)
+                    
+                    
+                    let gktRecord  =  gkt.$("<div>").addClass("gktRecord")
+                    let gktVideoPlayer = gkt.$("<video>").addClass("gktVideoPlayer")
+                                                        .attr("autoplay", true)
+                                                        .prop("muted", true)
+                                                        .attr("poster", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/free-video.jpg")
+                    let gktPermissionDenied = gkt.$("<div>").addClass("gktPermissionDenied gktVideoPlayerHide").text( gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.permissionDenied))
+                    let gktVideoPlayerStatus = gkt.$("<div>").addClass("gktVideoPlayerStatus").html( gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.pressToRecord))
+                    
+                    //let gktVideoPlayerEmptyPTag = gkt.$("<p>");
+                    
+                    let gktVideoPlayerStartBtn = gkt.$("<button>").addClass("gktVideoPlayerStartBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickStart(e) })
+                    let gktVideoPlayerRedDot = gkt.$("<div><p></p></div>").addClass("gktVideoPlayerRedDot")
+                    //gktVideoPlayerRedDot.append(gktVideoPlayerEmptyPTag);
+                    gktVideoPlayerStartBtn.append(gktVideoPlayerRedDot)
+                        
+                    let gktVideoPlayerStopBtn = gkt.$("<button>").addClass("gktVideoPlayerStopBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickStop(e) })
+                    let gktVideoPlayerRedSquare = gkt.$("<div><p></p></div>").addClass("gktVideoPlayerRedSquare")
+                    //gktVideoPlayerRedSquare.append(gktVideoPlayerEmptyPTag);
+                    gktVideoPlayerStopBtn.append(gktVideoPlayerRedSquare)  
+                     
+                    
+                    let gktVideoPlayerTimeLeft = gkt.$("<div>").addClass("gktVideoPlayerTimeLeft gktVideoPlayerHide") 
+                    
+                    gktRecord.append(gktVideoPlayer)
+                    gktRecord.append(gktPermissionDenied)
+                    gktRecord.append(gktVideoPlayerStatus)
+                    gktRecord.append(gktVideoPlayerStartBtn)
+                    gktRecord.append(gktVideoPlayerStopBtn)
+                    gktRecord.append(gktVideoPlayerTimeLeft)
+                    
+                    
+                    let gktRecorded  =  gkt.$("<div>").addClass("gktRecorded")
+
+                    let gktVideoPlayerRecording = gkt.$("<video>").addClass("gktVideoPlayerRecording")
+                                                        .attr("preload", "none")
+                                                        .attr("poster", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/free-video.jpg")
+                    
+                    let gktLoadingHeading = gkt.$("<div>").addClass("gktLoadingHeading gktVideoPlayerHide").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.loading))
+                    let gktUploadingVideoHeading = gkt.$("<div>").addClass("gktUploadingVideoHeading gktVideoPlayerHide").html( gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.uploading))
+                    
+                    let gktVideoPlayerControls = gkt.$("<div>").addClass("gktVideoPlayerControls")
+              
+                    let gktVideoPlayerControlsAcceptBtnDiv = gkt.$("<div>").addClass("gktVideoPlayerControlsAcceptBtnDiv");
+
+                    let gktVideoPlayerControlsAcceptBtnDivInfo = gkt.$("<p>").addClass("gktVideoPlayerControlsBtnDivInfo").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.startUploadText));
+
+                    gktVideoPlayerControlsAcceptBtnDiv.append(gktVideoPlayerControlsAcceptBtnDivInfo);
+                    
+                    let gktVideoPlayerControlsAcceptBtn  =  gkt.$("<button>").addClass("gktVideoPlayerControlsAcceptBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickAccept(e) })
+                    let gktVideoPlayerControlsAcceptBtnImg =  gkt.$("<img>").addClass("gktVideoPlayerControlsAcceptBtnImg")
+                                                                            .attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/confirm-video.svg")
+                    gktVideoPlayerControlsAcceptBtn.append(gktVideoPlayerControlsAcceptBtnImg)
+                    gktVideoPlayerControlsAcceptBtnDiv.append(gktVideoPlayerControlsAcceptBtn);
+
+                   
+
+                    let gktVideoPlayerControlsPlayBtnDiv = gkt.$("<div>").addClass("gktVideoPlayerControlsPlayBtnDiv");
+                    
+                    let gktVideoPlayerControlsPlayBtnDivInfo = gkt.$("<p>").addClass("gktVideoPlayerControlsBtnDivInfo").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.playText));
+
+                    gktVideoPlayerControlsPlayBtnDiv.append(gktVideoPlayerControlsPlayBtnDivInfo);
+
+                    let gktVideoPlayerControlsPlayBtn  =  gkt.$("<button>").addClass("gktVideoPlayerControlsPlayBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickPlay(e) })
+                    let gktVideoPlayerControlsPlayBtnImg =  gkt.$("<img>").addClass("gktVideoPlayerControlsPlayBtnImg")
+                                                                            .attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/play-video.svg")
+                    gktVideoPlayerControlsPlayBtn.append(gktVideoPlayerControlsPlayBtnImg)
+                    gktVideoPlayerControlsPlayBtnDiv.append(gktVideoPlayerControlsPlayBtn);
+
+                   
+                    let gktVideoPlayerControlsReStartBtnDiv = gkt.$("<div>").addClass("gktVideoPlayerControlsReStartBtnDiv");
+                    
+                    let gktVideoPlayerControlsReStartBtnDivInfo = gkt.$("<p>").addClass("gktVideoPlayerControlsBtnDivInfo").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.reRecordVideoText));
+
+                    gktVideoPlayerControlsReStartBtnDiv.append(gktVideoPlayerControlsReStartBtnDivInfo);
+                    
+                    let gktVideoPlayerControlsReStartBtn  =  gkt.$("<button>").addClass("gktVideoPlayerControlsReStartBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickReStart(e) })
+                    let gktVideoPlayerControlsReStartBtnImg =  gkt.$("<img>").addClass("gktVideoPlayerControlsReStartBtnImg")
+                                                                            .attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/redo-video.svg")
+                    gktVideoPlayerControlsReStartBtn.append(gktVideoPlayerControlsReStartBtnImg)
+                    gktVideoPlayerControlsReStartBtnDiv.append(gktVideoPlayerControlsReStartBtn);
+
+                    gktVideoPlayerControls.append(gktVideoPlayerControlsAcceptBtnDiv)
+                    gktVideoPlayerControls.append(gktVideoPlayerControlsPlayBtnDiv)
+                    gktVideoPlayerControls.append(gktVideoPlayerControlsReStartBtnDiv)
+
+                    gktRecorded.append(gktVideoPlayerRecording)
+                    gktRecorded.append(gktLoadingHeading)
+                    gktRecorded.append(gktUploadingVideoHeading)
+                    gktRecorded.append(gktVideoPlayerControls)
+                    
+                    
+                    gktRecorder.append(gktRecorderCloseBtn)
+                    gktRecorder.append(gktRecord)
+                    gktRecorder.append(gktRecorded)
+
+
+                    gkt.$(".gktGiftCardMessageContent").append(gktVideoMsgPlayerWrapper);
+                    gkt.$(".gktVideoMsgPlayerWrapper").append(gktRecorder)
+                    gkt.gktVideoMsg.state.elements.gktRecorder = gktRecorder
+                    gkt.gktVideoMsg.state.elements.gktRecord = gktRecord
+                    gkt.gktVideoMsg.state.elements.gktRecorded = gktRecorded
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayer = gktVideoPlayer
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStartBtn = gktVideoPlayerStartBtn
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStopBtn = gktVideoPlayerStopBtn
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerControlsReStartBtn = gktVideoPlayerControlsReStartBtn
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerControlsPlayBtn = gktVideoPlayerControlsPlayBtn
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerRecording = gktVideoPlayerRecording
+                    gkt.gktVideoMsg.state.elements.gktRecorderCloseBtn = gktRecorderCloseBtn
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerControlsAcceptBtn = gktVideoPlayerControlsAcceptBtn
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerControls = gktVideoPlayerControls
+                    gkt.gktVideoMsg.state.elements.gktLoadingHeading = gktLoadingHeading
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerTimeLeft = gktVideoPlayerTimeLeft
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStatus = gktVideoPlayerStatus
+                    gkt.gktVideoMsg.state.elements.gktPermissionDenied = gktPermissionDenied
+                    gkt.gktVideoMsg.state.elements.gktUploadingVideoHeading = gktUploadingVideoHeading
+
+
+                },
+                createRecorder: function() {
+                    gkt.gktVideoMsg.state.elements.gktRecorder.removeClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktRecord.removeClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStartBtn.removeClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStatus.removeClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktPermissionDenied.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktRecorded.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStopBtn.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerControls.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerTimeLeft.html(gkt.gktVideoMsg.state.recordingTime);
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStatus.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.pressToRecord));
+                    gkt.gktVideoMsg.state.recordingTime = "1:00";
+                    gkt.gktVideoMsg.state.elements.gktUploadingVideoHeading.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.uploading));
+                    navigator.mediaDevices
+                        .getUserMedia({
+                        audio: true,
+                        video: true,
+                        })
+                        .then((stream) => {
+                            gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].srcObject = stream;
+                        })
+                        .catch((error) => {
+                            console.log("navigator", error)
+                            console.log(error);
+                            gkt.gktVideoMsg.state.elements.gktVideoPlayerStartBtn.addClass("gktVideoPlayerHide");
+                            gkt.gktVideoMsg.state.elements.gktVideoPlayerStatus.addClass("gktVideoPlayerHide");
+                            gkt.gktVideoMsg.state.elements.gktPermissionDenied.removeClass("gktVideoPlayerHide");
+                        });
+                },
+                clickClose: function(e){
+                    e.preventDefault();
+                    gkt.$('.gktVideoMsgPlayerWrapper').css('display', 'none')
+                    // gkt.gktVideoMsg.state.elements.gktRecorder.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.f.stopRecording(gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].srcObject);
+                    gkt.gktVideoMsg.f.revokeObjectUrl();
+                },
+                stopRecording: function (stream) {
+                    if(gkt.gktVideoMsg.state.interval) {
+                        clearInterval(gkt.gktVideoMsg.state.interval);
+                    }
+                    if(gkt.gktVideoMsg.state.mediaRecorder && gkt.gktVideoMsg.state.mediaRecorder.state !== "inactive") {
+                        gkt.gktVideoMsg.state.mediaRecorder.stop();
+                    }
+                    stream.getTracks().forEach(function (track) {
+                        if (track.readyState == "live") {
+                        console.log("hello - stop");
+                        track.stop();
+                        }
+                    })
+                },
+                clearTracks: function (stream) {
+                    stream.getTracks().forEach(function (track) {
+                        if (track.readyState == "live") {
+                        console.log("hello - stop");
+                        track.stop();
+                        }
+                    })
+                },
+                revokeObjectUrl: function () {
+                    URL.revokeObjectURL(gkt.gktVideoMsg.state.elements.gktVideoPlayerRecording.src);
+                },
+                clickStart: function async (e){
+                    e.preventDefault();
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStartBtn.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktRecorderCloseBtn.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStopBtn.removeClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerTimeLeft.removeClass("gktVideoPlayerHide");
+                    // the below field for the text 
+                    //hide the toggle
+                    //gktVideoMsgCheckboxWrapper
+
+                    gkt.gktVideoMsg.f.clearTracks(gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].srcObject);
+
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStatus.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.recording));
+                    navigator.mediaDevices
+                        .getUserMedia({
+                        video: true,
+                        audio: true,
+                        })
+                        .then((stream) => {
+                            console.log("1 - navigator");
+                            gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].srcObject = stream;
+                            gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].captureStream = gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].captureStream || gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].mozCaptureStream;
+                            return new Promise((resolve) => (
+                                gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].onplaying = resolve
+                            ));
+                        })
+                        .then(() => {
+                            console.log("2 - onplaying");
+                            return gkt.gktVideoMsg.f.startRecording(e, gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].captureStream())
+                        })
+                        .then((recordedChunks) => {
+                            console.log("3 - startRecording");
+                            console.log(recordedChunks);
+                            gkt.gktVideoMsg.state.elements.gktVideoPlayerControls.removeClass("gktVideoPlayerHide");
+                            gkt.gktVideoMsg.state.elements.gktUploadingVideoHeading.addClass("gktVideoPlayerHide");
+                            gkt.gktVideoMsg.state.elements.gktLoadingHeading.addClass("gktVideoPlayerHide");
+                            gkt.gktVideoMsg.state.recordedBlob = new Blob(recordedChunks, { type: "video/webm" });
+                            gkt.gktVideoMsg.state.elements.gktVideoPlayerRecording.attr("src",URL.createObjectURL(gkt.gktVideoMsg.state.recordedBlob));
+                            gkt.gktVideoMsg.state.elements.gktVideoPlayerRecording[0].load();
+                        })
+                        .catch(
+                            (error) => 
+                            console.log(error)
+                        );
+                },
+                startRecording: function (e, stream) {
+                    return new Promise ((resolve, reject) => {
+
+                        let mediaRecorder = new MediaRecorder(stream);
+                        gkt.gktVideoMsg.state.mediaRecorder = mediaRecorder;
+                        let parts = [];
+                        mediaRecorder.ondataavailable = (event) => {
+                            parts.push(event.data);
+                        };
+                        mediaRecorder.start(1000);
+
+                        mediaRecorder.onerror = (event) => reject(event.name); 
+
+                        gkt.gktVideoMsg.f.wait(mediaRecorder);
+
+                        mediaRecorder.onstop = function(){ 
+                            console.log("mediaRecorder.onstop() func called");
+                            resolve(parts);
+                        }
+                    })
+                },
+                clickStop: function (e) {
+                    e.preventDefault();
+                    gkt.gktVideoMsg.state.elements.gktRecord.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktRecorded.removeClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerControls.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerTimeLeft.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerStatus.addClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktRecorderCloseBtn.removeClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.state.elements.gktLoadingHeading.removeClass("gktVideoPlayerHide");
+                    gkt.gktVideoMsg.f.stopRecording(gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].srcObject);
+                },
+                covertBlobToBase64: async function (recordedBlob){
+
+                    const reader = new FileReader();
+                    reader.readAsDataURL(recordedBlob);
+
+                    reader.onloadend = function () {
+                    
+                    var arrayBuffer = reader.result;
+
+                    console.log(arrayBuffer);
+
+                    var formData = new FormData();
+
+                    formData.append("upload_data", recordedBlob, "video.txt");
+                    formData.append("shopName", gkt.settings.merchantInfo.shopName);
+
+                        fetch(gkt.settings.SERVER_URL+"/api/proxy/upload/video?shopName="+gkt.settings.merchantInfo.shopName,{
+                            method: 'POST',
+                            body: formData
+                        }).then(
+                            response => response.json() // if the response is a JSON object
+                        ).then(
+                            success => {
+                                if(success.responseCode == 200){
+                                    gkt.gktVideoMsg.state.uploadedVideoId = success.data.videoMsgId;
+                                    console.log(success) // Handle the success response object
+                                    gkt.gktVideoMsg.state.elements.gktUploadingVideoHeading.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.uploadConfirmation));
+                                    //gkt.$('.gktVideoMsgPlayerWrapper').css('display', 'none')
+                                    // Show feedback that it got uploaded
+                                    // gkt.gktVideoMsg.state.elements.gktRecorder.addClass("gktVideoPlayerHide");
+                                }
+                                /*
+                                * @Abhishek, the below if else condition is added to handle the
+                                * condition where the api fails in sending over responseCode 200.
+                                */ 
+                                else{
+                                    console.log(success) // Handle the error response object
+                                    gkt.gktVideoMsg.state.elements.gktUploadingVideoHeading.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.errorMessage));
+                                }
+
+                            }
+                        ).catch(
+                            error => {
+                            console.log(error) // Handle the error response object
+                            gkt.gktVideoMsg.state.elements.gktUploadingVideoHeading.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.errorMessage));
+                            }
+                        );
+                    }
+                },
+                clickAccept: function(e) {
+                    e.preventDefault();
+                    gkt.gktVideoMsg.state.elements.gktVideoPlayerControls.addClass("gktVideoPlayerHide")
+                    gkt.gktVideoMsg.state.elements.gktUploadingVideoHeading.removeClass("gktVideoPlayerHide")
+                    gkt.gktVideoMsg.f.covertBlobToBase64(gkt.gktVideoMsg.state.recordedBlob);
+                },
+                wait: function(mediaRecorder){
+                    var now = new Date().getTime();
+                    var deadline = new Date(now + gkt.gktVideoMsg.state.recordingTimeMS).getTime();
+                    var interval = setInterval(() => {
+                        now = new Date().getTime();
+                        var t = deadline - now;
+                        console.log(t);
+                        var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((t % (1000 * 60)) / 1000);
+                        if (t < 0) {
+                            gkt.$('.gktVideoPlayerStopBtn').click();
+                        }
+                        gkt.gktVideoMsg.state.elements.gktVideoPlayerTimeLeft.html(minutes + " : " + seconds)
+                    }, 1000);
+                    gkt.gktVideoMsg.state.interval = interval;
+                },
+                clickReStart: function (e) {
+                    e.preventDefault();
+                    gkt.gktVideoMsg.f.revokeObjectUrl()
+                    gkt.gktVideoMsg.f.createRecorder();
+                },
+                clickPlay: async function(e) {
+                    e.preventDefault();
+                    try {
+                        gkt.gktVideoMsg.state.elements.gktVideoPlayerControls.addClass("gktVideoPlayerHide");
+                        gkt.gktVideoMsg.state.elements.gktVideoPlayerRecording[0].play();
+                        let isEnded = new Promise((resolve, reject) => {
+                            gkt.gktVideoMsg.state.elements.gktVideoPlayerRecording[0].onended = resolve;
+                        });
+                        await isEnded;
+                        gkt.gktVideoMsg.state.elements.gktVideoPlayerRecording[0].load();
+                        gkt.gktVideoMsg.state.elements.gktVideoPlayerControls.removeClass("gktVideoPlayerHide");
+                        
+                    } catch (error) {
+                        console.log(error)
+                    }                   
+                },
+                scrollToVideoDiv: function() {
+                    // gkt.$(".gktGiftCardMessageContent").animate({scrollTop: 9999},1000);
+                    gkt.$(".gktGiftCardMessageContent").animate({scrollTop: 200},2000, 'swing');
+                },
+            },
+            actions: {
+                gktVideoMsgButton: function(e){
+                    e.preventDefault()
+                    gkt.$('.gktVideoMsgPlayerWrapper').css('display', 'grid')
+                    gkt.gktVideoMsg.f.createRecorder()
+                    gkt.gktVideoMsg.f.scrollToVideoDiv()
+                },
+            },
+            events: {
+
+            },
+            
+        },      
         gktFreeGiftCardPopup:{
             init:function(settings,parent){
                 gkt.gktFreeGiftCardPopup.initialize(settings,parent)
@@ -4438,7 +5771,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                             clickHereToEditEle.css("cursor","pointer")
                             clickHereToEditEle.html(freeGiftcardPopupLanguage?.freeGiftCardDetailsAreadySavedSubHeading?.value)
                             
-                           let  gktNotificationItem  =  gkt.gktNotification.f.addNotificationItemType1(freeGiftcardPopupLanguage?.freeGiftCardDetailsAreadySavedHeading?.value, clickHereToEditEle, 500)
+                           let  gktNotificationItem  =  gkt.gktNotification.f.addNotificationItemType1(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.freeGiftCardDetailsAreadySavedHeading), clickHereToEditEle, 500)
 
                             clickHereToEditEle.on("click", ()=>{ 
                                 gkt.gktFreeGiftCardPopup.f.prepareUI()
@@ -4471,27 +5804,27 @@ textarea.gktFreeGiftcardPopupTextArea{
                         // add a header, an image, 3 fields and a button in the popup
                         const freeGiftcardPopupLanguage = gkt.settings.languageData.freeGiftcardPopup
                         let gktFreeGiftcardPopupModalClose = gkt.$("<div>").addClass("gktFreeGiftcardPopupModalClose").append('<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></div>')
-                        let freeGiftcardPopupHeading = gkt.$("<h3>").addClass("gktFreeGiftcardPopupHeading").html(freeGiftcardPopupLanguage.freeGiftcardPopupHeading.value)
+                        let freeGiftcardPopupHeading = gkt.$("<h3>").addClass("gktFreeGiftcardPopupHeading").html( gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.freeGiftcardPopupHeading))
                         let freeGiftcardPopupImage = gkt.$("<img>").addClass("gktFreeGiftcardPopupImage").attr("src", gkt.settings.freeGiftcardPopup.greetingcardImage)
 
                         // 2 input fields, one of them is for email and the other is for name
                         let freeGiftcardPopupInputFields = gkt.$("<div>").addClass("gktFreeGiftcardPopupInputFields")
                         let freeGiftcardPopupInputFieldsEmail = gkt.$("<input>").addClass("gktFreeGiftcardPopupInputFieldsEmail")
                                                                                 .attr("type", "email")
-                                                                                .attr("placeholder", freeGiftcardPopupLanguage.emailPlaceholder.value)
+                                                                                .attr("placeholder",  gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.emailPlaceholder))
                                                                                 .attr("value", gkt.gktFreeGiftCardPopup.state.gktFreeGiftcardEmail)
                         let freeGiftcardPopupInputFieldsName = gkt.$("<input>").addClass("gktFreeGiftcardPopupInputFieldsName")
                                                                                 .attr("type", "text")
-                                                                                .attr("placeholder", freeGiftcardPopupLanguage.namePlaceholder.value)
+                                                                                .attr("placeholder",  gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.namePlaceholder))
                                                                                 .attr("value", gkt.gktFreeGiftCardPopup.state.gktFreeGiftcardName)
+                                                                                // TOOD replace
                         let freeGiftcardPopupTextArea = gkt.$("<textarea>").addClass("gktFreeGiftcardPopupTextArea")
                                                                             .attr("placeholder", freeGiftcardPopupLanguage.notePlaceholder.value)
                                                                             .html(gkt.gktFreeGiftCardPopup.state.gktFreeGiftcardMessage)
                         let freeGiftcardPopupButton = gkt.$("<button>").addClass("gktFreeGiftcardPopupButton").html(freeGiftcardPopupLanguage.saveDetails.value)
                         
-                        freeGiftcardPopupButton.css("color", "#ffffff");
-                        freeGiftcardPopupButton.css("background-color", "#000000");
-                        freeGiftcardPopupButton.css("border", "1px solid #000000");
+                        gkt.f.applyButtonCSS(freeGiftcardPopupButton);
+                      
                         freeGiftcardPopupButton.on("click", function (event) {
                             // gkt.$(this).attr("disabled", true);
                             // setTimeout(() => { gkt.$(this).attr("disabled", false); }, 1000)
@@ -4526,16 +5859,15 @@ textarea.gktFreeGiftcardPopupTextArea{
                     //TODO image
                     let freeGiftcardPopupConfirmationPageImage = gkt.$("<img>").addClass("gktFreeGiftcardPopupConfirmationPageImage").attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/checkbox+scalledup.png")
                     //TODO your details have been saved-image
-                    let freeGiftcardPopupConfirmationPageHeading = gkt.$("<h3>").addClass("gktFreeGiftcardPopupConfirmationPageHeading").html("Your data has been saved"||gkt.settings.languageData.freeGiftcardPopup.confirmationPageHeading.value);
                     // description of the gift card
                 
                     let freeGiftcardPopupConfirmationPageDescription = gkt.$("<p>").addClass("gktFreeGiftcardPopupConfirmationPageDescription")
-                                                                          .html(gkt.settings.languageData.freeGiftcardPopup.confirmationPageDescription.value)
+                                                                          .html(gkt.utility.renderLanguageValue(gkt.settings.languageData.freeGiftcardPopup.confirmationPageDescription))
                     // show two buttons, one to continue shopping and the other to checkout
                     let freeGiftcardPopupConfirmationPageButtons = gkt.$("<div>").addClass("gktFreeGiftcardPopupConfirmationPageButtons")
                     // TODO Text for the buttons
-                    let continueShoppingButton = gkt.$("<button>").addClass("gktFreeGiftcardPopupContinueShoppingButton").html(gkt.settings.languageData.freeGiftcardPopup.continueShoppingButtonText.value)
-                    let checkoutButton = gkt.$("<button>").addClass("gktFreeGiftcardPopupCheckoutButton").html(gkt.settings.languageData.freeGiftcardPopup.checkoutButtonText.value)
+                    let continueShoppingButton = gkt.$("<button>").addClass("gktFreeGiftcardPopupContinueShoppingButton").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.freeGiftcardPopup.continueShoppingButtonText))
+                    let checkoutButton = gkt.$("<button>").addClass("gktFreeGiftcardPopupCheckoutButton").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.freeGiftcardPopup.checkoutButtonText))
                     continueShoppingButton.on("click", function (event) {
                         gkt.gktFreeGiftCardPopup.action.onModalClose()
                     })
@@ -4551,7 +5883,6 @@ textarea.gktFreeGiftcardPopupTextArea{
                     
                     freeGiftcardPopupConfirmationPage.append(freeGiftcardPopupConfirmationPageDescription)
                     freeGiftcardPopupConfirmationPage.append(freeGiftcardPopupConfirmationPageImage)
-                    // freeGiftcardPopupConfirmationPage.append(freeGiftcardPopupConfirmationPageHeading)
                     freeGiftcardPopupConfirmationPage.append(freeGiftcardPopupConfirmationPageButtons)
 
                     freeGiftcardPopupHTML.append(freeGiftcardPopupConfirmationPage)
@@ -4604,7 +5935,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     else if(!isValidEmail){
                         gkt.$(".gktFreeGiftcardPopupInputFieldsEmail").css("border", "1px solid red")
                         // add a small span after it
-                        let emailErrorSpan = gkt.$("<span>").addClass("gktFreeGiftcardPopupInputFieldsEmailError").html(gkt.settings.languageData.freeGiftcardPopup.emailErrorText.value)
+                        let emailErrorSpan = gkt.$("<span>").addClass("gktFreeGiftcardPopupInputFieldsEmailError").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.freeGiftcardPopup.emailErrorText))
                         gkt.$(".gktFreeGiftcardPopupInputFieldsEmail").after(emailErrorSpan)
                     }
                     else if(!isNamePresent){
