@@ -2902,6 +2902,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                 gkt.state.page_type = gkt.f.getPageType();
                 gkt.elements = gkt.f.getElements(gkt.settings);
                 if ("" === gkt.state.page_type) return false;
+                gkt.utility.setLanguageLocale();
                 return gkt.f.bootstrap(gkt.settings);
             },
             globalListener: function (settings) {
@@ -2955,7 +2956,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                         // check if giftCard overwrite buyNowButton 
                         if (gkt.gktGiftCard.state.giftCardData) {
                             gkt.gktGiftCard.f.giftCardBuyNowButtonOverwrite()
-                            gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.addToCartButtonText))
+                            gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.addToCartButtonText))
                         }
 
 
@@ -3009,6 +3010,20 @@ textarea.gktFreeGiftcardPopupTextArea{
                     }
                 }
                 return null;
+            },
+            getLocale: function () {
+                if (window.Shopify && window.Shopify.locale) {
+                    return window.Shopify.locale
+                }else{
+                    return "en"
+                } 
+            },
+            setLanguageLocale: function () {
+                let locale = gkt.utility.getLocale()
+                if(!gkt.settings.languageData[locale]){
+                    locale = "en"
+                }
+                gkt.settings.languageData = gkt.settings.languageData[locale]
             },
             setCookie: function (cookieName, cookieValue, expiryDays = 7) {
                 const d = new Date();
@@ -3694,7 +3709,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     }
 
                     // insert into parent element 
-                    gkt.elements.gktGiftMsgAndWrapWrapperParent.find(".gktGiftMsgAndWrapWrapperInnerEleHeading").append(settings.giftingOptions.shopifyPageinnerHTML);    //cartPageText                 
+                    gkt.elements.gktGiftMsgAndWrapWrapperParent.find(".gktGiftMsgAndWrapWrapperInnerEleHeading").append(gkt.settings.languageData.giftWrap.cartPageText);    //cartPageText                 
 
                     // insert final  element into productPageWrapperV2
                     gkt.elements.productPageWrapperV2.find(".gktGiftMsgAndWrapWrapper").append(gkt.elements.gktGiftMsgAndWrapWrapperParent);
@@ -3710,7 +3725,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     }
 
                     // insert into parent element 
-                    gkt.elements.gktCartGiftMsgAndWrapWrapperParent.find(".gktGiftMsgAndWrapWrapperInnerEleHeading").append(settings.giftingOptions.shopifyPageinnerHTML);    //cartPageText                 
+                    gkt.elements.gktCartGiftMsgAndWrapWrapperParent.find(".gktGiftMsgAndWrapWrapperInnerEleHeading").append(gkt.settings.languageData.giftWrap.cartPageText);    //cartPageText                 
 
                     // insert final  element into productPageWrapperV2
                     gkt.elements.cartPageWrapperV2.find(".gktCartGiftMsgAndWrapWrapper").append(gkt.elements.gktCartGiftMsgAndWrapWrapperParent);
@@ -4367,7 +4382,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite()
                     gkt.gktGiftCard.f.giftCardBuyNowButtonOverwrite()
 
-                    gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.addToCartButtonText))
+                    gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.addToCartButtonText))
                     gkt.gktGiftCard.f.initializeModal()
                     console.log("giftCardProduct", giftCardProduct)
 
@@ -4468,7 +4483,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                       }
                     // if greetingCardImageList has no elements then return that there are no Images to display
                     if (greetingCardImageList.children().length == 0) {
-                        return gkt.$("<div>").addClass('greetingCardImageList').html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.noImagesAvailable))
+                        return gkt.$("<div>").addClass('greetingCardImageList').html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.noImagesAvailable))
                         }
                     return greetingCardImageList;
                     }
@@ -4495,7 +4510,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                 },
                 prepareGreetingCardUI : function (){
                     console.log("gktGiftCard.f.prepareGreetingCardUI")
-                    const greetingCardFields = gkt.settings.languageData.giftcard.greetingCardFields
+                    const greetingCardFields = gkt.settings.languageData.giftcardV2.greetingCardFields
                     const continueButtonText = greetingCardFields.greetingCardContinueButtonText;
                     const greetingCardCategory = greetingCardFields.greetingCardCategory;
                     // This is where we have the greeting card categories, we need to render them in the modal as list items
@@ -4575,7 +4590,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     let gktGiftCardModalBackButton = gkt.$("<div>").addClass("gktGiftCardModalBackButton")
                     let gktGiftCardModalBackButtonSVG = gkt.$("<div>").addClass("gktGiftCardModalBackButtonSVG")
                     gktGiftCardModalBackButtonSVG.append('<svg class="svg-icon" style="width: 16px; height: 16px;vertical-align: middle;fill: currentColor;overflow: hidden; transform: rotate(180deg);" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M682.666667 533.333333a21.333333 21.333333 0 0 1-15.146667-6.186666l-298.666667-298.666667a21.333333 21.333333 0 0 1 30.293334-30.293333l298.666666 298.666666a21.333333 21.333333 0 0 1 0 30.293334A21.333333 21.333333 0 0 1 682.666667 533.333333z" fill="#333333" /><path d="M384 832a21.333333 21.333333 0 0 1-15.146667-6.186667 21.333333 21.333333 0 0 1 0-30.293333l298.666667-298.666667a21.333333 21.333333 0 0 1 30.293333 30.293334l-298.666666 298.666666A21.333333 21.333333 0 0 1 384 832z" fill="#333333" /></svg>')
-                    let gktGiftCardModalBackButtonText =  gkt.$("<div>").addClass("gktGiftCardModalBackButtonText").append(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.backButtonText))
+                    let gktGiftCardModalBackButtonText =  gkt.$("<div>").addClass("gktGiftCardModalBackButtonText").append(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.backButtonText))
                     gktGiftCardModalBackButton.append(gktGiftCardModalBackButtonSVG)
                     gktGiftCardModalBackButton.append(gktGiftCardModalBackButtonText)
                         gktGiftCardModalBackButton.on("click", function () {
@@ -4584,7 +4599,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     return gktGiftCardModalBackButton;
                 },
                 renderInputFieldsForGiftCardDetails: function(){
-                    let { modalHeading, modalDescription, recipientName, recipientNamePlaceholder, recipientEmail, recipientEmailPlaceholder, senderName, senderNamePlaceholder, giftNote, giftNotePlaceholder, buyNowButtonText,backButtonText,deliveryDate,sendNowButtonText,sendLaterButtonText } = gkt.settings.languageData.giftcard.purchasePageFields;
+                    let { modalHeading, modalDescription, recipientName, recipientNamePlaceholder, recipientEmail, recipientEmailPlaceholder, senderName, senderNamePlaceholder, giftNote, giftNotePlaceholder, buyNowButtonText,backButtonText,deliveryDate,sendNowButtonText,sendLaterButtonText } = gkt.settings.languageData.giftcardV2.purchasePageFields;
                     
                     let gktGiftCardModalPopupHeading = gkt.$("gktGiftCardModalPopupHeading")
                     let gktGiftCardModalHeader = gkt.$(".gktGiftCardModalHeader")
@@ -4698,7 +4713,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     gktGiftCardInputSenderName.append(gktGiftCardFromLabel).append(gktGiftCardFromInputField)
                     gktGiftCardInputRow5.append(gktGiftCardDateLabel)
 
-                    gktGiftCardModalCheckboxLabel.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.sendToSelfText));
+                    gktGiftCardModalCheckboxLabel.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.sendToSelfText));
                     gktGiftCardModalCheckbox.append(gktGiftCardInputCheckbox)
                     gktGiftCardModalCheckbox.append(gktGiftCardModalCheckboxLabel)
 
@@ -4714,8 +4729,8 @@ textarea.gktFreeGiftcardPopupTextArea{
                     
                     let gktGiftCardMessage = gkt.$(".gktGiftCardMessageContent");
                     // a label field
-                    let gktGiftCardMessageLabel = gkt.$("<label>").addClass("gktGiftCardMessageLabel").attr("for", "gktGiftCardMessage").text(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.giftNote));
-                    let gktGiftCardMessageInputField = gkt.$("<textarea>").addClass("gktGiftCardMessageInputField").attr("placeholder", gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.giftNotePlaceholder))
+                    let gktGiftCardMessageLabel = gkt.$("<label>").addClass("gktGiftCardMessageLabel").attr("for", "gktGiftCardMessage").text(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.giftNote));
+                    let gktGiftCardMessageInputField = gkt.$("<textarea>").addClass("gktGiftCardMessageInputField").attr("placeholder", gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.giftNotePlaceholder))
                     let gktVideoMsgButton;
 
 
@@ -4776,12 +4791,12 @@ textarea.gktFreeGiftcardPopupTextArea{
                                                 gkt.settings.greetingCards.greetingCardImgs.length>0;
                     let isSendToSelfChecked =gkt.$(".gktGiftCardModalCheckbox").find("input").is(":checked");
                     if(isGreetingCardEnabled){
-                       gkt.gktGiftCard.state.modalNavList.push({id:"GREETING_CARD", name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.navigationFields.greetingCardNavItem), visited:false,active:false});
+                       gkt.gktGiftCard.state.modalNavList.push({id:"GREETING_CARD", name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.navigationFields.greetingCardNavItem), visited:false,active:false});
                     }
                     //("Gift Card Details");
-                    gkt.gktGiftCard.state.modalNavList.push({id:"GIFT_CARD_DETAILS", name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.navigationFields.giftCardDetailsNavItem), visited:false,active:false});
+                    gkt.gktGiftCard.state.modalNavList.push({id:"GIFT_CARD_DETAILS", name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.navigationFields.giftCardDetailsNavItem), visited:false,active:false});
                     if(!isSendToSelfChecked){
-                        gkt.gktGiftCard.state.modalNavList.push({id:"GIFT_MESSAGE", name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.navigationFields.giftcardMessageNavItem), visited:false,active:false});
+                        gkt.gktGiftCard.state.modalNavList.push({id:"GIFT_MESSAGE", name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.navigationFields.giftcardMessageNavItem), visited:false,active:false});
                     }
                     
                 },
@@ -4840,7 +4855,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     // cleanup the previous attached events
                     gkt.$(".gktGiftCardContentFooterBtn1").off("click");
 
-                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.giftcardDetailsButton));
+                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.giftcardDetailsButton));
                     gkt.f.applyButtonCSS(gkt.$(".gktGiftCardContentFooterBtn1"));
                     gkt.$(".gktGiftCardContentFooterBtn1").on("click", function (event) {
                         gkt.$(this).attr("disabled", true);
@@ -4854,7 +4869,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     // cleanup the previous attached events
                     gkt.$(".gktGiftCardContentFooterBtn1").off("click");
 
-                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.greetingCardFields.greetingCardContinueButtonText));
+                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.greetingCardFields.greetingCardContinueButtonText));
                     gkt.f.applyButtonCSS(gkt.$(".gktGiftCardContentFooterBtn1"));
                     gkt.$(".gktGiftCardContentFooterBtn1").on("click", function (event) {
                         gkt.$(this).attr("disabled", true);
@@ -4867,12 +4882,12 @@ textarea.gktFreeGiftcardPopupTextArea{
                 attachEventsToMessageForm : function (){
                     // cleanup the previous attached events
                     gkt.$(".gktGiftCardContentFooterBtn1").off("click");
-                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.buyNowButtonText));
+                    gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.buyNowButtonText));
                     gkt.f.applyButtonCSS(gkt.$(".gktGiftCardContentFooterBtn1"));
                     gkt.$(".gktGiftCardContentFooterBtn1").on("click", function (event) {
                         gkt.$(this).attr("disabled", true);
                         setTimeout(() => { gkt.$(this).attr("disabled", false); }, 4000)
-                        gkt.$(this).html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.buyNowButtonTextLoading));
+                        gkt.$(this).html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.buyNowButtonTextLoading));
                         gkt.gktGiftCard.action.onMessageSubmit(event)
                     })
                     
@@ -4978,14 +4993,14 @@ textarea.gktFreeGiftcardPopupTextArea{
                     let isFormValid = gkt.gktGiftCard.f.validateForm();
                     let dateValid = gkt.gktGiftCard.f.dateValidation(gkGifttCardDateValue);
                     if (isFormValid && emailValid && dateValid) {
-                        gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.buyNowButtonTextLoading));
+                        gkt.$(".gktGiftCardContentFooterBtn1").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.buyNowButtonTextLoading));
                         return true;
                     } else if (!emailValid) {
                         //TODO
-                        gkt.$(".gktGiftCardEmailValidation").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.emailValidationError));
+                        gkt.$(".gktGiftCardEmailValidation").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.emailValidationError));
                         return;
                     }else if (!dateValid){
-                        gkt.$(".gktGiftCardDateValidation").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.purchasePageFields.dateValidationError));
+                        gkt.$(".gktGiftCardDateValidation").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.dateValidationError));
                         return;
                     }
                     else {
@@ -5058,7 +5073,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                         gkt.$(".gktGiftCardInputReceiverName").show();
                         //find id GIFT_MESSAGE if not found then push
                         if (gkt.gktGiftCard.state.modalNavList.indexOf("GIFT_MESSAGE") == -1) {
-                            gkt.gktGiftCard.state.modalNavList.push({id:"GIFT_MESSAGE",name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcard.navigationFields.giftcardMessageNavItem),visited:false,active:false})
+                            gkt.gktGiftCard.state.modalNavList.push({id:"GIFT_MESSAGE",name:gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.navigationFields.giftcardMessageNavItem),visited:false,active:false})
                         }
                     }
                     else{
@@ -5381,7 +5396,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     let gktRecorder  =  gkt.$("<div>").addClass("gktRecorder")
                     console.log("prepareVideoMsgPlayer");
                     let gktRecorderCloseBtn  =  gkt.$("<button>").addClass("gktRecorderCloseBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickClose(e) })
-                    let gktRecorderCloseBtnImg =  gkt.$("<img>").attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/close-video.svg")
+                    let gktRecorderCloseBtnImg =  gkt.$("<img>").attr("src", "https://db07ji0eqime4.cloudfront.net/public/videoMessage/close-video.svg")
                     gktRecorderCloseBtn.append(gktRecorderCloseBtnImg)
                     
                     
@@ -5389,7 +5404,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     let gktVideoPlayer = gkt.$("<video>").addClass("gktVideoPlayer")
                                                         .attr("autoplay", true)
                                                         .prop("muted", true)
-                                                        .attr("poster", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/free-video.jpg")
+                                                        .attr("poster", "https://db07ji0eqime4.cloudfront.net/public/videoMessage/free-video.jpg")
                     let gktPermissionDenied = gkt.$("<div>").addClass("gktPermissionDenied gktVideoPlayerHide").text( gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.permissionDenied))
                     let gktVideoPlayerStatus = gkt.$("<div>").addClass("gktVideoPlayerStatus").html( gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.pressToRecord))
                     
@@ -5420,7 +5435,7 @@ textarea.gktFreeGiftcardPopupTextArea{
 
                     let gktVideoPlayerRecording = gkt.$("<video>").addClass("gktVideoPlayerRecording")
                                                         .attr("preload", "none")
-                                                        .attr("poster", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/free-video.jpg")
+                                                        .attr("poster", "https://db07ji0eqime4.cloudfront.net/public/videoMessage/free-video.jpg")
                     
                     let gktLoadingHeading = gkt.$("<div>").addClass("gktLoadingHeading gktVideoPlayerHide").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.loading))
                     let gktUploadingVideoHeading = gkt.$("<div>").addClass("gktUploadingVideoHeading gktVideoPlayerHide").html( gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.uploading))
@@ -5435,7 +5450,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     
                     let gktVideoPlayerControlsAcceptBtn  =  gkt.$("<button>").addClass("gktVideoPlayerControlsAcceptBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickAccept(e) })
                     let gktVideoPlayerControlsAcceptBtnImg =  gkt.$("<img>").addClass("gktVideoPlayerControlsAcceptBtnImg")
-                                                                            .attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/confirm-video.svg")
+                                                                            .attr("src", "https://db07ji0eqime4.cloudfront.net/public/videoMessage/confirm-video.svg")
                     gktVideoPlayerControlsAcceptBtn.append(gktVideoPlayerControlsAcceptBtnImg)
                     gktVideoPlayerControlsAcceptBtnDiv.append(gktVideoPlayerControlsAcceptBtn);
 
@@ -5449,7 +5464,7 @@ textarea.gktFreeGiftcardPopupTextArea{
 
                     let gktVideoPlayerControlsPlayBtn  =  gkt.$("<button>").addClass("gktVideoPlayerControlsPlayBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickPlay(e) })
                     let gktVideoPlayerControlsPlayBtnImg =  gkt.$("<img>").addClass("gktVideoPlayerControlsPlayBtnImg")
-                                                                            .attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/play-video.svg")
+                                                                            .attr("src", "https://db07ji0eqime4.cloudfront.net/public/videoMessage/play-video.svg")
                     gktVideoPlayerControlsPlayBtn.append(gktVideoPlayerControlsPlayBtnImg)
                     gktVideoPlayerControlsPlayBtnDiv.append(gktVideoPlayerControlsPlayBtn);
 
@@ -5462,7 +5477,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     
                     let gktVideoPlayerControlsReStartBtn  =  gkt.$("<button>").addClass("gktVideoPlayerControlsReStartBtn").on("click", function (e) { gkt.gktVideoMsg.f.clickReStart(e) })
                     let gktVideoPlayerControlsReStartBtnImg =  gkt.$("<img>").addClass("gktVideoPlayerControlsReStartBtnImg")
-                                                                            .attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/videoMessage/redo-video.svg")
+                                                                            .attr("src", "https://db07ji0eqime4.cloudfront.net/public/videoMessage/redo-video.svg")
                     gktVideoPlayerControlsReStartBtn.append(gktVideoPlayerControlsReStartBtnImg)
                     gktVideoPlayerControlsReStartBtnDiv.append(gktVideoPlayerControlsReStartBtn);
 
@@ -5870,7 +5885,7 @@ textarea.gktFreeGiftcardPopupTextArea{
                     let freeGiftcardPopupHTML = gkt.$(".gktFreeGiftcardPopupModal")
                     let freeGiftcardPopupConfirmationPage = gkt.$("<div>").addClass("gktFreeGiftcardPopupConfirmationPage").css("display", "none")
                     //TODO image
-                    let freeGiftcardPopupConfirmationPageImage = gkt.$("<img>").addClass("gktFreeGiftcardPopupConfirmationPageImage").attr("src", "https://giftkart-staging.s3.us-east-2.amazonaws.com/public/checkbox+scalledup.png")
+                    let freeGiftcardPopupConfirmationPageImage = gkt.$("<img>").addClass("gktFreeGiftcardPopupConfirmationPageImage").attr("src", "https://db07ji0eqime4.cloudfront.net/public/checkbox+scalledup.png")
                     //TODO your details have been saved-image
                     // description of the gift card
                 
