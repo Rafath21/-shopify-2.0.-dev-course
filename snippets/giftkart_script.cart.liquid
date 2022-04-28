@@ -3211,13 +3211,20 @@ textarea.gktFreeGiftcardPopupTextArea{
                 let buyNowBtnEle = gkt.$(document).find(gkt.selectors.buyNowBtn)   
 
                 if(buyNowBtnEle && buyNowBtnEle.length > 0 && gkt.$(document).find(".gkt-overwrite-buy-now-btn").length  == 0){
-                    buyNowBtnEle.show()
+                    // buyNowBtnEle.show()
                     buyNowBtnEle.unbind().unbind("click").off().off("click");
                     newBuyNowBtnEle = buyNowBtnEle.clone()
-                    buyNowBtnEle.after(newBuyNowBtnEle)
-                    buyNowBtnEle.hide()
+                    buyNowBtnEle.before(newBuyNowBtnEle)
+                    // buyNowBtnEle.hide()
                     newBuyNowBtnEle.addClass("gkt-overwrite-buy-now-btn")
 
+                    buyNowBtnEle.css("visibility", "hidden")
+                    buyNowBtnEle.css("height", "0")
+                    buyNowBtnEle.css("width", "0")
+                    buyNowBtnEle.css("padding", "0")
+                    buyNowBtnEle.css("margin", "0")
+                    buyNowBtnEle.css("line-height", "0");
+                    buyNowBtnEle.css("min-height", "0");
                    // clone add to cart behavior 
                     // newBuyNowBtnEle.on("click", async function (event) {    
                     //      gkt.$(this).attr("disabled", true);
@@ -3939,7 +3946,8 @@ textarea.gktFreeGiftcardPopupTextArea{
                 },
                 comboBuyNowButtonOverwrite: async function () {
                     if (gkt.$(document).find(gkt.selectors.buyNowBtn)) {
-                        gkt.$(document).find(gkt.selectors.buyNowBtn).hide()
+                        // gkt.$(document).find(gkt.selectors.buyNowBtn).hide()
+                        gkt.$(document).find(gkt.selectors.buyNowBtn).css("visibility","hidden");
                     }
                 },
                 changeComboAddToCartButtonText: async function (insideHtml) {
