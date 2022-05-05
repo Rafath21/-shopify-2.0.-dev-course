@@ -1244,8 +1244,12 @@ OLD .greetingCardCategoryListItem{
 }
 
 .greetingCardImageList .greetingCardImageLabel img{
-    max-width:100%;
+    /* max-width:100%; */
     padding:10px;
+    width: 100%;
+    width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
 }
 
 .greetingCardImageLabel{
@@ -1357,7 +1361,7 @@ OLD .greetingCardCategoryListItem{
         top: 25%;
         left: 50%;
         min-width: 250px;
-        width: 100vw !important;
+        /* width: 100vw !important; */
         padding: 10px 20px;
         margin-top: 0 !important;
         top: 0;
@@ -1366,6 +1370,10 @@ OLD .greetingCardCategoryListItem{
         border-radius: 0px;
         height: 100vh !important;
         max-height: 100vh !important;
+        min-width: 100%;
+        min-width: -moz-available;          /* WebKit-based browsers will ignore this. */
+        min-width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+        min-width: fill-available;
     }
     .gktGiftCardContainer,.gktGiftCardDetailsContent {
         height: max-content;  
@@ -2652,6 +2660,7 @@ textarea.gktFreeGiftcardPopupTextArea{
             cartForm: tmpCartSettings.userData.customSettings.cartForm || DEFAULT_cartForm,
             addAfterAddTocartBtn:tmpCartSettings.userData.customSettings.addAfterAddTocartBtn || false,
             addAftercheckoutBtn: tmpCartSettings.userData.customSettings.addAftercheckoutBtn || false,
+            activeVariantCodes: tmpCartSettings.userData.customSettings.activeVariantCodes || "123456789",
         },
         merchantInfo: tmpCartSettings.userData,
         languageData: tmpCartSettings.languageData,
@@ -2867,19 +2876,37 @@ textarea.gktFreeGiftcardPopupTextArea{
             },
             getSelectedVariant: function () {
                 if ("product" === gkt.state.page_type) {
-                    if (ShopifyAnalytics && ShopifyAnalytics.meta && ShopifyAnalytics.meta.selectedVariantId) {
-                        for(let i = 0; i < ShopifyAnalytics.meta.product.variants.length; i++){
-                            if(ShopifyAnalytics.meta.product.variants[i].id == ShopifyAnalytics.meta.selectedVariantId){
-                                return ShopifyAnalytics.meta.selectedVariantId
+
+                    let activeCodes = gkt.settings.app.activeVariantCodes;  
+                      
+                    if(activeCodes.indexOf("1") >= 0){
+                        const params = Object.fromEntries(new URLSearchParams(location.search))
+                        if(params && params.variant){
+                            return params.variant
+                        }
+                    }
+                   
+                    if(activeCodes.indexOf("2") >= 0){
+                            if (ShopifyAnalytics && ShopifyAnalytics.meta && ShopifyAnalytics.meta.selectedVariantId) {
+                            for(let i = 0; i < ShopifyAnalytics.meta.product.variants.length; i++){
+                                if(ShopifyAnalytics.meta.product.variants[i].id == ShopifyAnalytics.meta.selectedVariantId){
+                                    return ShopifyAnalytics.meta.selectedVariantId
+                                }
                             }
                         }
                     }
-                    if (document.querySelector('[name="id"]') && document.querySelector('[name="id"]').value) {
-                        return document.querySelector('[name="id"]').value
+                    if(activeCodes.indexOf("3") >= 0){
+                        if (document.querySelector('[name="id"]') && document.querySelector('[name="id"]').value) {
+                            return document.querySelector('[name="id"]').value
+                        }
                     }
-                    if (shopifyLiquidValues.selected_or_first_available_variant) {
-                        return shopifyLiquidValues.selected_or_first_available_variant.id
+                    
+                    if(activeCodes.indexOf("4") >= 0){
+                        if (shopifyLiquidValues.selected_or_first_available_variant) {
+                            return shopifyLiquidValues.selected_or_first_available_variant.id
+                        }
                     }
+
                     return undefined
                 }
             },
