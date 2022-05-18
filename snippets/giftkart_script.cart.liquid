@@ -301,6 +301,9 @@
             initThemeCSS: function (){
                 console.log("initThemeCSS?",gkt.selectors.addToCart);
                 let  addToCartBtnEle =  gkt.$(document).find(gkt.selectors.addToCart)
+                let checkoutBtnEle = gkt.$(document).find(gkt.selectors.checkoutBtn)
+
+                let buttonToOverRide = gkt.$(addToCartBtnEle).length > 0 ?  addToCartBtnEle : checkoutBtnEle;
 
                 if(gkt.settings.app.themeFontFamily == "" && gkt.$("body").length>0){
                     gkt.settings.app.themeFontFamily = gkt.$("body").css("font-family");
@@ -320,22 +323,22 @@
                 if(gkt.settings.app.themeLabelFontFamily == "" && gkt.$("label").length > 0){
                     gkt.settings.app.themeLabelFontFamily = gkt.$("label").css("font-family");
                 }
-                if(gkt.settings.app.themeButtonBackgroundColor == "" && gkt.$(addToCartBtnEle).length > 0 ){
-                    gkt.settings.app.themeButtonBackgroundColor = gkt.$(addToCartBtnEle).css("background-color");
+                if(gkt.settings.app.themeButtonBackgroundColor == "" && gkt.$(buttonToOverRide).length > 0 ){
+                    gkt.settings.app.themeButtonBackgroundColor = gkt.$(buttonToOverRide).css("background-color");
                 }
-                if(gkt.settings.app.themButtonTextColor == "" && gkt.$(addToCartBtnEle).length > 0){
-                    gkt.settings.app.themButtonTextColor = gkt.$(addToCartBtnEle).css("color");
+                if(gkt.settings.app.themButtonTextColor == "" && gkt.$(buttonToOverRide).length > 0){
+                    gkt.settings.app.themButtonTextColor = gkt.$(buttonToOverRide).css("color");
                 }
-                if(gkt.settings.app.themeButtonBorderColor == "" && gkt.$(addToCartBtnEle).length > 0){
-                    gkt.settings.app.themeButtonBorderColor = gkt.$(addToCartBtnEle).css("border-color");
+                if(gkt.settings.app.themeButtonBorderColor == "" && gkt.$(buttonToOverRide).length > 0){
+                    gkt.settings.app.themeButtonBorderColor = gkt.$(buttonToOverRide).css("border-color");
                 }
                 //box shadow
-                if(gkt.settings.app.themeButtonBoxShadow == "" && gkt.$(addToCartBtnEle).length > 0){
-                    gkt.settings.app.themeButtonBoxShadow = gkt.$(addToCartBtnEle).css("box-shadow");
+                if(gkt.settings.app.themeButtonBoxShadow == "" && gkt.$(buttonToOverRide).length > 0){
+                    gkt.settings.app.themeButtonBoxShadow = gkt.$(buttonToOverRide).css("box-shadow");
                 }
                 // button font family
-                if(gkt.settings.app.themeButtonFontFamily == "" && gkt.$(addToCartBtnEle).length > 0){
-                    gkt.settings.app.themeButtonFontFamily = gkt.$(addToCartBtnEle).css("font-family");
+                if(gkt.settings.app.themeButtonFontFamily == "" && gkt.$(buttonToOverRide).length > 0){
+                    gkt.settings.app.themeButtonFontFamily = gkt.$(buttonToOverRide).css("font-family");
                 }
                 if(gkt.settings.app.themeHeaderFontFamily == "" && gkt.$("h1").length > 0){
                     gkt.settings.app.themeHeaderFontFamily = gkt.$("h1").css("font-family");
@@ -380,6 +383,7 @@
                 gkt.$(element).css("background-color", gkt.settings.app.themeBackgroundColor);
             },
             applyButtonCSS : function(element){
+                
                 //apply gkt.settings.app.themButtonTextColor themeButtonBackgroundColor themeButtonBorderColor to the button
                 if(gkt.settings.app.themButtonTextColor != ""){
                     element.css("color", gkt.settings.app.themButtonTextColor);
@@ -425,7 +429,7 @@
                     element.css("color", gkt.settings.app.themeLabelFontColor);
                 }
                 if(gkt.settings.app.themeLabelFontFamily != ""){
-                    element.css("font-family", gkt.settings.app.themeLabelFontFamily);
+                    element.css("font-family","inherit");
                 }
             },
             getSelectedVariant: function () {
@@ -3447,7 +3451,7 @@
                                                                             .html(gkt.gktFreeGiftCardPopup.state.gktFreeGiftcardMessage)
                         let freeGiftcardPopupButton = gkt.$("<button>").addClass("gktFreeGiftcardPopupButton").html(freeGiftcardPopupLanguage.saveDetails.value)
                         
-                        gkt.f.applyButtonCSS(freeGiftcardPopupButton);
+                        gkt.f.applyButtonCSS(freeGiftcardPopupButton); 
                       
                         freeGiftcardPopupButton.on("click", function (event) {
                             // gkt.$(this).attr("disabled", true);
@@ -3480,18 +3484,21 @@
 
                     let freeGiftcardPopupHTML = gkt.$(".gktFreeGiftcardPopupModal")
                     let freeGiftcardPopupConfirmationPage = gkt.$("<div>").addClass("gktFreeGiftcardPopupConfirmationPage").css("display", "none")
-                    //TODO image
+                    
                     let freeGiftcardPopupConfirmationPageImage = gkt.$("<img>").addClass("gktFreeGiftcardPopupConfirmationPageImage").attr("src", "https://db07ji0eqime4.cloudfront.net/public/checkbox+scalledup.png")
-                    //TODO your details have been saved-image
+                    //your details have been saved-image
                     // description of the gift card
                 
                     let freeGiftcardPopupConfirmationPageDescription = gkt.$("<p>").addClass("gktFreeGiftcardPopupConfirmationPageDescription")
                                                                           .html(gkt.utility.renderLanguageValue(gkt.settings.languageData.freeGiftcardPopup.confirmationPageDescription))
                     // show two buttons, one to continue shopping and the other to checkout
                     let freeGiftcardPopupConfirmationPageButtons = gkt.$("<div>").addClass("gktFreeGiftcardPopupConfirmationPageButtons")
-                    // TODO Text for the buttons
+                    // Text for the buttons
                     let continueShoppingButton = gkt.$("<button>").addClass("gktFreeGiftcardPopupContinueShoppingButton").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.freeGiftcardPopup.continueShoppingButtonText))
                     let checkoutButton = gkt.$("<button>").addClass("gktFreeGiftcardPopupCheckoutButton").html(gkt.utility.renderLanguageValue(gkt.settings.languageData.freeGiftcardPopup.checkoutButtonText))
+                  
+                    //applyCss to   checkoutButton
+                    gkt.f.applyButtonCSS(checkoutButton);
                     continueShoppingButton.on("click", function (event) {
                         gkt.gktFreeGiftCardPopup.action.onModalClose()
                     })
@@ -3502,9 +3509,12 @@
                             gkt.gktFreeGiftCardPopup.action.onModalCheckout()
                         })
 
+
                     freeGiftcardPopupConfirmationPageButtons.append(continueShoppingButton)
                     freeGiftcardPopupConfirmationPageButtons.append(checkoutButton)
                     
+                    gkt.f.applyButtonCSS(gkt.$(".gktFreeGiftcardPopupCheckoutButton"));
+
                     freeGiftcardPopupConfirmationPage.append(freeGiftcardPopupConfirmationPageDescription)
                     freeGiftcardPopupConfirmationPage.append(freeGiftcardPopupConfirmationPageImage)
                     freeGiftcardPopupConfirmationPage.append(freeGiftcardPopupConfirmationPageButtons)
