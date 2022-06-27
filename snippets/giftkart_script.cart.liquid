@@ -468,6 +468,19 @@
                     return undefined
                 }
             },
+            
+            getProductQuantity: function () {
+                if (document.querySelector('[name="quantity"]') && document.querySelector('[name="quantity"]').value) {
+                    if(Number(document.querySelector('[name="quantity"]').value) && Number(document.querySelector('[name="quantity"]').value) <= 5){
+                        return Number(document.querySelector('[name="quantity"]').value)
+                    }else{
+                        return 1
+                    }       
+                }else {
+                    return 1
+                }
+            },
+
             getElements: function (settings) {
                 return {
                     gktGiftMsgAndWrapWrapperParent: gkt.$(gkt.$.parseHTML('<div class="gktGiftMsgAndWrapHeader"><div class="gktGiftMsgAndWrapHeaderItem"><label for="gift-wrapping" class="gktGiftMsgAndWrapWrapperInnerEle"><input id="gift-wrapping" class="gktGiftOptionsCheckbox" type="checkbox" name="addGiftOptions"><span class="gktCustomWrapCheckboxCheckmark"></span><div class="gktGiftMsgAndWrapWrapperInnerEleHeading"></div></label> </div></div>')),
@@ -2009,6 +2022,8 @@
 
                     // set required states 
                     gkt.gktGiftCard.state.isGiftCardAddToCartButtonOverwrite = true
+                    
+                    gkt.elements.addToCartBtn.attr("type", "button")
 
                     gkt.elements.addToCartBtn.unbind().unbind("click").off().off("click");
 
@@ -2024,7 +2039,15 @@
                     gkt.gktGiftCard.state.isGiftCardBuyNowButtonOverwrite = true
 
                     if (gkt.$(document).find(gkt.selectors.buyNowBtn)) {
-                        gkt.$(document).find(gkt.selectors.buyNowBtn).hide()
+                        // gkt.$(document).find(gkt.selectors.buyNowBtn).hide()
+                        let buyNowBtnEle =  gkt.$(document).find(gkt.selectors.buyNowBtn)
+                        buyNowBtnEle.css("visibility", "hidden")
+                        buyNowBtnEle.css("height", "0")
+                        buyNowBtnEle.css("width", "0")
+                        buyNowBtnEle.css("padding", "0")
+                        buyNowBtnEle.css("margin", "0")
+                        buyNowBtnEle.css("line-height", "0");
+                        buyNowBtnEle.css("min-height", "0");
                     }
                 },
                 changeGiftCardAddToCartButtonText: function (insideHtml) {
@@ -2703,6 +2726,7 @@
                     }
                     // TODO: Do we need a validation for the form on the final page aswell?
                     let selectedVariantId = gkt.f.getSelectedVariant()
+                    let quantity = gkt.f.getProductQuantity()
                     let gkGifttCardFromValue = gkt.$(".gktGiftCardFromInputField").val()
                     let gkGifttCardToValue = gkt.$(".gktGiftCardToInputField").val()
                     let gkGifttCardMessageValue = gkt.$(".gktGiftCardMessageInputField").val()
@@ -2728,7 +2752,7 @@
                         "items": [
                             {
                                 "id": selectedVariantId,
-                                "quantity": 1,
+                                "quantity": quantity ? quantity : 1,
                                 "properties": {
                                     "To": gkGifttCardToValue,
                                     "From": gkGifttCardFromValue,
