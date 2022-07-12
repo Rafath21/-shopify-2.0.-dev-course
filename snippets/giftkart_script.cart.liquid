@@ -570,28 +570,26 @@
                         
                         if(gkt.state.page_type == "cart" && gkt.settings.freeGiftcardPopup.isFreeGiftcardPopupEnabled && gkt.state.freeGiftcardPopupModalTriggered != true ){
                          let currentCartValueEligible = await gkt.utility.isCartTotalMoreThan(gkt.settings.freeGiftcardPopup.cartValue)
-                            if(currentCartValueEligible && gkt.state.freeGiftcardPopupModalCount < gkt.state.freeGiftcardPopupModalMAXCount){
-                                // gkt.gktFreeGiftCardPopup.action.showModal();
-                                gkt.state.freeGiftcardPopupModalCount = gkt.state.freeGiftcardPopupModalCount + 1
-                                gkt.storage.setItem("freeGiftcardPopupModalCount", gkt.state.freeGiftcardPopupModalCount)
-                                gkt.gktFreeGiftCardPopup.f.showGiftCard( gkt.settings,"CART_PAGE")
-                                gkt.state.freeGiftcardPopupModalTriggered = true
-                            }else{
-                                if(gkt.state.freeGiftcardPopupModalCount < gkt.state.freeGiftcardPopupModalMAXCount && gkt.$('.gktFreeGiftcardBuyMoreProductNotification').length == 0 && !gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown){
-                                    const freeGiftcardPopupLanguage = gkt.settings.languageData.freeGiftcardPopup
-                                    if(freeGiftcardPopupLanguage?.BuyMoreItemHeading.value && freeGiftcardPopupLanguage?.BuyMoreItemHeading.value != ""){
-                                        let gktFreeGiftcardBuyMoreProductNotificationSubHeading = gkt.$('<div>').addClass("gktFreeGiftcardBuyMoreProductNotification")
-                                                                                                  .html(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemSubHeading))
-                                        gkt.gktNotification.f.addNotificationItemType1(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemHeading), gktFreeGiftcardBuyMoreProductNotificationSubHeading, 100)
-                                        gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown = true
+                            // if(false && currentCartValueEligible && gkt.state.freeGiftcardPopupModalCount < gkt.state.freeGiftcardPopupModalMAXCount){
+                            //     // gkt.gktFreeGiftCardPopup.action.showModal();
+                            //     gkt.state.freeGiftcardPopupModalCount = gkt.state.freeGiftcardPopupModalCount + 1
+                            //     gkt.storage.setItem("freeGiftcardPopupModalCount", gkt.state.freeGiftcardPopupModalCount)
+                            //     gkt.gktFreeGiftCardPopup.f.showGiftCard( gkt.settings,"CART_PAGE")
+                            //     gkt.state.freeGiftcardPopupModalTriggered = true
+                            // }else{
+                            if(!currentCartValueEligible  && gkt.$('.gktFreeGiftcardBuyMoreProductNotification').length == 0 && !gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown){
+                                const freeGiftcardPopupLanguage = gkt.settings.languageData.freeGiftcardPopup
+                                if(freeGiftcardPopupLanguage?.BuyMoreItemHeading.value && freeGiftcardPopupLanguage?.BuyMoreItemHeading.value != ""){
+                                    let gktFreeGiftcardBuyMoreProductNotificationSubHeading = gkt.$('<div>').addClass("gktFreeGiftcardBuyMoreProductNotification")
+                                                                                              .html(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemSubHeading))
+                                    gkt.gktNotification.f.addNotificationItemType1(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemHeading), gktFreeGiftcardBuyMoreProductNotificationSubHeading, 100)
+                                    gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown = true
 
-                                    }
-                                   
                                 }
                                
-                            
-                            
                             }
+                            
+                            // }
                         }
                         isIntervalActive = false
 
@@ -3396,7 +3394,7 @@
         },      
         gktFreeGiftCardPopup:{
             init:function(settings,parent){
-                gkt.gktFreeGiftCardPopup.initialize(settings,parent)
+                // gkt.gktFreeGiftCardPopup.initialize(settings,parent)
             },
             state:{
                 gktFreeGiftcardName:null,
@@ -3613,6 +3611,7 @@
         },
         gktNotification:{
             init: function(){
+                gkt.gktNotification.f.addNotificationWrapperToDOM()
                 gkt.gktNotification.initialize()
             },
             state: {
@@ -3623,7 +3622,7 @@
                 gktNotificationPosition: null,
             },
             initialize: function(){
-                gkt.gktNotification.f.addNotificationWrapperToDOM()
+                
 
                 // notification examples
                 // gkt.gktNotification.f.addNotificationItemType1("addNotificationItem-1","If your cart value is greater than 40$ you will get 10$ Free Gift Card.", 100)
