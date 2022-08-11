@@ -1202,7 +1202,7 @@ OLD .greetingCardCategoryListItem{
     text-align: left;
     list-style: none;
     display:grid;
-    grid-template-columns: repeat(3,min-content);
+    grid-template-columns: repeat(3,max-content);
     padding: 0;
     margin: 10px 0 15px;
     grid-gap:25px;
@@ -1571,6 +1571,83 @@ OLD .greetingCardCategoryListItem{
 .gktGiftCardModal form {
     position: unset;
 }
+
+
+/* The container */
+.gktGiftCardModalCheckboxContainer{
+    position: relative;
+}
+
+
+.gktGiftCardModalCheckbox {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+
+/* Hide the browser's default checkbox */
+.gktGiftCardModalCheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+
+.gktCustomCheckboxCheckmarkSmall {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 18px;
+  width: 18px;
+  border: 1px solid #a2a2a2;
+  border-radius: 4px;
+}
+
+/* On mouse-over, add a grey background color */
+.gktGiftCardModalCheckbox:hover input ~ .gktCustomCheckboxCheckmarkSmall {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background 
+.gktGiftCardModalCheckbox input:checked ~ .gktCustomCheckboxCheckmarkSmall {
+  background-color: #2196F3;
+} */
+
+/* Create the gktCustomCheckboxCheckmarkSmall/indicator (hidden when not checked) */
+.gktCustomCheckboxCheckmarkSmall:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the gktCustomCheckboxCheckmarkSmall when checked */
+.gktGiftCardModalCheckbox input:checked ~ .gktCustomCheckboxCheckmarkSmall:after {
+  display: block;
+}
+
+/* Style the gktCustomCheckboxCheckmarkSmall/indicator */
+.gktGiftCardModalCheckbox .gktCustomCheckboxCheckmarkSmall:after {
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid #009c00;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 
 
 </style>

@@ -204,6 +204,7 @@
             addAfterAddTocartBtn:tmpCartSettings.userData.customSettings.addAfterAddTocartBtn || false,
             addAftercheckoutBtn: tmpCartSettings.userData.customSettings.addAftercheckoutBtn || false,
             activeVariantCodes: tmpCartSettings.userData.customSettings.activeVariantCodes || "123456789",
+            customStyleForGiftcard: tmpCartSettings.userData.customSettings.customStyleForGiftcard || null,
         },
         merchantInfo: tmpCartSettings.userData,
         languageData: tmpCartSettings.languageData,
@@ -1999,6 +2000,8 @@
                     gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.addToCartButtonText))
                     gkt.gktGiftCard.f.initializeModal()
                     console.log("giftCardProduct", giftCardProduct)
+                    
+                    gkt.gktGiftCard.f.setCustomStylingForGiftcard()
 
                     // initialize video messages 
                     gkt.gktVideoMsg.init(settings, parent)
@@ -2007,6 +2010,15 @@
                 console.log("settings.giftCard")
             },
             f: {
+                setCustomStylingForGiftcard: function (){
+                    let customStyleForGiftcard =  gkt.settings.app.customStyleForGiftcard
+                    if(customStyleForGiftcard){
+                        var styleSheet = document.createElement("style")
+                        styleSheet.innerText = customStyleForGiftcard
+                        document.body.appendChild(styleSheet)
+
+                    }
+                },
                 checkIfGiftCardProduct: function (currProductHandle, giftCards) {
                     for (let i = 0; i < giftCards.length; i++) {
                         if (giftCards[i] && giftCards[i].shopifyData && giftCards[i].shopifyData.handle == currProductHandle) {
@@ -2022,7 +2034,8 @@
                     gkt.gktGiftCard.state.isGiftCardAddToCartButtonOverwrite = true
                     
                     gkt.elements.addToCartBtn.attr("type", "button")
-
+                    gkt.elements.addToCartBtn.attr("disabled", false)
+                    
                     gkt.elements.addToCartBtn.unbind().unbind("click").off().off("click");
 
                     gkt.elements.addToCartBtn.on("click", function (event) {
@@ -2232,14 +2245,18 @@
                     let gktGiftCardToInputField = gkt.$("<input>").attr("type", "text").attr("placeholder", gkt.utility.renderLanguageValue(recipientNamePlaceholder)).addClass("gktGiftCardToInputField");
                     let gktGiftCardEmailInputField = gkt.$("<input>").attr("type", "email").attr("placeholder",  gkt.utility.renderLanguageValue(recipientEmailPlaceholder)).addClass("gktGiftCardEmailInputField");
                     let gktGiftCardFromInputField = gkt.$("<input>").attr("type", "text").attr("placeholder",  gkt.utility.renderLanguageValue(senderNamePlaceholder)).addClass("gktGiftCardFromInputField");
+
                     // attach a checkbox, 
-                    let gktGiftCardModalCheckbox = gkt.$("<div>").addClass("gktGiftCardModalCheckbox")
+                    let gktGiftCardModalCheckboxContainer = gkt.$("<div>").addClass("gktGiftCardModalCheckboxContainer")
+                    let gktGiftCardModalCheckbox = gkt.$("<label>").addClass("gktGiftCardModalCheckbox")
                     let gktGiftCardInputCheckbox = gkt.$("<input>").attr("type","checkbox").addClass("gktGiftCardModalCheckboxInput").attr("name","gktGiftCardModalCheckbox")
                                                     .on("change",function(){
                                                         gkt.gktGiftCard.action.onSendSelfClick();
                                                     })
-                    let gktGiftCardModalCheckboxLabel = gkt.$("<label>").addClass("gktGiftCardModalCheckboxLabel").attr("for","gktGiftCardModalCheckbox")
-                   
+                                                    
+                    let gktCustomCheckboxCheckmarkSmall = gkt.$("<span>").addClass("gktCustomCheckboxCheckmarkSmall").attr("for","gktGiftCardModalCheckbox")
+                    let gktGiftCardModalCheckboxLabel = gkt.$("<span>").addClass("gktGiftCardModalCheckboxLabel").attr("for","gktGiftCardModalCheckbox")
+                    gktGiftCardModalCheckboxContainer.append(gktGiftCardModalCheckbox)
                     
                     // a date picker 
                     let gktGiftCardDatePicker = gkt.$("<input>").attr("type", "date").addClass("gktGiftCardDatePicker"); 
@@ -2338,10 +2355,12 @@
                     gktGiftCardInputRow5.append(gktGiftCardDateLabel)
 
                     gktGiftCardModalCheckboxLabel.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.sendToSelfText));
+                    
                     gktGiftCardModalCheckbox.append(gktGiftCardInputCheckbox)
+                    gktGiftCardModalCheckbox.append(gktCustomCheckboxCheckmarkSmall)
                     gktGiftCardModalCheckbox.append(gktGiftCardModalCheckboxLabel)
 
-                    gktGiftCardInputFieldsDiv.append(gktGiftCardModalCheckbox)
+                    gktGiftCardInputFieldsDiv.append(gktGiftCardModalCheckboxContainer)
                     gktGiftCardInputFieldsDiv.append(gktGiftCardInputReceiverName)
                     gktGiftCardInputFieldsDiv.append(gktGiftCardInputReceiverEmail)
                     gktGiftCardInputFieldsDiv.append(gktGiftCardInputSenderName)
