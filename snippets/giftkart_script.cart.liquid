@@ -205,6 +205,7 @@
             addAftercheckoutBtn: tmpCartSettings.userData.customSettings.addAftercheckoutBtn || false,
             activeVariantCodes: tmpCartSettings.userData.customSettings.activeVariantCodes || "123456789",
             customStyleForGiftcard: tmpCartSettings.userData.customSettings.customStyleForGiftcard || null,
+            redirectUrlForSendGiftcardBtn: tmpCartSettings.userData.customSettings.redirectUrlForSendGiftcardBtn ?  window.location.origin + tmpCartSettings.userData.customSettings.redirectUrlForSendGiftcardBtn :  window.location.origin +  "/cart/checkout" ,
         },
         merchantInfo: tmpCartSettings.userData,
         languageData: tmpCartSettings.languageData,
@@ -265,6 +266,7 @@
             freeGiftcardPopupModalCount : parseInt(sessionStorage.getItem("freeGiftcardPopupModalCount"))|| 0,
             freeGiftcardPopupModalMAXCount : 2,
             gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown: false,
+            sendGiftcardOnPageBtnClicked: false
         },
         constants: {
             themesIds: {
@@ -490,7 +492,7 @@
                     addToCartButtonCloned: undefined,
                     checkoutBtn: gkt.$(document).find(gkt.selectors.checkoutBtn),
                     cartForm: gkt.$(document).find(gkt.selectors.cartForm),
-                    productPageWrapperV2: gkt.$(gkt.$.parseHTML('<div class="gktPageWrapper gktProductPageWrapperV2"> <div class="gktComboWrapper"></div> <div class="gktProductPageUpsellWrapper"></div>  <div class="gktGiftMsgAndWrapWrapper"></div> <div class="gktGiftMessageWrapper"></div> </div>')),
+                    productPageWrapperV2: gkt.$(gkt.$.parseHTML('<div class="gktPageWrapper gktProductPageWrapperV2"> <div class="gktComboWrapper"></div> <div class="gktProductPageUpsellWrapper"></div>  <div class="gktGiftMsgAndWrapWrapper"></div> <div class="gktGiftMessageWrapper"></div> <div class="gktGiftCardWrapper"></div>  </div>')),
                     cartPageWrapperV2: gkt.$(gkt.$.parseHTML('<div class="gktPageWrapper gktCartPageWrapperV2"> <div class="gktCartUpsellWrapper"></div> <div class="gktCartGiftMsgAndWrapWrapper"></div><div class="gktCartGiftMessageWrapper"></div> </div>')),
                     buyNowBtn: gkt.$(document).find(gkt.selectors.buyNowBtn)
                 }
@@ -559,10 +561,11 @@
                                 gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite()
                             }
                             gkt.gktGiftCard.f.giftCardBuyNowButtonOverwrite()
-                            gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.addToCartButtonText))
+                            if(!gkt.state.sendGiftcardOnPageBtnClicked){
+                                gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.addToCartButtonText))
+                            }
+                           
                         }
-
-
 
                         // check if giftwrap, message or oneclick upsell overwrite buyNowButton
                         if(gkt.state.isOverWriteBuyNowBtnTriggered && gkt.$(document).find(".gkt-overwrite-buy-now-btn").length  == 0){
@@ -871,7 +874,7 @@
                             addToCartBtnEle.trigger("click")
                         }
                         setTimeout(()=>{
-                            window.location.href = window.location.origin + "/cart/checkout"
+                            window.location.href = gkt.settings.app.redirectUrlForSendGiftcardBtn
                         },1000)
                         
                     })
@@ -1994,12 +1997,17 @@
 
                     
                     gkt.gktGiftCard.state.giftCardData = giftCardProduct
-                    gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite()
+                    gkt.gktGiftCard.state.giftCardData.isEmbededOnPage  = gkt.gktGiftCard.state?.giftCardData?.isEmbededOnPage ? true : false;
+                    gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite(gkt.gktGiftCard.state.giftCardData.isEmbededOnPage)
                     gkt.gktGiftCard.f.giftCardBuyNowButtonOverwrite()
 
                     gkt.gktGiftCard.f.changeGiftCardAddToCartButtonText(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.addToCartButtonText))
                     gkt.gktGiftCard.f.initializeModal()
-                    console.log("giftCardProduct", giftCardProduct)
+                    
+                    if(gkt.gktGiftCard.state.giftCardData.isEmbededOnPage){
+                        let productpageUi = gkt.gktGiftCard.f.getProductPageGiftCardUi() 
+                        gkt.gktGiftCard.f.insertIntoProductPageWrapper(productpageUi)
+                    }
                     
                     gkt.gktGiftCard.f.setCustomStylingForGiftcard()
 
@@ -2010,6 +2018,26 @@
                 console.log("settings.giftCard")
             },
             f: {
+                insertIntoProductPageWrapper: function  (productpageUi) {
+                    gkt.elements.productPageWrapperV2.find(".gktGiftCardWrapper").css("display", "block")
+                    gkt.elements.productPageWrapperV2.find(".gktGiftCardWrapper").append(productpageUi);
+                    
+                },
+                getProductPageGiftCardUi: function () {
+                    let { modalHeading, modalDescription, recipientName, recipientNamePlaceholder, recipientEmail, recipientEmailPlaceholder, senderName, senderNamePlaceholder, giftNote, giftNotePlaceholder, buyNowButtonText,backButtonText,deliveryDate,sendNowButtonText,sendLaterButtonText } = gkt.settings.languageData.giftcardV2.purchasePageFields;
+                    let productPageGiftCardUi =   gkt.$("<div>").addClass("productPageGiftCardUi")
+                    let gktGiftCardToInputField = gkt.$("<input>").attr("type", "text").attr("placeholder", gkt.utility.renderLanguageValue(recipientNamePlaceholder)).addClass("gktGiftCardToInputField");
+                    let gktGiftCardEmailInputField = gkt.$("<input>").attr("type", "email").attr("placeholder",  gkt.utility.renderLanguageValue(recipientEmailPlaceholder)).addClass("gktGiftCardEmailInputField");
+                    let gktGiftCardMessageInputField = gkt.$("<textarea>").addClass("gktGiftCardMessageInputField").attr("placeholder", gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.giftNotePlaceholder))
+                    let gktGiftCardEmailValidation = gkt.$("<p>", { class: "gktGiftCardEmailValidation" });
+
+                    productPageGiftCardUi.append(gktGiftCardToInputField)
+                    productPageGiftCardUi.append(gktGiftCardEmailInputField)
+                    productPageGiftCardUi.append(gktGiftCardEmailValidation)
+                    productPageGiftCardUi.append(gktGiftCardMessageInputField)
+                    gkt.productPageGiftCardUi = productPageGiftCardUi;
+                    return productPageGiftCardUi
+                },
                 setCustomStylingForGiftcard: function (){
                     let customStyleForGiftcard =  gkt.settings.app.customStyleForGiftcard
                     if(customStyleForGiftcard){
@@ -2028,7 +2056,7 @@
                     }
                     return undefined
                 },
-                giftCardAddToCartButtonOverwrite: function () {
+                giftCardAddToCartButtonOverwrite: function (isEmbededOnPage) {
 
                     // set required states 
                     gkt.gktGiftCard.state.isGiftCardAddToCartButtonOverwrite = true
@@ -2038,12 +2066,28 @@
                     
                     gkt.elements.addToCartBtn.unbind().unbind("click").off().off("click");
 
-                    gkt.elements.addToCartBtn.on("click", function (event) {
-                        // gkt.$(this).attr("disabled", true);
-                        // setTimeout(() => { gkt.$(this).attr("disabled", false); }, 1000)
-                        gkt.gktGiftCard.action.giftCardAddToCartButton(event)
+                    if(isEmbededOnPage){
+                        gkt.elements.addToCartBtn.on("click",  function (event) {
+                            let formValid = gkt.gktGiftCard.f.performFormValidation();
+                            if(!formValid){
+                                return
+                            }
+                            gkt.$(this).attr("disabled", true);
+                            setTimeout(() => { gkt.$(this).attr("disabled", false); }, 4000)
+                            gkt.state.sendGiftcardOnPageBtnClicked = true
+                            gkt.$(this).html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.buyNowButtonTextLoading));
+                            gkt.gktGiftCard.action.onMessageSubmit(event);
+                            
+                        })
+                    }else{
+                        gkt.elements.addToCartBtn.on("click", function (event) {
+                            // gkt.$(this).attr("disabled", true);
+                            // setTimeout(() => { gkt.$(this).attr("disabled", false); }, 1000)
+                            gkt.gktGiftCard.action.giftCardAddToCartButton(event)
+                        })
 
-                    })
+                    }
+
                 },
                 giftCardBuyNowButtonOverwrite: function () {
                     // set required states 
@@ -2126,7 +2170,8 @@
                     return greetingCardImageList;
                     }
 
-                 },               
+                 },    
+
                 changeGreetingCardImageList: function(category){
                     let imageList = gkt.settings.greetingCards.greetingCardImgs
                     let imageListFiltered = gkt.gktGiftCard.f.filterGreetingCardImages(imageList,category)
@@ -2785,7 +2830,7 @@
                         ],
                     })
                     
-                    window.location.href = window.location.origin + "/cart/checkout"
+                    window.location.href = gkt.settings.app.redirectUrlForSendGiftcardBtn
 
                     console.log("onMessageSubmit-clicked")
                 },
@@ -2832,7 +2877,7 @@
                     gkt.$(".gktGiftCardMessageContent").show();
                 },
             },
-         },
+        },
         gktMessage:{
             init: function (settings, parent) {
                 gkt.gktMessage.initialize(settings, parent)
@@ -2999,7 +3044,7 @@
                         // })
                 }
             }
-        
+            
         },
         gktVideoMsg: {
             init: function (settings, parent) {
@@ -3623,7 +3668,7 @@
                 },
                 onModalCheckout: function(){
                     setTimeout(()=>{
-                            window.location.href = window.location.origin + "/cart/checkout"
+                            window.location.href = gkt.settings.app.redirectUrlForSendGiftcardBtn
                         },1000)
                 },
             }
