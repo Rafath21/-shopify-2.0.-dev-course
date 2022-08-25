@@ -431,8 +431,9 @@
                 if(gkt.settings.app.themeLabelFontColor != ""){
                     element.css("color", gkt.settings.app.themeLabelFontColor);
                 }
+                element.css("font-family","inherit");
                 if(gkt.settings.app.themeLabelFontFamily != ""){
-                    element.css("font-family","inherit");
+                element.css("font-family", gkt.settings.app.themeLabelFontFamily);
                 }
             },
             getSelectedVariant: function () {
@@ -2191,7 +2192,7 @@
                     }
                     return imageListFiltered
                 },
-                prepareGreetingCardUI : function (){
+                prepareGreetingCardUI : async function (){
                     console.log("gktGiftCard.f.prepareGreetingCardUI")
                     const greetingCardFields = gkt.settings.languageData.giftcardV2.greetingCardFields
                     const continueButtonText = greetingCardFields.greetingCardContinueButtonText;
@@ -2211,13 +2212,43 @@
                     let greetingCardCategoryListItemText = gkt.$("<a>").addClass('greetingCardCategoryListItemText')
                     let imageInput = undefined;
                     let imageList =  gkt.settings.greetingCards.greetingCardImgs;
+
+                    // add the image of the gift card as the first item in the list
+                    //find the giftcard associated with this page handle
+
+                    //find the giftcard associated with this page handle
+
                     
                     gkt.f.applyLabelCSS(greetingCardCategoryListItemText)
+                    
+                    let productHandle = gkt.f.getProductPageHandle(gkt.settings)
+                    
+                    //now get the giftcard associated with this page handle
+                    // let  currGiftcardItem = gkt.settings.giftCards.find(giftcardItem => giftcardItem.shopifyData.handle == productHandle)
+                    let currGiftcardItem = await gkt.utility.getProductDataV2(productHandle);
+                    
+                    let currGiftcardItemImage =  currGiftcardItem.images[0] || currGiftcardItem.featured_image
+                    if(currGiftcardItemImage){
 
+                        //add the image of the gift card as the first item in the list
+                        //unshift is supprted by all browsers, checked on MDN
 
-                    const getFirstImageFromGeneralCategory = imageList.find(x=>x.categoryId=="greetingCardCategory1");
-                    if(getFirstImageFromGeneralCategory){
-                        gkt.gktGiftCard.state.greetingCardActiveImageSrc = getFirstImageFromGeneralCategory.src
+                        imageList.unshift({
+                            category: "Occasion",
+                            categoryId: "greetingCardCategory1",
+                            id:0,                       
+                            src:currGiftcardItemImage
+                        })
+                    }
+
+                     // const getFirstImageFromGeneralCategory = imageList.find(x=>x.categoryId=="greetingCardCategory1");
+                     let defaultGreetingCardSelection;
+                     if(currGiftcardItemImage){
+                        defaultGreetingCardSelection = imageList[0];
+                     }
+                    // const letsUseTheGiftCardImage = ;
+                    if(currGiftcardItemImage){
+                        gkt.gktGiftCard.state.greetingCardActiveImageSrc = defaultGreetingCardSelection.src
                     }
                     
                     gkt.gktGiftCard.state.greetingCardImageListDiv = gkt.gktGiftCard.f.renderGreetingCardImages(imageList)
