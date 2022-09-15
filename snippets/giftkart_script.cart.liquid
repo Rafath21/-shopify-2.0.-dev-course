@@ -545,7 +545,7 @@
                         if (gkt.gktGiftCard.state.giftCardData) {
                             if(!gkt.elements.addToCartBtn.is(':visible')){
                                 gkt.elements.addToCartBtn = gkt.$(document).find(gkt.selectors.addToCart)
-                                gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite()
+                                gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite(gkt.gktGiftCard.state.giftCardData.isEmbededOnPage)
                             }
                             gkt.gktGiftCard.f.giftCardBuyNowButtonOverwrite()
                             if(!gkt.state.sendGiftcardOnPageBtnClicked){
