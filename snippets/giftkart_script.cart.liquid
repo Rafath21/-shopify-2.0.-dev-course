@@ -461,7 +461,7 @@
             
             getProductQuantity: function () {
                 if (document.querySelector('[name="quantity"]') && document.querySelector('[name="quantity"]').value) {
-                    if(Number(document.querySelector('[name="quantity"]').value) && Number(document.querySelector('[name="quantity"]').value) <= 5){
+                    if(Number(document.querySelector('[name="quantity"]').value) && Number(document.querySelector('[name="quantity"]').value) <= 10){
                         return Number(document.querySelector('[name="quantity"]').value)
                     }else{
                         return 1
@@ -559,29 +559,23 @@
                             gkt.utility.overWriteBuyNowBtn()
                         }
                         
-                        if(gkt.state.page_type == "cart" && gkt.settings.freeGiftcardPopup.isFreeGiftcardPopupEnabled && gkt.state.freeGiftcardPopupModalTriggered != true ){
-                         let currentCartValueEligible = await gkt.utility.isCartTotalMoreThan(gkt.settings.freeGiftcardPopup.cartValue)
-                            // if(false && currentCartValueEligible && gkt.state.freeGiftcardPopupModalCount < gkt.state.freeGiftcardPopupModalMAXCount){
-                            //     // gkt.gktFreeGiftCardPopup.action.showModal();
-                            //     gkt.state.freeGiftcardPopupModalCount = gkt.state.freeGiftcardPopupModalCount + 1
-                            //     gkt.storage.setItem("freeGiftcardPopupModalCount", gkt.state.freeGiftcardPopupModalCount)
-                            //     gkt.gktFreeGiftCardPopup.f.showGiftCard( gkt.settings,"CART_PAGE")
-                            //     gkt.state.freeGiftcardPopupModalTriggered = true
-                            // }else{
-                            if(!currentCartValueEligible  && gkt.$('.gktFreeGiftcardBuyMoreProductNotification').length == 0 && !gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown){
-                                const freeGiftcardPopupLanguage = gkt.settings.languageData.freeGiftcardPopup
-                                if(freeGiftcardPopupLanguage?.BuyMoreItemHeading.value && freeGiftcardPopupLanguage?.BuyMoreItemHeading.value != ""){
-                                    let gktFreeGiftcardBuyMoreProductNotificationSubHeading = gkt.$('<div>').addClass("gktFreeGiftcardBuyMoreProductNotification")
-                                                                                              .html(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemSubHeading))
-                                    gkt.gktNotification.f.addNotificationItemType1(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemHeading), gktFreeGiftcardBuyMoreProductNotificationSubHeading, 100)
-                                    gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown = true
+                        // if(gkt.state.page_type == "cart" && gkt.settings.freeGiftcardPopup.isFreeGiftcardPopupEnabled && gkt.state.freeGiftcardPopupModalTriggered != true ){
+                        //     let currentCartValueEligible = await gkt.utility.isCartTotalMoreThan(gkt.settings.freeGiftcardPopup.cartValue)
+                        //     if(!currentCartValueEligible  && gkt.$('.gktFreeGiftcardBuyMoreProductNotification').length == 0 && !gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown){
+                        //         const freeGiftcardPopupLanguage = gkt.settings.languageData.freeGiftcardPopup
+                        //         if(freeGiftcardPopupLanguage?.BuyMoreItemHeading.value && freeGiftcardPopupLanguage?.BuyMoreItemHeading.value != ""){
+                        //             let gktFreeGiftcardBuyMoreProductNotificationSubHeading = gkt.$('<div>').addClass("gktFreeGiftcardBuyMoreProductNotification")
+                        //                                                                       .html(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemSubHeading))
+                        //             gkt.gktNotification.f.addNotificationItemType1(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemHeading), gktFreeGiftcardBuyMoreProductNotificationSubHeading, 100)
+                        //             gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown = true
 
-                                }
+                        //         }
                                
-                            }
+                        //     }
                             
-                            // }
-                        }
+                        //     // }
+                        // }
+                        
                         isIntervalActive = false
 
                     }
@@ -2834,7 +2828,11 @@
                     if(gkt.$(".gktVideoMsgCheckboxField").is(":checked")!=true){
                         gkt.gktVideoMsg.state.uploadedVideoId = null;
                     }
-                    let clearCart = await gkt.utility.clearCart()
+                    //redirectUrlForSendGiftcardBtn includes cart keyword
+                    if(gkt.settings.app.redirectUrlForSendGiftcardBtn.includes("checkout")){
+                        let clearCart = await gkt.utility.clearCart()
+                    }
+
                     let resAddToCart = await gkt.utility.addToCartV2({
                         "items": [
                             {
