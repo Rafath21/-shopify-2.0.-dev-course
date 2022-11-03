@@ -2396,8 +2396,8 @@
                     gktGiftCardDatePicker.attr("value", new Date().toISOString().slice(0, 10))
                     //attach a date min and max value attr to the date picker
                     gktGiftCardDatePicker.attr("min", new Date().toISOString().slice(0, 10));
-                    // and max date is set to the 30 days after
-                    gktGiftCardDatePicker.attr("max", new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10));
+                    // and max date is set to the 60 days after
+                    gktGiftCardDatePicker.attr("max", new Date(new Date().getTime() + 60 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10));
 
                     // add all of these fields to a div
                     let gktGiftCardInputFieldsDiv = gkt.$("<div>").addClass("gktGiftCardInputFieldsDiv")
