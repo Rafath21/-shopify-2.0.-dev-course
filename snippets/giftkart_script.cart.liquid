@@ -559,23 +559,17 @@
                             gkt.utility.overWriteBuyNowBtn()
                         }
                         
-                        // if(gkt.state.page_type == "cart" && gkt.settings.freeGiftcardPopup.isFreeGiftcardPopupEnabled && gkt.state.freeGiftcardPopupModalTriggered != true ){
-                        //     let currentCartValueEligible = await gkt.utility.isCartTotalMoreThan(gkt.settings.freeGiftcardPopup.cartValue)
-                        //     if(!currentCartValueEligible  && gkt.$('.gktFreeGiftcardBuyMoreProductNotification').length == 0 && !gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown){
-                        //         const freeGiftcardPopupLanguage = gkt.settings.languageData.freeGiftcardPopup
-                        //         if(freeGiftcardPopupLanguage?.BuyMoreItemHeading.value && freeGiftcardPopupLanguage?.BuyMoreItemHeading.value != ""){
-                        //             let gktFreeGiftcardBuyMoreProductNotificationSubHeading = gkt.$('<div>').addClass("gktFreeGiftcardBuyMoreProductNotification")
-                        //                                                                       .html(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemSubHeading))
-                        //             gkt.gktNotification.f.addNotificationItemType1(gkt.utility.renderLanguageValue(freeGiftcardPopupLanguage.BuyMoreItemHeading), gktFreeGiftcardBuyMoreProductNotificationSubHeading, 100)
-                        //             gkt.state.gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown = true
+                        if( (gkt.state.page_type == "cart" || "product" === gkt.state.page_type) && 
+                            gkt.settings.freeGiftcardPopup.isFreeGiftcardPopupEnabled &&
+                            gkt.settings.freeGiftcardPopup.freeGiftcardProduct &&
+                            gkt.settings.freeGiftcardPopup.freeGiftcardProduct.length &&
+                            gkt.settings.freeGiftcardPopup.freeGiftcardProduct.length > 0
+                             ){ 
 
-                        //         }
-                               
-                        //     }
-                            
-                        //     // }
-                        // }
-                        
+                               await gkt.gktFreeGiftCardPopup.f.addFreeGiftcardProduct()
+                            }
+                             
+
                         isIntervalActive = false
 
                     }
@@ -709,7 +703,10 @@
                     return new Promise((res, rej) => {
                         gkt.$.post('/cart/add.js', data)
                             .done(function () { console.log("success-/cart/add.js': "); res(true) })
-                            .fail(function () { console.log("fail-/cart/add.js"); res(false) })
+                            .fail(function (e) { 
+                                console.log("fail-/cart/add.js", e); 
+                                res(false)
+                             })
                     })
                     return result;
                 } catch (error) {
@@ -2848,13 +2845,15 @@
                                     "Greeting Card Selected": greetingCardSelected? "yes" : null,
                                     "Video Recorded" : gkt.gktVideoMsg.state.uploadedVideoId ? "yes": null,
                                     "_Video Id": gkt.gktVideoMsg.state.uploadedVideoId,
-                                    "Send To Myself": isSendToSelfChecked
+                                    "_Send To Myself": isSendToSelfChecked
 
                                 }
                             }
                         ],
                     })
                     
+
+
                     window.location.href = gkt.settings.app.redirectUrlForSendGiftcardBtn
 
                     console.log("onMessageSubmit-clicked")
@@ -3502,6 +3501,128 @@
 
             },
             f:{
+                addFreeGiftcardProduct: async function(){
+                    gkt.state.freeGiftcardVariantId = undefined
+                    let currencySymbol = gkt.settings.merchantInfo?.currencyInfo?.symbol ? gkt.settings.merchantInfo.currencyInfo.symbol : ""
+                    if(gkt.settings.freeGiftcardPopup.freeGiftcardProduct[0]  && 
+                        gkt.settings.freeGiftcardPopup.freeGiftcardProduct[0].variants &&
+                        gkt.settings.freeGiftcardPopup.freeGiftcardProduct[0].variants.length > 0 && 
+                        gkt.settings.freeGiftcardPopup.freeGiftcardProduct[0].variants[0].variantId){
+                        gkt.state.freeGiftcardVariantId = gkt.settings.freeGiftcardPopup.freeGiftcardProduct[0].variants[0].variantId
+                    }
+
+                    if(gkt.state.freeGiftcardVariantId){
+                        gkt.state.cartData = await gkt.utility.getCart()
+                        let item  = gkt.utility.checkIfItemPresentInCart(gkt.state.freeGiftcardVariantId)
+                        let cartValue = 0
+                        if(gkt.state.cartData && gkt.state.cartData.total_price && ((gkt.state.cartData.total_price)/100)){
+                            cartValue = (gkt.state.cartData.total_price)/100
+                        }
+                        let freeGiftcardValue =  gkt.gktFreeGiftCardPopup.f.getFreeGiftcardValue(cartValue, gkt.settings.freeGiftcardPopup)
+                        let isProductConditionMet = gkt.gktFreeGiftCardPopup.f.isFreeGiftcardProductConditionMet(gkt.state.cartData, gkt.settings.freeGiftcardPopup);
+                        
+                        // if product conditions not met set free giftcard value to 0
+                        if(!isProductConditionMet){
+                            freeGiftcardValue = false
+                        }
+
+                        // remove giftcard from cart if freeGiftcardValue is zero
+                        if(freeGiftcardValue == false && item){
+                            await gkt.utility.updateCart({ updates: { [item.id]: 0 }})
+                            return 
+                        }
+
+                        if(cartValue && freeGiftcardValue){
+                            
+                            let itemObj = {"items": [
+                                                                {
+                                                                    "id": gkt.state.freeGiftcardVariantId,
+                                                                    "quantity": 1,
+                                                                    "properties": {
+                                                                        "Reward Value": currencySymbol + freeGiftcardValue
+
+                                                                    }
+                                                                }
+                                                            ]}
+                            if(gkt.settings.freeGiftcardPopup.giftcardMessageNote && gkt.settings.freeGiftcardPopup.giftcardMessageNote != ""){
+                                itemObj.items[0].properties["message"] = gkt.settings.freeGiftcardPopup.giftcardMessageNote
+                            }
+                            if(!item){
+                                let resAddToCart = await gkt.utility.addToCartV2(itemObj)
+                                
+                            }else{
+                                let rewardValue = currencySymbol + freeGiftcardValue
+                                if(item && item.properties && item.properties["Reward Value"] && item.properties["Reward Value"] != rewardValue){
+                                    await gkt.utility.updateCart({ updates: { [item.id]: 0 }})
+                                    let resAddToCart = await gkt.utility.addToCartV2(itemObj)
+
+                                }
+                            }
+                        }
+                    }
+
+                },
+                getFreeGiftcardValue: function (cartTotalPrice, freeGiftcardPopupData){
+                    try {
+                        let resValue = false 
+                        if(freeGiftcardPopupData?.rules?.length && freeGiftcardPopupData?.rules?.length > 0){
+                        for(let i = 0; i < freeGiftcardPopupData.rules.length; i++){
+                            let rule = freeGiftcardPopupData.rules[i]
+                            let cartValue = rule.cartValue 
+                            let freeGiftcardValue = rule.freeGiftcardValue
+                            if(parseFloat(cartTotalPrice) >= parseFloat(cartValue) && parseFloat(freeGiftcardValue) > 0){
+                            resValue = freeGiftcardValue
+                            }
+                        }
+                        }
+                        return resValue
+                    } catch (error) {
+                        console.log(error);
+                        return false
+
+                    }
+                },
+                isFreeGiftcardProductConditionMet: function (orderData, freeGiftcardPopupData) {
+                    try {
+
+                        let orderDataProducts =  orderData.items.map(item => item.product_id)
+                        let validProductSet = new Set()
+                        if(freeGiftcardPopupData?.products?.length && freeGiftcardPopupData?.products?.length > 0){
+                        for(let i = 0; i < freeGiftcardPopupData.products.length; i++){
+                            let product = freeGiftcardPopupData.products[i]
+                            validProductSet.add(parseInt(product.productId))
+                        }
+                        }
+                        if(freeGiftcardPopupData?.collectionsData?.length && freeGiftcardPopupData?.collectionsData?.length > 0){
+                        for(let i = 0; i < freeGiftcardPopupData.collectionsData.length; i++){
+                            let collectionProducts = freeGiftcardPopupData.collectionsData[i].productList
+                            if(collectionProducts?.length && collectionProducts?.length > 0){
+                            collectionProducts.forEach(product => {
+                                validProductSet.add(product.productId)
+                            })
+                            }
+                        }
+                        }
+                        
+                        if(validProductSet.size == 0){
+                        return true
+                        }
+                        for(let i = 0; i < orderDataProducts.length; i++){
+                        let product = orderDataProducts[i]
+                        if(validProductSet.has(product)){
+                            return  true
+                        }
+                        }
+
+                        return false
+
+                    } catch (error) {
+                        console.log(error);
+                        return false
+                    }
+                },
+
+                
                 showGiftCard: async function(settings,parent){
 
                     // let isFreeGiftcardPopupEnabled = true
