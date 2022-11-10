@@ -2682,7 +2682,7 @@
                     if (dateToCompare < today) {
                         return false
                     }
-                    else if (dateToCompare > new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)) {
+                    else if (dateToCompare > new Date(new Date().getTime() + 60 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)) {
                         return false
                     }
                     else {
@@ -3545,7 +3545,7 @@
                                                                 }
                                                             ]}
                             if(gkt.settings.freeGiftcardPopup.giftcardMessageNote && gkt.settings.freeGiftcardPopup.giftcardMessageNote != ""){
-                                itemObj.items[0].properties["message"] = gkt.settings.freeGiftcardPopup.giftcardMessageNote
+                                itemObj.items[0].properties["Message"] = gkt.settings.freeGiftcardPopup.giftcardMessageNote
                             }
                             if(!item){
                                 let resAddToCart = await gkt.utility.addToCartV2(itemObj)
