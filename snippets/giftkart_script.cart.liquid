@@ -3587,31 +3587,46 @@
 
                         let orderDataProducts =  orderData.items.map(item => item.product_id)
                         let validProductSet = new Set()
+                        let excludeProductSet = new Set()
                         if(freeGiftcardPopupData?.products?.length && freeGiftcardPopupData?.products?.length > 0){
-                        for(let i = 0; i < freeGiftcardPopupData.products.length; i++){
-                            let product = freeGiftcardPopupData.products[i]
-                            validProductSet.add(parseInt(product.productId))
-                        }
-                        }
-                        if(freeGiftcardPopupData?.collectionsData?.length && freeGiftcardPopupData?.collectionsData?.length > 0){
-                        for(let i = 0; i < freeGiftcardPopupData.collectionsData.length; i++){
-                            let collectionProducts = freeGiftcardPopupData.collectionsData[i].productList
-                            if(collectionProducts?.length && collectionProducts?.length > 0){
-                            collectionProducts.forEach(product => {
-                                validProductSet.add(product.productId)
-                            })
+                            for(let i = 0; i < freeGiftcardPopupData.products.length; i++){
+                                let product = freeGiftcardPopupData.products[i]
+                                validProductSet.add(parseInt(product.productId))
                             }
                         }
+                        if(freeGiftcardPopupData?.collectionsData?.length && freeGiftcardPopupData?.collectionsData?.length > 0){
+                            for(let i = 0; i < freeGiftcardPopupData.collectionsData.length; i++){
+                                let collectionProducts = freeGiftcardPopupData.collectionsData[i].productList
+                                if(collectionProducts?.length && collectionProducts?.length > 0){
+                                    collectionProducts.forEach(product => {
+                                        validProductSet.add(product.productId)
+                                    })
+                                }
+                            }
+                        }
+
+                        if(freeGiftcardPopupData?.excludeProducts?.length && freeGiftcardPopupData?.excludeProducts?.length > 0){
+                            for(let i = 0; i < freeGiftcardPopupData.excludeProducts.length; i++){
+                                let product = freeGiftcardPopupData.excludeProducts[i]
+                                excludeProductSet.add(parseInt(product.productId))
+                            }
                         }
                         
-                        if(validProductSet.size == 0){
-                        return true
+                        if(validProductSet.size == 0 && excludeProductSet.size == 0){
+                            return true
                         }
+
+                        
                         for(let i = 0; i < orderDataProducts.length; i++){
-                        let product = orderDataProducts[i]
-                        if(validProductSet.has(product)){
-                            return  true
-                        }
+                            let product = orderDataProducts[i]
+                            
+                            if(excludeProductSet.has(product)){
+                                return false
+                            }
+                            
+                            if(validProductSet.has(product)){
+                                return  true
+                            }
                         }
 
                         return false
