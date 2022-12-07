@@ -1268,7 +1268,7 @@ OLD .greetingCardCategoryListItem{
     padding:20px;
 }
 
-.gktVideoMsgCheckboxField{
+.gktVideoMsgCheckboxField,.gktVideoMessageFileInput{
     visibility:hidden;
 }
 
@@ -1525,7 +1525,7 @@ OLD .greetingCardCategoryListItem{
     height: 0;
   }
   
-.gktVideoMsgSlider {
+.gktVideoMsgSlider, .gktVideoMsgSlider_Mobile {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -1538,7 +1538,7 @@ OLD .greetingCardCategoryListItem{
     transition: .4s;
   }
   
- .gktVideoMsgSlider:before {
+ .gktVideoMsgSlider:before, .gktVideoMsgSlider_Mobile:before {
     position: absolute;
     content: "";
     height: 20px;
@@ -1551,11 +1551,13 @@ OLD .greetingCardCategoryListItem{
     transition: .4s;
   }
   
-   input:checked + .gktVideoMsgSlider {
+   input:checked + .gktVideoMsgSlider ,
+   input:checked + .gktVideoMsgSlider_Mobile{
     background-color: black;
   }
   
- input:checked + .gktVideoMsgSlider:before {
+ input:checked + .gktVideoMsgSlider:before,
+ input:checked + .gktVideoMsgSlider_Mobile:before {
     -webkit-transform: translateX(16px);
     -ms-transform: translateX(16px);
     
@@ -1581,11 +1583,13 @@ OLD .greetingCardCategoryListItem{
     background: #000000 0% 0% no-repeat padding-box;
   }
   /* Rounded sliders */
-  .slider.round, .gktVideoMsgSlider {
+  .slider.round, .gktVideoMsgSlider,
+  .slider.round, .gktVideoMsgSlider_Mobile {
     border-radius: 34px;
   }
   
-  .slider.round:before, .gktVideoMsgSlider:before {
+  .slider.round:before, .gktVideoMsgSlider:before ,
+  .slider.round:before, .gktVideoMsgSlider_Mobile:before {
     border-radius: 50%;
     border: 1px solid black;
   }
@@ -1599,6 +1603,9 @@ OLD .greetingCardCategoryListItem{
     position: unset;
 }
 
+.gktVideoMessageFileInput{
+    visibility: hidden;
+}
 
 /* The container */
 .gktGiftCardModalCheckboxContainer{
@@ -2373,6 +2380,7 @@ textarea.gktFreeGiftcardPopupTextArea{
     }
     .gktRecorder {
       min-height: 36vh;
+      min-height: 45vh;
     }
     .gktVideoPlayer,
   .gktVideoPlayerRecording{
@@ -2391,8 +2399,8 @@ textarea.gktFreeGiftcardPopupTextArea{
     .gktVideoPlayerControlsAcceptBtnImg,
     .gktVideoPlayerControlsPlayBtnImg,
     .gktVideoPlayerControlsReStartBtnImg {
-      height: 20px;
-      width: 20px;
+      height: 35px;
+      width: 35px;
     }
   }
 

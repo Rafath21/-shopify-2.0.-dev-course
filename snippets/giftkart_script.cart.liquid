@@ -909,6 +909,13 @@
                 },
             },
 
+            isMobileView: function () {
+                if (window.innerWidth < 768) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
         },
         storage: {
 
@@ -2444,39 +2451,86 @@
                     let gktGiftCardMessageDivider = gkt.$("<div>").addClass("gktGiftCardMessageDivider")
                     let gktVideoMsgCheckboxWrapper;
                     let gktVideoMsgCheckboxLabel;
-                    if(gkt.settings.videoMessage.isVideoMessagingEnabled){
-                        //gktVideoMsgButton  = gkt.$("<button>").addClass("gktVideoMsgButton").attr("type", "button").text(gkt.settings.languageData.videoMessage.sendVideoMessageText.value);
-                        gktVideoMsgButton  = gkt.$("<button>").addClass("gktVideoMsgButton").attr("type", "button").text("Video Msg");
-                        gktVideoMsgCheckboxLabel = gkt.$("<label>").addClass("gktVideoMsgCheckboxLabel").attr("for", "gktVideoMsgCheckbox").text(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.recordVideoLabel));
-                        // create a label with switch classname
-                        
-                        gkt.f.applyLabelCSS(gktVideoMsgCheckboxLabel)
-                        
-                        gktVideoMsgCheckboxWrapper = gkt.$("<label>").addClass("gktVideoMsgCheckboxWrapper").attr("for", "gktVideoMsg")
+                    if(gkt.settings.videoMessage.isVideoMessagingEnabled ){
+                           //gktVideoMsgButton  = gkt.$("<button>").addClass("gktVideoMsgButton").attr("type", "button").text(gkt.settings.languageData.videoMessage.sendVideoMessageText.value);
+                            gktVideoMsgButton  = gkt.$("<button>").addClass("gktVideoMsgButton").attr("type", "button").text("Video Msg");
+                            gktVideoMsgCheckboxLabel = gkt.$("<label>").addClass("gktVideoMsgCheckboxLabel").attr("for", "gktVideoMsgCheckbox").text(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.recordVideoLabel));
+                            // create a label with switch classname
+                            
+                            gkt.f.applyLabelCSS(gktVideoMsgCheckboxLabel)
+                            
+                            gktVideoMsgCheckboxWrapper = gkt.$("<label>").addClass("gktVideoMsgCheckboxWrapper").attr("for", "gktVideoMsg")
 
-                        //input which is type of checkbox
-                        let gktVideoMsgCheckboxField = gkt.$("<input>").addClass("gktVideoMsgCheckboxField").attr("type", "checkbox").attr("id", "gktVideoMsg");
-
-                        // a span which is round and slider css
-                        let gktVideoMsgSlider = gkt.$("<span>").addClass("gktVideoMsgSlider").attr("id", "gktVideoMsgSlider");
+                            //input which is type of checkbox
                         
-                        gktVideoMsgCheckboxField.on("change", function(event){
-                            if(gktVideoMsgCheckboxField.is(":checked")){
-                                console.log("it is checked");
-                                gkt.gktVideoMsg.actions.gktVideoMsgButton(event);
-                            }else{
-                                gktVideoMsgSlider.removeClass("gktVideoMsgSliderActive")
-                                gkt.gktVideoMsg.f.clickClose(event);
-                            }
-                        })
+                            let gktVideoMsgCheckboxField;
+
+                            // a span which is round and slider css
+                            let gktVideoMsgSlider = gkt.$("<span>").addClass("gktVideoMsgSlider").attr("id", "gktVideoMsgSlider");
+                            
+
+
+                            if(gkt.utility.isMobileView()){
+                                //create a checkbox and a dropzone to upload a video
+                                gktVideoMsgSlider = gkt.$("<span>").addClass("gktVideoMsgSlider_Mobile").attr("id", "gktVideoMsgSlider_Mobile");
+                                let gktVideoMessageFileInput = gkt.$("<input>").attr("type", "file").addClass("gktVideoMessageFileInput").attr("id", "gktVideoMessageFileInput").attr("capture", "user").attr("accept", "video/*");
+                                // gktVideoMsgCheckboxField = gktVideoMessageFileInput;
+                                gktVideoMsgCheckboxField = gkt.$("<input>").addClass("gktVideoMsgCheckboxField_Mobile").attr("type", "checkbox").attr("id", "gktVideoMsg_Mobile");
+
+                                gktVideoMsgSlider.on("click", function(){
+                                    gktVideoMsgCheckboxField.trigger("click")
+                                    if(gktVideoMsgCheckboxField.is(":checked")){
+                                        gktVideoMsgSlider.addClass("gktVideoMsgSliderActive")
+                                        gktVideoMessageFileInput.click();
+                                    }else{
+                                        gktVideoMsgSlider.removeClass("gktVideoMsgSliderActive")
+                                        gkt.gktVideoMsg.f.clickClose(event);
+                                    }
+                                })
+
+                                gktVideoMessageFileInput.on("change", async function({target}){
+                                    console.log("file input changed target", target)
+                                    if (target.files && target.files.length) {
+                                        try {
+                                            gkt.gktVideoMsg.f.prepareVideoMsgPlayer()
+
+                                            console.log("target.files[0]", target.files[0])
+                                            gkt.gktVideoMsg.state.recordedBlob = target.files[0];
+                                            gkt.gktVideoMsg.state.elements.gktVideoPlayerRecording.attr("src",URL.createObjectURL(gkt.gktVideoMsg.state.recordedBlob));
+                                            gkt.gktVideoMsg.state.elements.gktVideoPlayerRecording[0].load();
+                                            // await gkt.gktVideoMsg.f.covertBlobToBase64(target.files[0]); 
+                                            //do something with above data string 
+                                            gkt.$('.gktVideoMsgPlayerWrapper').css('display', 'grid')
+                                        } catch(error) {
+                                            //handle error
+                                            console.log(error,"error occured while uploading file")
+                                        }
+                                        }else{
+                                            gktVideoMsgSlider.removeClass("gktVideoMsgSliderActive")
+                                            gkt.$('.gktVideoMsgPlayerWrapper').css('display', 'none')
+                                        }
+                                    })                               
+                                //append gktVideoMessageFileInput to gktVideoMsgCheckboxWrapper
+                                gktVideoMessageFileInput.css("display", "none");
+                                gktVideoMsgCheckboxWrapper.append(gktVideoMessageFileInput);
+                         }else{
+                            gktVideoMsgCheckboxField = gkt.$("<input>").addClass("gktVideoMsgCheckboxField").attr("type", "checkbox").attr("id", "gktVideoMsg");
+                            gktVideoMsgCheckboxField.on("change", function(event){
+                                if(gktVideoMsgCheckboxField.is(":checked")){
+                                    console.log("it is checked");
+                                    gkt.gktVideoMsg.actions.gktVideoMsgButton(event);
+                                }else{
+                                    gktVideoMsgSlider.removeClass("gktVideoMsgSliderActive")
+                                    gkt.gktVideoMsg.f.clickClose(event);
+                                }
+                            })
+                        }
                         gktVideoMsgCheckboxWrapper.append(gktVideoMsgCheckboxField)
                         gktVideoMsgCheckboxWrapper.append(gktVideoMsgSlider)
-
                     }
                     // gktGiftCardMessageInputField and gktGiftCardMessageLabel are added to same parent div
                     let gktVideoMessageCheckboxRow = gkt.$("<div>").addClass("gktVideoMessageCheckboxRow")
                     gktVideoMessageCheckboxRow.append(gktVideoMsgCheckboxLabel).append(gktVideoMsgCheckboxWrapper)
-
                     let gktGiftCardMessageInputFieldsDiv = gkt.$("<div>").addClass("gktGiftCardMessageInputFieldsDiv")
                     gktGiftCardMessageInputFieldsDiv.append(gktGiftCardMessageLabel).append(gktGiftCardMessageInputField)
                     gktGiftCardModalBackButton = gkt.gktGiftCard.f.prepareBackButton(gkt.gktGiftCard.f.displayGiftCardDetailsForm);
@@ -2690,6 +2744,7 @@
                     }
                 },
                 performFormValidation : function (e){
+                    
                     // let gkGifttCardEmailValueIsValid = gkt.f.validateEmail(gkGifttCardEmailValue)
                     let gkGifttCardEmailValue = gkt.$(".gktGiftCardEmailInputField").val()
                     let gkGifttCardDateValue = gkt.$(".gktGiftCardDatePicker").val()
@@ -2822,7 +2877,7 @@
                         gkGifttCardFromValue = null;
                         gkGifttCardToValue = null;
                     }
-                    if(gkt.$(".gktVideoMsgCheckboxField").is(":checked")!=true){
+                    if(gkt.$(".gktVideoMsgCheckboxField").is(":checked")!=true && gkt.$(".gktVideoMsgCheckboxField_Mobile").is(":checked")!=true){
                         gkt.gktVideoMsg.state.uploadedVideoId = null;
                     }
                     //redirectUrlForSendGiftcardBtn includes cart keyword
@@ -3211,6 +3266,13 @@
                     gktRecorder.append(gktRecord)
                     gktRecorder.append(gktRecorded)
 
+                    if(gkt.$(".gktVideoMsgPlayerWrapper").length > 0){
+                        gkt.$(".gktVideoMsgPlayerWrapper").remove();
+                    }
+                    if(gkt.$(".gktRecorder").length > 0){
+                        gkt.$(".gktRecorder").remove();
+                    }
+
 
                     gkt.$(".gktGiftCardMessageContent").append(gktVideoMsgPlayerWrapper);
                     gkt.$(".gktVideoMsgPlayerWrapper").append(gktRecorder)
@@ -3267,7 +3329,10 @@
                     e.preventDefault();
                     gkt.$('.gktVideoMsgPlayerWrapper').css('display', 'none')
                     // gkt.gktVideoMsg.state.elements.gktRecorder.addClass("gktVideoPlayerHide");
-                    gkt.gktVideoMsg.f.stopRecording(gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].srcObject);
+                    if(gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].srcObject){
+                        gkt.gktVideoMsg.f.stopRecording(gkt.gktVideoMsg.state.elements.gktVideoPlayer[0].srcObject);
+                    }
+                    
                     gkt.gktVideoMsg.f.revokeObjectUrl();
                 },
                 stopRecording: function (stream) {
@@ -3387,10 +3452,11 @@
                     console.log(arrayBuffer);
 
                     var formData = new FormData();
-
+                    // gkt.settings.SERVER_URL = "https://dev.api.giftkart.app"
                     formData.append("upload_data", recordedBlob, "video.txt");
                     formData.append("shopName", gkt.settings.merchantInfo.shopName);
 
+                    console.time('Video upload Time');
                         fetch(gkt.settings.SERVER_URL+"/api/proxy/upload/video?shopName="+gkt.settings.merchantInfo.shopName,{
                             method: 'POST',
                             body: formData
@@ -3401,8 +3467,9 @@
                                 if(success.responseCode == 200){
                                     gkt.gktVideoMsg.state.uploadedVideoId = success.data.videoMsgId;
                                     console.log(success) // Handle the success response object
+                                    console.timeEnd('Video upload Time');
                                     gkt.gktVideoMsg.state.elements.gktUploadingVideoHeading.html(gkt.utility.renderLanguageValue(gkt.settings.languageData.videoMessage.uploadConfirmation));
-                                    //gkt.$('.gktVideoMsgPlayerWrapper').css('display', 'none')
+                                    gkt.$('.gktVideoMsgPlayerWrapper').css('display', 'grid')
                                     // Show feedback that it got uploaded
                                     // gkt.gktVideoMsg.state.elements.gktRecorder.addClass("gktVideoPlayerHide");
                                 }
@@ -3448,8 +3515,15 @@
                 },
                 clickReStart: function (e) {
                     e.preventDefault();
-                    gkt.gktVideoMsg.f.revokeObjectUrl()
-                    gkt.gktVideoMsg.f.createRecorder();
+                    if(gkt.utility.isMobileView()){
+                        // gktVideoMessageFileInput.click();
+                        // find this class in the document and trigger a click
+                        gkt.gktVideoMsg.f.revokeObjectUrl()
+                        gkt.$('.gktVideoMessageFileInput').click();
+                    }else{
+                        gkt.gktVideoMsg.f.revokeObjectUrl()
+                        gkt.gktVideoMsg.f.createRecorder();
+                    }
                 },
                 clickPlay: async function(e) {
                     e.preventDefault();
