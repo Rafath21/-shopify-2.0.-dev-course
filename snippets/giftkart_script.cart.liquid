@@ -1,208 +1,40 @@
 
 
-</div>
-<div class="gktModalWrapper" style="display:none;">
-    <div class="gktModal">
-        <div class="gktModalHeader">
-            <!-- <strong class="gktModalPopupHeading"> </strong> -->
-            <!-- <div class="gktModalClose"> &times; </div>   -->
-            <div class="gktModalClose">
-               
-            </div>
-        </div>
-        <div class="gktContentWrapper">
-            <div class="gktLeftContent">
-                <div class="gktJustifyCenter">
-                    <label class="gktCheckboxLayout">
-                        <input type="checkbox" checked="true" class="gktGiftMessageCheckbox">
-                        <div class="gktMessageCheckboxHeading">
-
-                        </div>
-                    </label>
-                </div>
-                <textarea class="gktMessageTextarea gktAlignCenter">
-
-                            </textarea>
-            </div>
-            <div class="gktRightContent">
-                <div class="gktJustifyCenter">
-                    <label class="gktCheckboxLayout">
-                        <input type="checkbox" checked="true" class="gktGiftWrapCheckbox">
-                        <div class="gktGiftWrapCheckboxHeading">
-
-                        </div>
-                    </label>
-                </div>
-                <img class="gktGiftWrapImage gktAlignCenter" loading="lazy">
-
-            </div>
-        </div>
-        <div class="gktModalFooter">
-            <div class="gktModalSave"></div>
-        </div>
-    </div>
-</div>
-</div>
-
-<!-- modal for combo -->
-</div>
-<div class="gktComboModalWrapper">
-    <div class="gktComboModal">
-        <div class="gktComboModalHeader">
-            <strong class="gktComboModalPopupHeading"> </strong>
-            <!-- <div class="gktModalClose"> &times; </div>   -->
-            <div class="gktComboModalClose">
-            </div>
-        </div>
-        <div class="gktComboContent">
-            <div class="gktComboContentHeader"></div>
-            <div class="gktComboContentFooter">
-                <div class="gktComboContentFooterBtn1"></div>
-                <div class="gktComboContentFooterBtn2"></div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="gktGiftCardModalWrapper">
-    <div class="gktGiftCardModal">
-        <div class="gktGiftCardModalHeader">
-            <strong class="gktGiftCardModalPopupHeading"> </strong>
-            <!-- <div class="gktModalClose"> &times; </div>   -->
-            <div class="gktGiftCardModalClose">
-            </div>
-        </div>
-        <div class="gktGiftCardContent">
-            
-            <div class="gktGiftCardContentHeader"></div>
-            <form>
-                <div class="gktGiftCardGreetingCardContent">
-                   
-                </div>
-                <div class="gktGiftCardDetailsContent"></div>
-                <div class="gktGiftCardMessageContent"></div>
-            </form>
-            <div class="gktGiftCardContentFooter">
-                <div class="gktGiftCardContentFooterBtn1"></div>
-            </div>
-        </div>
-
-    </div>
-</div>
-<div class="gktFreeGiftcardPopupModalWrapper">
-    <div class="gktFreeGiftcardPopupModal">
-    </div>
-</div>
-</div>
-<div class="gktNotificationWrapper"></div>
-
-<!-- <div class="gktVideoMsgPlayerWrapper"></div> -->
-
-<link rel="stylesheet" href="https://cdn.quilljs.com/1.2.6/quill.snow.css">
-
 {% render "giftkart_style" %}
 
 <script async>
-
-    {% render "giftkart_script_data" %}
-
-    let DEFAULT_addToCartBtnSelectors = 'input[name="add"], button[name="add"], form[action*="/cart/add"] input[type="submit"], form[action*="/cart/add"] button[type="submit"], form[action*="/cart/add"] button:not([type="button"]), form[action*="/cart/add"] .gkt__add-to-cart';
+    // import a file from 
+       let DEFAULT_addToCartBtnSelectors = 'input[name="add"], button[name="add"], form[action*="/cart/add"] input[type="submit"], form[action*="/cart/add"] button[type="submit"], form[action*="/cart/add"] button:not([type="button"]), form[action*="/cart/add"] .gkt__add-to-cart';
     let DEFAULT_checkoutBtnSelectors = 'button[name="checkout"], input[name="checkout"], form[action*="/cart"] a[href="/checkout"], a[href="/checkout"], form[action="/cart"] input[type="submit"][name="checkout"], form[action="/cart"] button[type="submit"][name="checkout"]';
     let DEFAULT_quantityBtnSelectors = '.ajaxcart__qty,quantity-input .quantity,.product-form__input, .product-form__quantity ';
     let DEFAULT_sideCartSelectors = '.cart-notification,cart-notification,.cart-notification-wrapper,#cart-notification, #CartDrawer, .drawer, .drawer-cover, .Drawer';
     let DEFAULT_buyNowBtn = '.shopify-payment-button__button, .shopify-payment-button__button--unbranded';
     let DEFAULT_cartForm = 'form[action="/cart"], form[action="/cart/"], form[action="cart"]';
     
-    var cart_settings = {
-        giftWrapProduct: {
-            productId: tmpCartSettings.productId,
-            productVairantID: tmpCartSettings.productVariantId,
-            giftWrapPrice: tmpCartSettings.giftWrapPrice,
-            giftWrapProductImage: tmpCartSettings.giftWrapImgUrl,
-            giftWrapShopifyImgUrl: tmpCartSettings.giftWrapShopifyImgUrl,
-            giftWrapHandle: tmpCartSettings.giftWrapHandle,
-            isGiftWrapEnabled: tmpCartSettings.isGiftWrap,
-            isVisibleOnCart: tmpCartSettings.isVisibleOnCart,
-            isVisibleOnAllProductPages: tmpCartSettings.isVisibleOnAllProductPages,
-            isVisibleOnSpecificProductPages: tmpCartSettings.isVisibleOnSpecificProductPages,
-            visibleOnSpecificProductPages: tmpCartSettings.visibleOnSpecificProductPages
-        },
-        giftMessage: tmpCartSettings.giftMessage || {},
-        popup: {
-            popupHeadingText: tmpCartSettings.popupHeadingText,
-            messageCheckboxHeading: tmpCartSettings.messageCheckboxHeading,
-            giftWrapCheckboxHeading: tmpCartSettings.giftWrapCheckboxHeading,
-            messageBoxplaceholder: tmpCartSettings.messageBoxplaceholder,
-            saveButtonBackgroundColor: tmpCartSettings.saveButtonBackgroundColor,
-            saveButtonTextColor: tmpCartSettings.saveButtonTextColor,
-            saveButtonText: tmpCartSettings.saveButtonText,
-            cartPopupBackgroundColor: tmpCartSettings.cartPopupBackgroundColor,
-            reloadOnCancelClick: tmpCartSettings.reloadOnCancelClick
-        },
-        giftingOptions: {
-            isGiftWrapEnabled: tmpCartSettings.isGiftWrap,
-            isGiftMessageEnabled: tmpCartSettings.isGiftField,
-            enabledGifiting: tmpCartSettings.enabledGifiting,
-            shopifyPageinnerHTML: tmpCartSettings.cartPageText
-        },
-        videoMessage: tmpCartSettings.videoMessageData,
-        pageWrapper: { cartPageText: tmpCartSettings.cartPageText },
 
-        combos: tmpCartSettings.combos || [],
-        oneClickUpsells: tmpCartSettings.oneClickUpsells || [],
-        giftCards: tmpCartSettings.giftCards || [],
-        greetingCards : tmpCartSettings.greetingCardData,
-        freeGiftcardPopup: tmpCartSettings.freeGiftcardPopup,
-        app: {
-            disableApp: tmpCartSettings.userData.customSettings.disableApp || false,
-            disableSideCart: tmpCartSettings.userData.customSettings.disableSideCart || false,
-            refreshProductPageOnGiftWrap: tmpCartSettings.userData.customSettings.refreshProductPageOnGiftWrap || false,
-            addToCartBtnSelectors: tmpCartSettings.userData.customSettings.addToCartBtnSelectors || DEFAULT_addToCartBtnSelectors,
-            checkoutBtnSelectors: tmpCartSettings.userData.customSettings.checkoutBtnSelectors || DEFAULT_checkoutBtnSelectors,
-            quantityBtnSelectors: tmpCartSettings.userData.customSettings.quantityBtnSelectors || DEFAULT_quantityBtnSelectors,
-            sideCartSelectors: tmpCartSettings.userData.customSettings.sideCartSelectors || DEFAULT_sideCartSelectors,
-            // cartDrawerSelectors: tmpCartSettings.userData.customSettings.cartDrawerSelectors || DEFAULT_cartDrawerSelectors,
-            // sideCartDrawerOverlay: tmpCartSettings.userData.customSettings.sideCartDrawerOverlay || DEFAULT_sideCartDrawerOverlay,
-            themeBackgroundColor : tmpCartSettings.userData.customSettings.themeBackgroundColor || "",
+    // window = this.window || {};
 
-            themeFontFamily: tmpCartSettings.userData.customSettings.themeFontFamily || "",
-            themeFontColor: tmpCartSettings.userData.customSettings.themeFontColor || "",
+    //  the below code is liquid code that we are using in our theme.liquid file
+    // how do i avoid compilation issues with js
 
-            themeButtonBackgroundColor: tmpCartSettings.userData.customSettings.themeButtonBackgroundColor || "",
-            themButtonTextColor: tmpCartSettings.userData.customSettings.themButtonTextColor || "",
-            themeButtonBorderColor: tmpCartSettings.userData.customSettings.themeButtonBorderColor || "",
-            themeButtonBoxShadow: tmpCartSettings.userData.customSettings.themeButtonBoxShadow || "",
-            //button font family
-            themeButtonFontFamily: tmpCartSettings.userData.customSettings.themeButtonFontFamily || "",
+    // let liquidValues = require('../snippets/shopify-liquid-values.liquid');
 
-            themeHeaderFontFamily: tmpCartSettings.userData.customSettings.themeHeaderFontFamily || "",
-            themeHeaderFontColor: tmpCartSettings.userData.customSettings.themeHeaderFontColor || "",
-
-            themeLabelFontColor: tmpCartSettings.userData.customSettings.themeLabelFontColor || "",
-            themeLabelFontFamily: tmpCartSettings.userData.customSettings.themeLabelFontFamily || "",
-            
-
-            buyNowBtn: tmpCartSettings.userData.customSettings.buyNowBtn || DEFAULT_buyNowBtn,
-            cartForm: tmpCartSettings.userData.customSettings.cartForm || DEFAULT_cartForm,
-            addAfterAddTocartBtn:tmpCartSettings.userData.customSettings.addAfterAddTocartBtn || false,
-            addAftercheckoutBtn: tmpCartSettings.userData.customSettings.addAftercheckoutBtn || false,
-            activeVariantCodes: tmpCartSettings.userData.customSettings.activeVariantCodes || "123456789",
-            customStyleForGiftcard: tmpCartSettings.userData.customSettings.customStyleForGiftcard || null,
-            redirectUrlForSendGiftcardBtn: tmpCartSettings.userData.customSettings.redirectUrlForSendGiftcardBtn ?  window.location.origin + tmpCartSettings.userData.customSettings.redirectUrlForSendGiftcardBtn :  window.location.origin +  "/cart/checkout" ,
-        },
-        merchantInfo: tmpCartSettings.userData,
-        languageData: tmpCartSettings.languageData,
-        SERVER_URL: tmpCartSettings.SERVER_URL
-    }
-
-    let shopifyLiquidValues = {
-        product: { handle: {{ product.handle | json }} },
-        selected_or_first_available_variant: {{ product.selected_or_first_available_variant | json }},
+    //initialze liquid values 
+    // check if window.shopifyLiquidValues EXISTS , if not then 
+     
+    if(!window.shopifyLiquidValues){
+        let shopifyLiquidValues = {
+            product: { handle: {{ product.handle | json }} },
+            selected_or_first_available_variant: {{ product.selected_or_first_available_variant | json }},
         }
+    
+        window.shopifyLiquidValues = shopifyLiquidValues;
+    }
+    
 
+    // {liquidValues}
+    // // liquidValues 
+   
     var gktUtils = {
         f: {}
     }
@@ -264,29 +96,198 @@
                 CRAFT_THEME: 1368,
             }
         },
-        settings: cart_settings, //object from function
-        selectors: {
-            addToCart: cart_settings.app.addToCartBtnSelectors,
-            checkoutBtn: cart_settings.app.checkoutBtnSelectors,
-            sideCartSelectors: cart_settings.app.sideCartSelectors,
-            buyNowBtn: cart_settings.app.buyNowBtn,
-            cartForm: cart_settings.app.cartForm,
-            productPageWrapperV2: '.gktProductPageWrapperV2',
-            cartPageWrapperV2: '.gktCartPageWrapperV2',
-            quantityBtnSelectors : cart_settings.app.quantityBtnSelectors,
-        },
         cartInterval: "",
         productinterval: "",
         f: {
 
             bootstrap: function (settings) {
                 console.log("bootstap?");
+                gkt.f.initDOM(settings);
                 gkt.f.initThemeCSS(settings);
                 gkt.f.globalListener(settings)
                 // gkt.gktGiftMsgAndWrap.init(settings);
                 gkt.storage.loadValuesFromStorage(gkt.settings);
                 gkt.themeSpecificCode.init(gkt.settings)
             },
+            initDOM: function (settings) {
+                console.log("initDOM?");
+                // gkt.$ = jQuery;
+                gkt.$(document).ready(function () {
+                    gkt.f.initDOMElements(settings);
+                    // gkt.f.initDOMEvents(settings);
+                });
+            },
+            initDOMElements: function (settings) {
+                //insert the string skeletonDOM as html
+                const skeletonDOM = gkt.$.parseHTML('</div> <div class="gktModalWrapper" style="display:none;"> <div class="gktModal"> <div class="gktModalHeader"> <!-- <strong class="gktModalPopupHeading"> </strong> --> <!-- <div class="gktModalClose"> &times; </div> --> <div class="gktModalClose"> </div> </div> <div class="gktContentWrapper"> <div class="gktLeftContent"> <div class="gktJustifyCenter"> <label class="gktCheckboxLayout"> <input type="checkbox" checked="true" class="gktGiftMessageCheckbox"> <div class="gktMessageCheckboxHeading"> </div> </label> </div> <textarea class="gktMessageTextarea gktAlignCenter"> </textarea> </div> <div class="gktRightContent"> <div class="gktJustifyCenter"> <label class="gktCheckboxLayout"> <input type="checkbox" checked="true" class="gktGiftWrapCheckbox"> <div class="gktGiftWrapCheckboxHeading"> </div> </label> </div> <img class="gktGiftWrapImage gktAlignCenter" loading="lazy"> </div> </div> <div class="gktModalFooter"> <div class="gktModalSave"></div> </div> </div> </div> </div> <!-- modal for combo --> </div> <div class="gktComboModalWrapper"> <div class="gktComboModal"> <div class="gktComboModalHeader"> <strong class="gktComboModalPopupHeading"> </strong> <!-- <div class="gktModalClose"> &times; </div> --> <div class="gktComboModalClose"> </div> </div> <div class="gktComboContent"> <div class="gktComboContentHeader"></div> <div class="gktComboContentFooter"> <div class="gktComboContentFooterBtn1"></div> <div class="gktComboContentFooterBtn2"></div> </div> </div> </div> </div> </div> </div> <div class="gktGiftCardModalWrapper"> <div class="gktGiftCardModal"> <div class="gktGiftCardModalHeader"> <strong class="gktGiftCardModalPopupHeading"> </strong> <!-- <div class="gktModalClose"> &times; </div> --> <div class="gktGiftCardModalClose"> </div> </div> <div class="gktGiftCardContent"> <div class="gktGiftCardContentHeader"></div> <form> <div class="gktGiftCardGreetingCardContent"> </div> <div class="gktGiftCardDetailsContent"></div> <div class="gktGiftCardMessageContent"></div> </form> <div class="gktGiftCardContentFooter"> <div class="gktGiftCardContentFooterBtn1"></div> </div> </div> </div> </div> <div class="gktFreeGiftcardPopupModalWrapper"> <div class="gktFreeGiftcardPopupModal"> </div> </div> </div> <div class="gktNotificationWrapper"></div> <!-- <div class="gktVideoMsgPlayerWrapper"></div> -->')
+                gkt.$("body").append(skeletonDOM);
+                // gkt.elements.productPageWrapperV2.append(skeletonDOM);
+                // gkt.elements.cartPageWrapperV2.append(skeletonDOM);
+
+                //attach a link to the body
+                gkt.$("body").append('<link rel="stylesheet" href="https://cdn.quilljs.com/1.2.6/quill.snow.css">');
+            },
+            getSettings: async function () {
+                    //promise
+                    console.log("GET setting of giftkart fired")
+                    return new Promise(function (resolve, reject) {
+					    //  fetch("https://gkt101.pagekite.me/api/cartSettings/get?shopName=abhishek-devlopment-store.myshopify.com",{
+						// fetch("https://gkt104.pagekite.me/api/cartSettings/get?shopName=staging-testing-107.myshopify.com",{
+						// fetch("https://gkt103.pagekite.me/api/cartSettings/get?shopName=rafaths-dev-store.myshopify.com",{
+						// fetch("https://zurakite.pagekite.me/api/cartSettings/get?shopName=rafaths-dev-store.myshopify.com",
+                        // fetch("https://gkt102.pagekite.me/api/proxy/get?shopName=ashfaq-may-store.myshopify.com",{
+
+                        // fetch("/apps/gwm/get",{
+                        fetch("/apps/gkt/getTmpCartSettings",{
+                        method: 'GET',
+                        }).then(
+                            response => response.json() // if the response is a JSON object
+                        ).then(
+                            success => {
+                                if(success.responseCode == 200){
+                                    console.log("success-data", success.data);
+                                }
+                                resolve(success.data);
+                            }
+                        ).catch(error => {
+                            console.log(error) // Handle the error response object
+                            console.log("fetching from s3")
+                            gkt.f.getSettingsFromS3().then(
+                                success => {
+                                    resolve(success);
+                                }
+                            ).catch(error => {
+                                console.log(error) // Handle the error response object
+                                reject(error)
+                            })
+                        });
+
+                    })
+                    
+                },
+            setSelectors:  function(){
+                    let settings =  gkt.settings
+                    gkt.selectors = {
+                        addToCart: settings.app.addToCartBtnSelectors,
+                        checkoutBtn: settings.app.checkoutBtnSelectors,
+                        sideCartSelectors: settings.app.sideCartSelectors,
+                        buyNowBtn: settings.app.buyNowBtn,
+                        cartForm: settings.app.cartForm,
+                        productPageWrapperV2: '.gktProductPageWrapperV2',
+                        cartPageWrapperV2: '.gktCartPageWrapperV2',
+                        quantityBtnSelectors : settings.app.quantityBtnSelectors,
+                    }
+                },
+            getSettingsFromS3: async function () {
+                    //promise
+                    let shopName = window.Shopify.shop
+                    console.log("GET setting of giftlab pro fired")
+                    return new Promise(function (resolve, reject) {
+					    fetch("https://giftkart-staging.s3.us-east-2.amazonaws.com/tempCartSettings/"+shopName+".json",{
+                            method: 'GET',
+                            }).then(
+                                response => response.json() // if the response is a JSON object
+                            ).then(
+                                success => {
+                                    if(success.responseCode == 200){
+                                        console.log("success-data", success);
+                                    }
+                                    resolve(success);
+                                }
+                            ).catch(error => {
+                                console.log(error) // Handle the error response object
+                                reject(error)
+                                })
+                            })
+            },
+            setSettings: function(tmpCartSettings){
+                var cart_settings = {
+                    giftWrapProduct: {
+                        productId: tmpCartSettings.productId,
+                        productVairantID: tmpCartSettings.productVariantId,
+                        giftWrapPrice: tmpCartSettings.giftWrapPrice,
+                        giftWrapProductImage: tmpCartSettings.giftWrapImgUrl,
+                        giftWrapShopifyImgUrl: tmpCartSettings.giftWrapShopifyImgUrl,
+                        giftWrapHandle: tmpCartSettings.giftWrapHandle,
+                        isGiftWrapEnabled: tmpCartSettings.isGiftWrap,
+                        isVisibleOnCart: tmpCartSettings.isVisibleOnCart,
+                        isVisibleOnAllProductPages: tmpCartSettings.isVisibleOnAllProductPages,
+                        isVisibleOnSpecificProductPages: tmpCartSettings.isVisibleOnSpecificProductPages,
+                        visibleOnSpecificProductPages: tmpCartSettings.visibleOnSpecificProductPages
+                    },
+                    giftMessage: tmpCartSettings.giftMessage || {},
+                    popup: {
+                        popupHeadingText: tmpCartSettings.popupHeadingText,
+                        messageCheckboxHeading: tmpCartSettings.messageCheckboxHeading,
+                        giftWrapCheckboxHeading: tmpCartSettings.giftWrapCheckboxHeading,
+                        messageBoxplaceholder: tmpCartSettings.messageBoxplaceholder,
+                        saveButtonBackgroundColor: tmpCartSettings.saveButtonBackgroundColor,
+                        saveButtonTextColor: tmpCartSettings.saveButtonTextColor,
+                        saveButtonText: tmpCartSettings.saveButtonText,
+                        cartPopupBackgroundColor: tmpCartSettings.cartPopupBackgroundColor,
+                        reloadOnCancelClick: tmpCartSettings.reloadOnCancelClick
+                    },
+                    giftingOptions: {
+                        isGiftWrapEnabled: tmpCartSettings.isGiftWrap,
+                        isGiftMessageEnabled: tmpCartSettings.isGiftField,
+                        enabledGifiting: tmpCartSettings.enabledGifiting,
+                        shopifyPageinnerHTML: tmpCartSettings.cartPageText
+                    },
+                    videoMessage: tmpCartSettings.videoMessageData,
+                    pageWrapper: { cartPageText: tmpCartSettings.cartPageText },
+
+                    combos: tmpCartSettings.combos || [],
+                    oneClickUpsells: tmpCartSettings.oneClickUpsells || [],
+                    giftCards: tmpCartSettings.giftCards || [],
+                    greetingCards : tmpCartSettings.greetingCardData,
+                    freeGiftcardPopup: tmpCartSettings.freeGiftcardPopup,
+                    app: {
+                        disableApp: tmpCartSettings.userData.customSettings.disableApp || false,
+                        disableSideCart: tmpCartSettings.userData.customSettings.disableSideCart || false,
+                        refreshProductPageOnGiftWrap: tmpCartSettings.userData.customSettings.refreshProductPageOnGiftWrap || false,
+                        addToCartBtnSelectors: tmpCartSettings.userData.customSettings.addToCartBtnSelectors || DEFAULT_addToCartBtnSelectors,
+                        checkoutBtnSelectors: tmpCartSettings.userData.customSettings.checkoutBtnSelectors || DEFAULT_checkoutBtnSelectors,
+                        quantityBtnSelectors: tmpCartSettings.userData.customSettings.quantityBtnSelectors || DEFAULT_quantityBtnSelectors,
+                        sideCartSelectors: tmpCartSettings.userData.customSettings.sideCartSelectors || DEFAULT_sideCartSelectors,
+                        // cartDrawerSelectors: tmpCartSettings.userData.customSettings.cartDrawerSelectors || DEFAULT_cartDrawerSelectors,
+                        // sideCartDrawerOverlay: tmpCartSettings.userData.customSettings.sideCartDrawerOverlay || DEFAULT_sideCartDrawerOverlay,
+                        themeBackgroundColor : tmpCartSettings.userData.customSettings.themeBackgroundColor || "",
+
+                        themeFontFamily: tmpCartSettings.userData.customSettings.themeFontFamily || "",
+                        themeFontColor: tmpCartSettings.userData.customSettings.themeFontColor || "",
+
+                        themeButtonBackgroundColor: tmpCartSettings.userData.customSettings.themeButtonBackgroundColor || "",
+                        themButtonTextColor: tmpCartSettings.userData.customSettings.themButtonTextColor || "",
+                        themeButtonBorderColor: tmpCartSettings.userData.customSettings.themeButtonBorderColor || "",
+                        themeButtonBoxShadow: tmpCartSettings.userData.customSettings.themeButtonBoxShadow || "",
+                        //button font family
+                        themeButtonFontFamily: tmpCartSettings.userData.customSettings.themeButtonFontFamily || "",
+
+                        themeHeaderFontFamily: tmpCartSettings.userData.customSettings.themeHeaderFontFamily || "",
+                        themeHeaderFontColor: tmpCartSettings.userData.customSettings.themeHeaderFontColor || "",
+
+                        themeLabelFontColor: tmpCartSettings.userData.customSettings.themeLabelFontColor || "",
+                        themeLabelFontFamily: tmpCartSettings.userData.customSettings.themeLabelFontFamily || "",
+                        
+
+                        buyNowBtn: tmpCartSettings.userData.customSettings.buyNowBtn || DEFAULT_buyNowBtn,
+                        cartForm: tmpCartSettings.userData.customSettings.cartForm || DEFAULT_cartForm,
+                        addAfterAddTocartBtn:tmpCartSettings.userData.customSettings.addAfterAddTocartBtn || false,
+                        addAftercheckoutBtn: tmpCartSettings.userData.customSettings.addAftercheckoutBtn || false,
+                        activeVariantCodes: tmpCartSettings.userData.customSettings.activeVariantCodes || "123456789",
+                        customStyleForGiftcard: tmpCartSettings.userData.customSettings.customStyleForGiftcard || null,
+                        redirectUrlForSendGiftcardBtn: tmpCartSettings.userData.customSettings.redirectUrlForSendGiftcardBtn ?  window.location.origin + tmpCartSettings.userData.customSettings.redirectUrlForSendGiftcardBtn :  window.location.origin +  "/cart/checkout" ,
+                    },
+                    merchantInfo: tmpCartSettings.userData,
+                    languageData: tmpCartSettings.languageData,
+                    SERVER_URL: tmpCartSettings.SERVER_URL
+                }
+
+                gkt.settings = cart_settings;
+                console.log("settings assigned")
+
+            },
+
             initThemeCSS: function (){
                 console.log("initThemeCSS?",gkt.selectors.addToCart);
                 let  addToCartBtnEle =  gkt.$(document).find(gkt.selectors.addToCart)
@@ -356,7 +357,7 @@
             },
             getProductPageHandle: function () {
                 if ("product" === gkt.state.page_type && shopifyLiquidValues.product.handle) {
-                    // let pattern = /(?<=\/products\/)((?!\?|\$).)+/g
+                    // let pattern = /(?<=\\/products\\/)((?!\\?|\\$).)+/g
                     // if(window && window.location && window.location.href){
                     //     return window.location.href.match(pattern)[0]
                     // }
@@ -485,8 +486,11 @@
                 }
             },
 
-            initialize: function (jQuery) {
+            initialize: async function (jQuery) {
                 //  gkt.$.ajaxSetup({global: true});
+                let tmpCartSettings =  await gkt.f.getSettings();
+                gkt.f.setSettings(tmpCartSettings)
+                gkt.f.setSelectors();
                 gkt.state.page_type = gkt.f.getPageType();
                 gkt.elements = gkt.f.getElements(gkt.settings);
                 if ("" === gkt.state.page_type) return false;
@@ -4008,5 +4012,9 @@
             gkt.f.initialize(gkt.$);
         })
     })
+
+
+
+
 
 </script>

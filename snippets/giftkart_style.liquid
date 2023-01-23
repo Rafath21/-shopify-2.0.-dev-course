@@ -1,589 +1,5 @@
-
 <style>
-    .openGiftKartModal {
-        vertical-align: middle;
-    }
 
-    #other {
-        text-align: right;
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .header__inline h1,
-    .header__inline h2,
-    .header__inline h3,
-    .header__inline h4,
-    .header__inline h5,
-    .header__inline h6,
-    .header__inline p {
-        display: inline;
-    }
-
-
-    .GiftKartModalbtn:hover,
-    .gktModalSave:hover {
-        transform: scale(0.95);
-    }
-
-
-    .GiftKartContainer {
-        display: none;
-        width: 100%;
-        height: 100vh;
-        position: fixed;
-        opacity: 1;
-        background: #222;
-        z-index: 999999999;
-        top: 0;
-        left: 0;
-        overflow: hidden;
-        animation-name: fadeIn_Container;
-        animation-duration: 1s
-    }
-
-    .GiftKartModal {
-        display: none;
-        top: 0;
-        min-width: 250px;
-        width: 50vw !important;
-        margin: 0 auto;
-        margin-top: 25vh !important;
-        z-index: 9999999999;
-        background: #fff;
-        box-shadow: 0 0 10px #000;
-        animation-name: fadeIn_Modal;
-        animation-duration: .8s;
-    }
-
-    .GiftKartheader {
-        padding: 5px 10px;
-        width: 100%;
-        height: 70px;
-        border-radius: 10px 10px 0 0;
-        border-bottom: 2px solid #ccc
-    }
-
-    .GiftKartheader a {
-        text-decoration: none;
-        float: right;
-        line-height: 70px;
-        margin-right: 20px;
-        color: #aaa
-    }
-
-    .GiftKartcontent {
-        width: 100%;
-    }
-
-    #first_label {
-        padding-top: 30px
-    }
-
-    #second_label {
-        padding-top: 25px
-    }
-
-    .GiftKartfooter,
-    .gktModalFooter {
-        padding: 13px 10px;
-        text-align: right;
-        width: 100%;
-
-    }
-
-
-
-
-    @media screen and (max-width: 900px) {
-        .GiftKartModalContent-left {
-            display: none;
-        }
-
-        .GiftKartModalContent {
-            grid-template-columns: 1fr !important;
-        }
-
-        .GiftKartModalContent-right-giftingOptions {
-            font-size: 15px !important;
-        }
-    }
-
-    @keyframes fadeIn_Modal {
-        from {
-            opacity: 0
-        }
-
-        to {
-            opacity: 1
-        }
-    }
-
-    @keyframes fadeIn_Container {
-        from {
-            opacity: 0
-        }
-
-        to {
-            opacity: .9
-        }
-    }
-
-    #is-a-gift {
-        margin: 0px;
-        padding: 10px;
-    }
-
-    #giftnote,
-    .gktMessageTextarea {
-        color: #636363;
-        border: 1px solid #ccc;
-        width: 100%;
-        border-radius: 5px;
-        height: 200px;
-        padding: 10px;
-        margin-top: 5px;
-        resize: none;
-        font-size: 14px !important;
-    }
-
-    .giftnote-giftKart {
-        border: 1px solid black !important;
-        border-radius: 0px !important;
-    }
-
-    .giftnote-giftKart:focus {
-        outline: 0;
-    }
-
-    .GiftKartModalContent {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1;
-    }
-
-    .GiftKartModalContent-right {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 30px 50px;
-    }
-
-    .GiftKartModalContent-right-closeButton,
-    .gktModalClose {
-        fill: rgba(255, 255, 255, 0.851);
-        background: rgba(32, 33, 36, 0.1);
-        -webkit-border-radius: 50%;
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        padding: 1px;
-        align-self: baseline;
-        justify-self: end;
-        margin-top: 3px;
-        margin-right: 3px;
-        cursor: pointer;
-    }
-
-    .GiftKartModalContent-right-header {
-        align-self: center;
-        justify-self: center;
-        font-weight: 1000;
-    }
-
-    .GiftKartModalContent-right-giftingOptions {
-        font-size: 20px;
-        padding: 10px;
-    }
-
-    .GiftKartModalContent-right-footer {
-        margin: 15px 20px;
-        display: grid;
-        align-items: center;
-    }
-
-    .GiftKartModalbtn,
-    .gktModalSave {
-        cursor: pointer;
-        padding: 6px 12px;
-        font-weight: 500;
-        text-align: center;
-        background-color: #A96668;
-        color: white;
-        transition: transform .2s;
-        margin: 0 20%;
-    }
-
-    .ql-size-small {
-        font-size: 11px;
-    }
-
-    .ql-size-large {
-        font-size: 26px;
-    }
-
-    .ql-size-huge {
-        font-size: 36px;
-    }
-
-    .gktModalWrapper {
-
-        display: none;
-        width: 100%;
-        height: 100vh;
-        position: fixed;
-        opacity: 1;
-        background: #222;
-        z-index: 999999999;
-        top: 0;
-        left: 0;
-        overflow: hidden;
-        animation-name: fadeIn_Container;
-        animation-duration: 1s
-    }
-
-    /* Modal Content */
-    .gktModal {
-
-        position: fixed;
-        top: 25%;
-        left: 50%;
-        min-width: 250px;
-        width: 50vw !important;
-        margin: 10px auto;
-        padding: 10px;
-        margin-top: 25vh !important;
-        border-radius: 2%;
-        background: #fefefe;
-        box-shadow: 0 0 10px #000;
-        animation-name: fadeIn_Modal;
-        animation-duration: .8s;
-
-        transform: translate(-50%, -50%);
-    }
-
-
-
-
-    .gktModalClose:hover,
-    .gktModalClose:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-
-
-    .gktPageWrapper {
-        display: grid;
-        grid-template-columns: 1fr;
-        cursor: pointer !important;
-        /* padding: 0px 10px; */
-    }
-
-
-    .gktPageWrapperV2 {
-        display: grid;
-        grid-template-columns: 1fr;
-        cursor: pointer !important;
-      
-    }
-
-    .gktProductPageUpsellWrapper {
-        display: none;
-        width: 100%
-    }
-
-    .gktComboWrapper {
-        display: none;
-        ,
-        width: 100%
-    }
-
-    .gktGiftMessageWrapper {
-        display: none;
-        width: 100%
-    }
-
-    .gktGiftMsgAndWrapWrapper {
-        display: none;
-        width: 100%
-    }
-
-
-    .gktCartUpsellWrapper {
-        display: none;
-        width: 100%
-    }
-
-
-
-    .gktCartGiftMessageWrapper {
-        display: none;
-        width: 100%
-    }
-
-    .gktCartGiftMsgAndWrapWrapper {
-        display: none;
-        width: 100%
-    }
-
-    .gktGiftMessageWrapper {
-        display: none;
-        width: 100%
-    }
-
-    .gktCartGiftMessageWrapper {
-        display: none;
-        width: 100%
-    }
-
-
-    .gktPageWrapper input {
-        display: inline-block;
-    }
-
-    .gktPageWrapper label {
-        margin-left: 1px;
-    }
-
-    .giftCartPageWrapper {
-        display: grid;
-        grid-template-columns: 25px 4fr;
-        align-items: baseline;
-        justify-items: start;
-    }
-
-
-
-    .gktModalHeader {
-        padding: 10px;
-    }
-
-    .gktContentWrapper {
-        display: grid;
-    }
-
-    .gktGridLayout {
-        /* is attached dynamically to gktContentWrapper*/
-        grid-template-columns: 1fr 1fr;
-    }
-
-    /*.gktLeftContent and gktRightContent */
-    .gktContentWrapper>div {
-        display: grid;
-        grid-template-rows: 1fr 3fr;
-        grid-gap: 10px;
-        padding: 5px 10px;
-        margin: 5px 10px;
-        font-size: 30px;
-    }
-
-    .gktContentWrapper>div:empty {
-        display: none;
-    }
-
-    .gktMessageCheckboxHeading,
-    .gktWrapCheckboxHeading {
-        font-size: 20px !important;
-    }
-
-    .gktModalFooter {
-        text-align: center;
-    }
-
-
-
-    /* Header should be in one line*/
-    .gktModalHeader {
-        display: grid;
-        grid-template-columns: auto 25px;
-    }
-
-
-    .gktProductPageWrapper {
-        position: relative;
-        justify-items: start;
-        align-items: end;
-    }
-
-    .gktJustifyCenter {
-        justify-self: center;
-        align-self: center;
-    }
-
-    .gktGiftWrapImage {
-        width: 200px;
-        height: 200px;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        justify-self: center;
-        object-fit: cover;
-    }
-
-
-    .gktCartGiftMsgAndWrapHeader {
-        display: grid;
-        justify-items: left;
-        padding: 3px 0px;
-        margin: 3px 0px;
-
-    }
-
-    .gktGiftMsgAndWrapHeader {
-        display: grid;
-        justify-items: left;
-        padding: 3px 0px;
-        margin: 3px 0px;
-    }
-
-    .gktGiftMsgAndWrapWrapperInnerEle {
-        display: grid !important;
-        grid-template-columns: 25px auto;
-        align-items: center;
-        justify-items: center;
-        user-select: none;
-    }
-
-    .gktGiftMsgAndWrapWrapperInnerEle p {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-
-    .gktGiftMsgAndWrapHeader>label {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .gktCartGiftMsgAndWrapHeader>label {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .gift-checkbox-giftKart {
-        align-self: center;
-        justify-self: center;
-    }
-
-    .gktCheckboxLayout {
-        display: grid !important;
-        grid-template-columns: 25px auto;
-        font-size: 20px;
-        align-items: center;
-    }
-
-    .gktMessageCheckboxHeading>p,
-    .gktModalPopupHeading>p,
-    .gktGiftWrapCheckboxHeading>p {
-        margin: 0 !important;
-    }
-
-    .gktAlignCenter {
-        align-self: center;
-    }
-
-    @media screen and (max-width: 900px) {
-        .gktGridLayout {
-            grid-template-columns: 1fr;
-        }
-
-        .gktContentWrapper>div {
-            grid-template-rows: 1fr !important;
-        }
-
-        .gktLeftContent {
-            grid-template-rows: 1fr 1fr !important;
-        }
-
-        .gktMessageTextarea {
-            width: 100% !important;
-            height: 100px !important;
-        }
-
-        .gktModal {
-            top: 10% !important;
-
-        }
-
-        .gktDisplayWrapImageOnPhone {
-            display: block !important;
-        }
-
-        .gktModal {
-            width: 95vw !important;
-        }
-
-        .gktModalWrapper p,
-        .gktModal p {
-            font-size: 20px !important;
-        }
-
-    }
-
-    .ql-font-arial {
-        font-family: 'Arial';
-    }
-
-    .ql-font-times-new-roman {
-        font-family: 'Times New Roman';
-    }
-
-    .ql-font-courier-new {
-        font-family: 'Courier New';
-    }
-
-    .ql-font-comic-sans-ms {
-        font-family: 'Comic Sans MS';
-    }
-
-    .ql-font-impact {
-        font-family: 'Impact';
-    }
-
-    .ql-font-lucida-console {
-        font-family: 'Lucida Console';
-    }
-
-    .ql-font-lucida-sans-unicode {
-        font-family: 'Lucida Sans Unicode';
-    }
-
-    .ql-font-tahoma {
-        font-family: 'Tahoma';
-    }
-
-    .ql-font-verdana {
-        font-family: 'Verdana';
-    }
-
-    .ql-font-helvetica {
-        font-family: 'Helvetica';
-    }
-
-    .ql-font-trebuchet-ms {
-        font-family: 'Trebuchet MS';
-    }
-
-    .ql-font-georgia {
-        font-family: 'Georgia';
-    }
-
-    .ql-font-garamond {
-        font-family: 'Garamond';
-    }
-
-    .ql-font-brush-script-mt {
-        font-family: 'Brush Script MT';
-    }
-
-    .loadingCheckoutPage{
-        display:flex;
-        align-items:center;
-        justify-content: center;
-        opacity:0.5;
-        }
-</style>
-<style>
 
 .gktComboContainer {
    display:  grid;
@@ -790,133 +206,186 @@
 
 }
 
-</style>
-<style>
 
-.gktOneClickUpsellContainer {
-   display:  grid;
-   grid-template-columns: 1fr;
-   grid-template-rows: auto;
-   padding: 5px 0px;
-}
 
-.gktOneClickUpsellItemContainer{
-    display:  grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    padding: 3px 0px;
-    margin: 3px 0px;
-    border-radius: 3px;
-    font-size: 14px;
-}
-
-.gktOneClickUpsellItemContainer label {
-  margin-bottom: 0px
-}
-
-.gktOneClickUpsellItemContainerLabelText{
-  align-self: center;
-  font-size:12px;
-  justify-self: left;
-  text-align: left;
-}
-.gktOneClickUpsellImage{
-   width: 40px;
-    height: 40px;
-    border: 1px solid #f1f2f3;
-}
-.gktOneClickUpsellItemContainerItem1{
-    grid-row: 1 / 5;
-}
-
-.gktOneClickUpsellItemContainerItem2{
-    
-}
-
-.gktOneClickUpsellItemContainerItem3{
-    position: relative;
-    display: flex;
-    width: fit-content;
-    height: 30px;
-    border-radius: 4px;
+.gktFreeGiftcardPopupModalWrapper {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    opacity: 1;
+    background: #e1d8d882;
+    z-index: 999999999;
+    top: 0;
+    left: 0;
     overflow: hidden;
+    animation-name: fadeIn_Container;
+    animation-duration: .2s
+    display: none;
+ }
+ .gktFreeGiftcardPopupConfirmationPageButtons{
+     display:grid;
+     grid-template-columns:1fr 1fr;
+     grid-gap:10px;
+ }
+ .gktFreeGiftcardPopupButton, .gktFreeGiftcardPopupCheckoutButton, .gktFreeGiftcardPopupContinueShoppingButton{
+    cursor: pointer;
+    padding: 6px 12px;
+    font-weight: 500;
+    text-align: center;
+    background-color: black;
+    color: white;
+    transition: transform .2s;
+    font-size:16px; 
+ }
+ .gktFreeGiftcardPopupContinueShoppingButton{
+    background-color: white;
+    color: black;
+ }
+ .gktFreeGiftcardPopupConfirmationPageDescription{
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 10px;
+ }
+ .gktFreeGiftcardPopupConfirmationPage{
+ }
+ .gktFreeGiftcardPopupModalClose{
+    position:absolute;
+    top:5px;
+    right:5px;
+    fill: rgba(255,255,255,0.851);
+    background: rgba(32,33,36,0.4);
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    padding: 1px;
+    align-self: baseline;
+    justify-self: end;
+    margin-top: 3px;
+    margin-right: 3px;
+    cursor: pointer;
+ }
+ .gktFreeGiftcardPopupConfirmationPageImage{
+    width: 100%;
+    height: 150px !important;
+    object-fit: cover !important;
+ }
+ .gktFreeGiftcardPopupModalClose:focus,
+ .gktFreeGiftcardPopupModalClose:hover{
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+.gktFreeGiftcardPopupButton:hover, .gktFreeGiftcardPopupModalWrapper button:hover {
+    transform: scale(0.95);
+}
+ .gktFreeGiftcardPopupModal {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    max-width: 450px;
+    width: 45vw !important;
+    margin: 10px auto;
+    padding:10px 20px;
+    margin-top: 20vh !important;
+    border-radius: 4px;
+    background: #fefefe;
+    box-shadow: 0 0 10px #000;
+    animation-name: fadeIn_Modal;
+    animation-duration: .2s;
+    transform: translate(-50%, -50%);
+    line-height: 16px;
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: none;
+  }
+
+  img.gktFreeGiftcardPopupImage {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+  }
+
+  .gktFreeGiftcardPopupHeading{
+    font-size: 20px;
+    margin: 0 !important;
+    padding: 8px !important;
+    text-align:center;
+  }
+  .gktFreeGiftcardPopupInputFields{
+      display:grid;
+      grid-gap:5px;
+      margin: 0 !important;
+
+  }
+  .gktFreeGiftcardPopupInputFields > input{
+    display: block;
+    width: 100%;
+    margin: 0 !important;
+    padding: 10px 20px !important;
+    background-color: #f3f4f3 !important;
+    border: 1px solid #f3f4f3 !important;
+    border-radius: 0px !important;
+    font-size: 14px !important;
 }
 
- label.gktCustomCheckboxContainer {
-    display: grid;
-    grid-template-columns: 5fr 1fr;
-} 
+.gktFreeGiftcardPopupModalBody{
+    height:100%;
+    width:100%;
+    display:grid;
+    grid-gap:5px;
+}
+textarea.gktFreeGiftcardPopupTextArea{
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    resize:none;
+    padding: 10px 20px !important;
+    background-color: #f3f4f3 !important;
+    border: 1px solid #f3f4f3 !important;
+    border-radius: 0px !important;
+    font-size: 14px !important;
+    margin: 0 !important;
+    min-height: 90px !important;
+}
+.gktFreeGiftcardPopupButton{
+    display: block;
+    width: 100%;
+    height: fit-content;
+    margin-top: 0 !important;
+    padding: 10px 20px;
+}
+.gktModalCheckoutButton:hover {
+    transform: scale(0.95);
+}
+.gktModalCheckoutButton{
+    cursor: pointer; 
+}
+.gktFreeGiftcardPopupInputFieldsEmailError{
+    display: block;
+    font-size: 12px;
+    color: red;
+    padding-top:2px;
+}
+@media only screen and (max-width: 600px) {
+    .gktFreeGiftcardPopupModal {
+        margin-top: 0 !important;
+        top: 0;
+        left: 0;
+        transform: translate(0px, 0px);
+        border-radius: 0px;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        min-width: 100%;
+    }
 
-/* The container */
-.gktCustomCheckboxContainer {
-  display: block;
-  position: relative;
-  padding-left: 35px;
- 
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
-/* Hide the browser's default checkbox */
-.gktCustomCheckboxContainer input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom checkbox */
-.gktCustomCheckboxCheckmark {
-  position: absolute;
-  top: 5px;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  border: 1px solid #a2a2a2;
-  border-radius: 4px;
-}
-
-/* On mouse-over, add a grey background color */
-.gktCustomCheckboxContainer:hover input ~ .gktCustomCheckboxCheckmark {
-  background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background 
-.gktCustomCheckboxContainer input:checked ~ .gktCustomCheckboxCheckmark {
-  background-color: #2196F3;
-} */
-
-/* Create the gktCustomCheckboxCheckmark/indicator (hidden when not checked) */
-.gktCustomCheckboxCheckmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the gktCustomCheckboxCheckmark when checked */
-.gktCustomCheckboxContainer input:checked ~ .gktCustomCheckboxCheckmark:after {
-  display: block;
-}
-
-/* Style the gktCustomCheckboxCheckmark/indicator */
-.gktCustomCheckboxContainer .gktCustomCheckboxCheckmark:after {
-  left: 8px;
-  top: 1px;
-  width: 8px;
-  height: 16px;
-  border: solid #009c00;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-</style>
-<style>
 
 .gktGiftCardWrapper{
     display: none;
@@ -1686,186 +1155,8 @@ OLD .greetingCardCategoryListItem{
 
 
 
-</style>
-<style>
-.gktFreeGiftcardPopupModalWrapper {
-    display: none;
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    opacity: 1;
-    background: #e1d8d882;
-    z-index: 999999999;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    animation-name: fadeIn_Container;
-    animation-duration: .2s
-    display: none;
- }
- .gktFreeGiftcardPopupConfirmationPageButtons{
-     display:grid;
-     grid-template-columns:1fr 1fr;
-     grid-gap:10px;
- }
- .gktFreeGiftcardPopupButton, .gktFreeGiftcardPopupCheckoutButton, .gktFreeGiftcardPopupContinueShoppingButton{
-    cursor: pointer;
-    padding: 6px 12px;
-    font-weight: 500;
-    text-align: center;
-    background-color: black;
-    color: white;
-    transition: transform .2s;
-    font-size:16px; 
- }
- .gktFreeGiftcardPopupContinueShoppingButton{
-    background-color: white;
-    color: black;
- }
- .gktFreeGiftcardPopupConfirmationPageDescription{
-    font-size: 16px;
-    text-align: center;
-    font-weight: 600;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding-top: 10px;
- }
- .gktFreeGiftcardPopupConfirmationPage{
- }
- .gktFreeGiftcardPopupModalClose{
-    position:absolute;
-    top:5px;
-    right:5px;
-    fill: rgba(255,255,255,0.851);
-    background: rgba(32,33,36,0.4);
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    padding: 1px;
-    align-self: baseline;
-    justify-self: end;
-    margin-top: 3px;
-    margin-right: 3px;
-    cursor: pointer;
- }
- .gktFreeGiftcardPopupConfirmationPageImage{
-    width: 100%;
-    height: 150px !important;
-    object-fit: cover !important;
- }
- .gktFreeGiftcardPopupModalClose:focus,
- .gktFreeGiftcardPopupModalClose:hover{
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-.gktFreeGiftcardPopupButton:hover, .gktFreeGiftcardPopupModalWrapper button:hover {
-    transform: scale(0.95);
-}
- .gktFreeGiftcardPopupModal {
-    position: fixed;
-    top: 25%;
-    left: 50%;
-    max-width: 450px;
-    width: 45vw !important;
-    margin: 10px auto;
-    padding:10px 20px;
-    margin-top: 20vh !important;
-    border-radius: 4px;
-    background: #fefefe;
-    box-shadow: 0 0 10px #000;
-    animation-name: fadeIn_Modal;
-    animation-duration: .2s;
-    transform: translate(-50%, -50%);
-    line-height: 16px;
-    max-height: 90vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: none;
-  }
 
-  img.gktFreeGiftcardPopupImage {
-    width: 100%;
-    height: 200px;
-    object-fit: contain;
-  }
-
-  .gktFreeGiftcardPopupHeading{
-    font-size: 20px;
-    margin: 0 !important;
-    padding: 8px !important;
-    text-align:center;
-  }
-  .gktFreeGiftcardPopupInputFields{
-      display:grid;
-      grid-gap:5px;
-      margin: 0 !important;
-
-  }
-  .gktFreeGiftcardPopupInputFields > input{
-    display: block;
-    width: 100%;
-    margin: 0 !important;
-    padding: 10px 20px !important;
-    background-color: #f3f4f3 !important;
-    border: 1px solid #f3f4f3 !important;
-    border-radius: 0px !important;
-    font-size: 14px !important;
-}
-
-.gktFreeGiftcardPopupModalBody{
-    height:100%;
-    width:100%;
-    display:grid;
-    grid-gap:5px;
-}
-textarea.gktFreeGiftcardPopupTextArea{
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    resize:none;
-    padding: 10px 20px !important;
-    background-color: #f3f4f3 !important;
-    border: 1px solid #f3f4f3 !important;
-    border-radius: 0px !important;
-    font-size: 14px !important;
-    margin: 0 !important;
-    min-height: 90px !important;
-}
-.gktFreeGiftcardPopupButton{
-    display: block;
-    width: 100%;
-    height: fit-content;
-    margin-top: 0 !important;
-    padding: 10px 20px;
-}
-.gktModalCheckoutButton:hover {
-    transform: scale(0.95);
-}
-.gktModalCheckoutButton{
-    cursor: pointer; 
-}
-.gktFreeGiftcardPopupInputFieldsEmailError{
-    display: block;
-    font-size: 12px;
-    color: red;
-    padding-top:2px;
-}
-@media only screen and (max-width: 600px) {
-    .gktFreeGiftcardPopupModal {
-        margin-top: 0 !important;
-        top: 0;
-        left: 0;
-        transform: translate(0px, 0px);
-        border-radius: 0px;
-        height: 100vh !important;
-        max-height: 100vh !important;
-        min-width: 100%;
-    }
-
-</style>
-  <style>
+  
   
   .gktGiftMessageContainer {
      display:  grid;
@@ -1880,7 +1171,7 @@ textarea.gktFreeGiftcardPopupTextArea{
       grid-template-rows: auto;
       padding: 3px 0px;
       margin: 3px 0px;
-      border-radius: 3px;x
+      border-radius: 3px;
       font-size: 14px;
   }
   
@@ -1997,11 +1288,7 @@ textarea.gktFreeGiftcardPopupTextArea{
     transform: rotate(45deg);
   }
   
-  // textarea.gktGiftMessageTextArea:focus {
-  //       border: none;
-        
-  //   }
-
+ 
   textarea.gktGiftMessageTextArea {
         display: none;
         border: 1px solid #b9babb;
@@ -2013,8 +1300,592 @@ textarea.gktFreeGiftcardPopupTextArea{
         
     }
 
-  </style>
-  <style>
+  
+
+    .openGiftKartModal {
+        vertical-align: middle;
+    }
+
+    #other {
+        text-align: right;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .header__inline h1,
+    .header__inline h2,
+    .header__inline h3,
+    .header__inline h4,
+    .header__inline h5,
+    .header__inline h6,
+    .header__inline p {
+        display: inline;
+    }
+
+
+    .GiftKartModalbtn:hover,
+    .gktModalSave:hover {
+        transform: scale(0.95);
+    }
+
+
+    .GiftKartContainer {
+        display: none;
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        opacity: 1;
+        background: #222;
+        z-index: 999999999;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        animation-name: fadeIn_Container;
+        animation-duration: 1s
+    }
+
+    .GiftKartModal {
+        display: none;
+        top: 0;
+        min-width: 250px;
+        width: 50vw !important;
+        margin: 0 auto;
+        margin-top: 25vh !important;
+        z-index: 9999999999;
+        background: #fff;
+        box-shadow: 0 0 10px #000;
+        animation-name: fadeIn_Modal;
+        animation-duration: .8s;
+    }
+
+    .GiftKartheader {
+        padding: 5px 10px;
+        width: 100%;
+        height: 70px;
+        border-radius: 10px 10px 0 0;
+        border-bottom: 2px solid #ccc
+    }
+
+    .GiftKartheader a {
+        text-decoration: none;
+        float: right;
+        line-height: 70px;
+        margin-right: 20px;
+        color: #aaa
+    }
+
+    .GiftKartcontent {
+        width: 100%;
+    }
+
+    #first_label {
+        padding-top: 30px
+    }
+
+    #second_label {
+        padding-top: 25px
+    }
+
+    .GiftKartfooter,
+    .gktModalFooter {
+        padding: 13px 10px;
+        text-align: right;
+        width: 100%;
+
+    }
+
+
+
+
+    @media screen and (max-width: 900px) {
+        .GiftKartModalContent-left {
+            display: none;
+        }
+
+        .GiftKartModalContent {
+            grid-template-columns: 1fr !important;
+        }
+
+        .GiftKartModalContent-right-giftingOptions {
+            font-size: 15px !important;
+        }
+    }
+
+    @keyframes fadeIn_Modal {
+        from {
+            opacity: 0
+        }
+
+        to {
+            opacity: 1
+        }
+    }
+
+    @keyframes fadeIn_Container {
+        from {
+            opacity: 0
+        }
+
+        to {
+            opacity: .9
+        }
+    }
+
+    #is-a-gift {
+        margin: 0px;
+        padding: 10px;
+    }
+
+    #giftnote,
+    .gktMessageTextarea {
+        color: #636363;
+        border: 1px solid #ccc;
+        width: 100%;
+        border-radius: 5px;
+        height: 200px;
+        padding: 10px;
+        margin-top: 5px;
+        resize: none;
+        font-size: 14px !important;
+    }
+
+    .giftnote-giftKart {
+        border: 1px solid black !important;
+        border-radius: 0px !important;
+    }
+
+    .giftnote-giftKart:focus {
+        outline: 0;
+    }
+
+    .GiftKartModalContent {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1;
+    }
+
+    .GiftKartModalContent-right {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 30px 50px;
+    }
+
+    .GiftKartModalContent-right-closeButton,
+    .gktModalClose {
+        fill: rgba(255, 255, 255, 0.851);
+        background: rgba(32, 33, 36, 0.1);
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        padding: 1px;
+        align-self: baseline;
+        justify-self: end;
+        margin-top: 3px;
+        margin-right: 3px;
+        cursor: pointer;
+    }
+
+    .GiftKartModalContent-right-header {
+        align-self: center;
+        justify-self: center;
+        font-weight: 1000;
+    }
+
+    .GiftKartModalContent-right-giftingOptions {
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    .GiftKartModalContent-right-footer {
+        margin: 15px 20px;
+        display: grid;
+        align-items: center;
+    }
+
+    .GiftKartModalbtn,
+    .gktModalSave {
+        cursor: pointer;
+        padding: 6px 12px;
+        font-weight: 500;
+        text-align: center;
+        background-color: #A96668;
+        color: white;
+        transition: transform .2s;
+        margin: 0 20%;
+    }
+
+    .ql-size-small {
+        font-size: 11px;
+    }
+
+    .ql-size-large {
+        font-size: 26px;
+    }
+
+    .ql-size-huge {
+        font-size: 36px;
+    }
+
+    .gktModalWrapper {
+
+        display: none;
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        opacity: 1;
+        background: #222;
+        z-index: 999999999;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        animation-name: fadeIn_Container;
+        animation-duration: 1s
+    }
+
+    /* Modal Content */
+    .gktModal {
+
+        position: fixed;
+        top: 25%;
+        left: 50%;
+        min-width: 250px;
+        width: 50vw !important;
+        margin: 10px auto;
+        padding: 10px;
+        margin-top: 25vh !important;
+        border-radius: 2%;
+        background: #fefefe;
+        box-shadow: 0 0 10px #000;
+        animation-name: fadeIn_Modal;
+        animation-duration: .8s;
+
+        transform: translate(-50%, -50%);
+    }
+
+
+
+
+    .gktModalClose:hover,
+    .gktModalClose:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+
+
+    .gktPageWrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        cursor: pointer !important;
+        /* padding: 0px 10px; */
+    }
+
+
+    .gktPageWrapperV2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        cursor: pointer !important;
+      
+    }
+
+    .gktProductPageUpsellWrapper {
+        display: none;
+        width: 100%
+    }
+
+    .gktComboWrapper {
+        display: none;
+        ,
+        width: 100%
+    }
+
+    .gktGiftMessageWrapper {
+        display: none;
+        width: 100%
+    }
+
+    .gktGiftMsgAndWrapWrapper {
+        display: none;
+        width: 100%
+    }
+
+
+    .gktCartUpsellWrapper {
+        display: none;
+        width: 100%
+    }
+
+
+
+    .gktCartGiftMessageWrapper {
+        display: none;
+        width: 100%
+    }
+
+    .gktCartGiftMsgAndWrapWrapper {
+        display: none;
+        width: 100%
+    }
+
+    .gktGiftMessageWrapper {
+        display: none;
+        width: 100%
+    }
+
+    .gktCartGiftMessageWrapper {
+        display: none;
+        width: 100%
+    }
+
+
+    .gktPageWrapper input {
+        display: inline-block;
+    }
+
+    .gktPageWrapper label {
+        margin-left: 1px;
+    }
+
+    .giftCartPageWrapper {
+        display: grid;
+        grid-template-columns: 25px 4fr;
+        align-items: baseline;
+        justify-items: start;
+    }
+
+
+
+    .gktModalHeader {
+        padding: 10px;
+    }
+
+    .gktContentWrapper {
+        display: grid;
+    }
+
+    .gktGridLayout {
+        /* is attached dynamically to gktContentWrapper*/
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /*.gktLeftContent and gktRightContent */
+    .gktContentWrapper>div {
+        display: grid;
+        grid-template-rows: 1fr 3fr;
+        grid-gap: 10px;
+        padding: 5px 10px;
+        margin: 5px 10px;
+        font-size: 30px;
+    }
+
+    .gktContentWrapper>div:empty {
+        display: none;
+    }
+
+    .gktMessageCheckboxHeading,
+    .gktWrapCheckboxHeading {
+        font-size: 20px !important;
+    }
+
+    .gktModalFooter {
+        text-align: center;
+    }
+
+
+
+    /* Header should be in one line*/
+    .gktModalHeader {
+        display: grid;
+        grid-template-columns: auto 25px;
+    }
+
+
+    .gktProductPageWrapper {
+        position: relative;
+        justify-items: start;
+        align-items: end;
+    }
+
+    .gktJustifyCenter {
+        justify-self: center;
+        align-self: center;
+    }
+
+    .gktGiftWrapImage {
+        width: 200px;
+        height: 200px;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        justify-self: center;
+        object-fit: cover;
+    }
+
+
+    .gktCartGiftMsgAndWrapHeader {
+        display: grid;
+        justify-items: left;
+        padding: 3px 0px;
+        margin: 3px 0px;
+
+    }
+
+    .gktGiftMsgAndWrapHeader {
+        display: grid;
+        justify-items: left;
+        padding: 3px 0px;
+        margin: 3px 0px;
+    }
+
+    .gktGiftMsgAndWrapWrapperInnerEle {
+        display: grid !important;
+        grid-template-columns: 25px auto;
+        align-items: center;
+        justify-items: center;
+        user-select: none;
+    }
+
+    .gktGiftMsgAndWrapWrapperInnerEle p {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+    .gktGiftMsgAndWrapHeader>label {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .gktCartGiftMsgAndWrapHeader>label {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .gift-checkbox-giftKart {
+        align-self: center;
+        justify-self: center;
+    }
+
+    .gktCheckboxLayout {
+        display: grid !important;
+        grid-template-columns: 25px auto;
+        font-size: 20px;
+        align-items: center;
+    }
+
+    .gktMessageCheckboxHeading>p,
+    .gktModalPopupHeading>p,
+    .gktGiftWrapCheckboxHeading>p {
+        margin: 0 !important;
+    }
+
+    .gktAlignCenter {
+        align-self: center;
+    }
+
+    @media screen and (max-width: 900px) {
+        .gktGridLayout {
+            grid-template-columns: 1fr;
+        }
+
+        .gktContentWrapper>div {
+            grid-template-rows: 1fr !important;
+        }
+
+        .gktLeftContent {
+            grid-template-rows: 1fr 1fr !important;
+        }
+
+        .gktMessageTextarea {
+            width: 100% !important;
+            height: 100px !important;
+        }
+
+        .gktModal {
+            top: 10% !important;
+
+        }
+
+        .gktDisplayWrapImageOnPhone {
+            display: block !important;
+        }
+
+        .gktModal {
+            width: 95vw !important;
+        }
+
+        .gktModalWrapper p,
+        .gktModal p {
+            font-size: 20px !important;
+        }
+
+    }
+
+    .ql-font-arial {
+        font-family: 'Arial';
+    }
+
+    .ql-font-times-new-roman {
+        font-family: 'Times New Roman';
+    }
+
+    .ql-font-courier-new {
+        font-family: 'Courier New';
+    }
+
+    .ql-font-comic-sans-ms {
+        font-family: 'Comic Sans MS';
+    }
+
+    .ql-font-impact {
+        font-family: 'Impact';
+    }
+
+    .ql-font-lucida-console {
+        font-family: 'Lucida Console';
+    }
+
+    .ql-font-lucida-sans-unicode {
+        font-family: 'Lucida Sans Unicode';
+    }
+
+    .ql-font-tahoma {
+        font-family: 'Tahoma';
+    }
+
+    .ql-font-verdana {
+        font-family: 'Verdana';
+    }
+
+    .ql-font-helvetica {
+        font-family: 'Helvetica';
+    }
+
+    .ql-font-trebuchet-ms {
+        font-family: 'Trebuchet MS';
+    }
+
+    .ql-font-georgia {
+        font-family: 'Georgia';
+    }
+
+    .ql-font-garamond {
+        font-family: 'Garamond';
+    }
+
+    .ql-font-brush-script-mt {
+        font-family: 'Brush Script MT';
+    }
+
+    .loadingCheckoutPage{
+        display:flex;
+        align-items:center;
+        justify-content: center;
+        opacity:0.5;
+        }
+
+  
   
   .gktGiftMessageContainer {
      display:  grid;
@@ -2029,7 +1900,7 @@ textarea.gktFreeGiftcardPopupTextArea{
       grid-template-rows: auto;
       padding: 3px 0px;
       margin: 3px 0px;
-      border-radius: 3px;x
+      border-radius: 3px;
       font-size: 14px;
   }
   
@@ -2140,10 +2011,7 @@ textarea.gktFreeGiftcardPopupTextArea{
     transform: rotate(45deg);
   }
   
-  // textarea.gktGiftMessageTextArea:focus {
-  //       border: none;
-        
-  //   }
+ 
 
   textarea.gktGiftMessageTextArea {
         display: none;
@@ -2155,7 +2023,195 @@ textarea.gktFreeGiftcardPopupTextArea{
         font-size: 14px;
     }
 
-  </style> <style>.gktVideoPlayerHide {
+  
+
+
+.gktNotificationWrapper{
+    position:fixed;
+    margin: 0 !important;
+    padding: 0 !important;
+    top: 40px;
+    right: 5px;
+    display: none;
+    z-index: 99999999999999;
+}
+
+.gktNotificationItem{
+    margin: 4px 0px;
+    background: white;
+    color: black;
+    padding: 4px 8px;
+    -moz-box-shadow: 10px 10px 16px #000000;
+    -webkit-box-shadow: 10px 10px 16px #000000;
+    box-shadow: 0px 15px 30px rgba(0,0,0,0.08);
+    max-width: 250px;
+    display:grid;
+    grid-template-columns: 30px 1fr 20px;
+    justify-items: center;
+    align-items: center;
+    border-left: 5px solid green;
+    border-radius: 4px;
+    transform: translateX(300px);
+    transition: 0.3s;
+}
+
+.gktNotificationItemContent{
+    padding-right: 10px;
+
+}
+
+.gktNotificationItemContent2{
+    display: grid;
+    justify-self: start;
+    align-self: center;
+
+}
+
+.gktNotificationItemContent3{
+    display: grid;
+    font-size: 14px;
+    justify-self: start;
+}
+.gktNotificationItemContent4{
+    display: grid;
+    justify-self: end;
+}
+
+
+
+
+.gktNotificationItemContent3SubText{
+    font-size: 12px;
+}
+
+
+
+
+
+
+.gktOneClickUpsellContainer {
+   display:  grid;
+   grid-template-columns: 1fr;
+   grid-template-rows: auto;
+   padding: 5px 0px;
+}
+
+.gktOneClickUpsellItemContainer{
+    display:  grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    padding: 3px 0px;
+    margin: 3px 0px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.gktOneClickUpsellItemContainer label {
+  margin-bottom: 0px
+}
+
+.gktOneClickUpsellItemContainerLabelText{
+  align-self: center;
+  font-size:12px;
+  justify-self: left;
+  text-align: left;
+}
+.gktOneClickUpsellImage{
+   width: 40px;
+    height: 40px;
+    border: 1px solid #f1f2f3;
+}
+.gktOneClickUpsellItemContainerItem1{
+    grid-row: 1 / 5;
+}
+
+.gktOneClickUpsellItemContainerItem2{
+    
+}
+
+.gktOneClickUpsellItemContainerItem3{
+    position: relative;
+    display: flex;
+    width: fit-content;
+    height: 30px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+ label.gktCustomCheckboxContainer {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+} 
+
+/* The container */
+.gktCustomCheckboxContainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+ 
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.gktCustomCheckboxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.gktCustomCheckboxCheckmark {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border: 1px solid #a2a2a2;
+  border-radius: 4px;
+}
+
+/* On mouse-over, add a grey background color */
+.gktCustomCheckboxContainer:hover input ~ .gktCustomCheckboxCheckmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background 
+.gktCustomCheckboxContainer input:checked ~ .gktCustomCheckboxCheckmark {
+  background-color: #2196F3;
+} */
+
+/* Create the gktCustomCheckboxCheckmark/indicator (hidden when not checked) */
+.gktCustomCheckboxCheckmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the gktCustomCheckboxCheckmark when checked */
+.gktCustomCheckboxContainer input:checked ~ .gktCustomCheckboxCheckmark:after {
+  display: block;
+}
+
+/* Style the gktCustomCheckboxCheckmark/indicator */
+.gktCustomCheckboxContainer .gktCustomCheckboxCheckmark:after {
+  left: 8px;
+  top: 1px;
+  width: 8px;
+  height: 16px;
+  border: solid #009c00;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+ .gktVideoPlayerHide {
     display: none !important;
   }
 
@@ -2518,70 +2574,3 @@ textarea.gktFreeGiftcardPopupTextArea{
   /* Extra large devices (large laptops and desktops, 1200px and up) */
   /* @media only screen and (min-width: 1200px) {}  */
   </style>
-<style>
-
-.gktNotificationWrapper{
-    position:fixed;
-    margin: 0 !important;
-    padding: 0 !important;
-    top: 40px;
-    right: 5px;
-    display: none;
-    z-index: 99999999999999;
-}
-
-.gktNotificationItem{
-    margin: 4px 0px;
-    background: white;
-    color: black;
-    padding: 4px 8px;
-    -moz-box-shadow: 10px 10px 16px #000000;
-    -webkit-box-shadow: 10px 10px 16px #000000;
-    box-shadow: 0px 15px 30px rgba(0,0,0,0.08);
-    max-width: 250px;
-    display:grid;
-    grid-template-columns: 30px 1fr 20px;
-    justify-items: center;
-    align-items: center;
-    border-left: 5px solid green;
-    border-radius: 4px;
-    transform: translateX(300px);
-    transition: 0.3s;
-}
-
-.gktNotificationItemContent{
-    padding-right: 10px;
-
-}
-
-.gktNotificationItemContent2{
-    display: grid;
-    justify-self: start;
-    align-self: center;
-
-}
-
-.gktNotificationItemContent3{
-    display: grid;
-    font-size: 14px;
-    justify-self: start;
-}
-.gktNotificationItemContent4{
-    display: grid;
-    justify-self: end;
-}
-
-
-
-
-.gktNotificationItemContent3SubText{
-    font-size: 12px;
-}
-
-
-
-</style>
-<style>
-    null
-
-</style>
