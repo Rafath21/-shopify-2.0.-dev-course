@@ -581,6 +581,13 @@
             }
         },
         utility: {
+            getActiveCurrencyRate : function(){
+                let currencyRate = 1;
+                if(window.Shopify && window.Shopify.currency && window.Shopify.currency.rate){
+                    currencyRate = window.Shopify.currency.rate;
+                }
+                return currencyRate;
+            },
             getCookie: function (cookieName) {
                 let name = cookieName + "=";
                 let decodedCookie = decodeURIComponent(document.cookie);
@@ -3643,10 +3650,11 @@
                 getFreeGiftcardValue: function (cartTotalPrice, freeGiftcardPopupData){
                     try {
                         let resValue = false 
+                        let activeCurrencyRate = gkt.utility.getActiveCurrencyRate(); 
                         if(freeGiftcardPopupData?.rules?.length && freeGiftcardPopupData?.rules?.length > 0){
                         for(let i = 0; i < freeGiftcardPopupData.rules.length; i++){
                             let rule = freeGiftcardPopupData.rules[i]
-                            let cartValue = rule.cartValue 
+                            let cartValue = parseFloat(rule.cartValue * activeCurrencyRate).toFixed(2)
                             let freeGiftcardValue = rule.freeGiftcardValue
                             if(parseFloat(cartTotalPrice) >= parseFloat(cartValue) && parseFloat(freeGiftcardValue) > 0){
                             resValue = freeGiftcardValue
