@@ -138,31 +138,31 @@
                         // fetch("https://gkt102.pagekite.me/api/proxy/get?shopName=ashfaq-may-store.myshopify.com",{
 
                         // fetch("/apps/gwm/get",{
-                        fetch("/apps/gkt/getTmpCartSettings",{
-                        method: 'GET',
-                        }).then(
-                            response => response.json() // if the response is a JSON object
-                        ).then(
+
+                        console.log("fetching from s3")
+                        gkt.f.getSettingsFromS3().then(
                             success => {
-                                if(success.responseCode == 200){
-                                    console.log("success-data", success.data);
-                                }
-                                resolve(success.data);
+                                resolve(success);
                             }
                         ).catch(error => {
-                            console.log(error) // Handle the error response object
-                            console.log("fetching from s3")
-                            gkt.f.getSettingsFromS3().then(
+                            fetch("/apps/gkt/getTmpCartSettings",{
+                            method: 'GET',
+                            }).then(
+                                response => response.json() // if the response is a JSON object
+                            ).then(
                                 success => {
-                                    resolve(success);
+                                    if(success.responseCode == 200){
+                                        console.log("success-data", success.data);
+                                    }
+                                    resolve(success.data);
                                 }
                             ).catch(error => {
                                 console.log(error) // Handle the error response object
                                 reject(error)
-                            })
-                        });
-
-                    })
+                               
+                            });
+                    });
+                });
                     
                 },
             setSelectors:  function(){
@@ -183,7 +183,7 @@
                     let shopName = window.Shopify.shop
                     console.log("GET setting of giftlab pro fired")
                     return new Promise(function (resolve, reject) {
-					    fetch("https://giftkart-staging.s3.us-east-2.amazonaws.com/tempCartSettings/"+shopName+".json",{
+					    fetch("https://giftkart-staging.s3.us-east-2.amazonaws.com/tempCartSettings/"+shopName+`.json?nocache=${(new Date()).getTime()}`,{
                             method: 'GET',
                             }).then(
                                 response => response.json() // if the response is a JSON object
