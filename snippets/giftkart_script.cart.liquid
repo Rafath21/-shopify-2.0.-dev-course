@@ -61,12 +61,22 @@
     */
     gktUtils.f.loadJquery = function (b) {
         console.log("does this work");
-        "undefined" === typeof jQuery || 1.9 > parseFloat(jQuery.fn.jquery) ? gktUtils.f.loadScript("//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js", function () {
-            gktJquery = jQuery.noConflict(!0);
-            b(gktJquery)
-        })
-            :
-            b(jQuery)
+        let flag = false;
+        if("undefined" === typeof jQuery || 1.9 > parseFloat(jQuery.fn.jquery)){
+            flag = true;
+        }
+        if("undefined" != typeof jQuery && jQuery.post == undefined){
+            flag = true;
+        }
+
+        if(flag){
+            gktUtils.f.loadScript("https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js", function () {
+                gktJquery = jQuery.noConflict(!0);
+                b(gktJquery)
+            })
+        }else{
+            b(jQuery);
+        }
     };
 
     var gkt = {
