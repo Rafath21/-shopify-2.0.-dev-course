@@ -2739,7 +2739,8 @@
                         const customerGiftCards = gkt.settings.customer.giftcards;
 
                         if(customerGiftCards.length > 0){
-        
+                            
+                            gkt.gktAccountWidget.state.activeTabFn = gkt.gktAccountWidget.action.showGiftCardSection;
                             let gktAccountWidgetGiftCardSectionListHeader = gkt.$("<div>").addClass("gktAccountWidgetGiftCardSectionListHeader")
         
                             let gktAccountWidgetGiftCardSectionListHeaderForCode = gkt.$("<div>").addClass("gktAccountWidgetGiftCardSectionListHeaderForCode").html(gkt.utility.renderLanguageValue(giftcardSectionLanguageData.codeHeaderLabel)||"Code1" )
@@ -2876,7 +2877,8 @@
                     gktAccountWidgetBuyWithRewardsButton.text(gkt.utility.renderLanguageValue(generalSettingsLanguageData.buyWithRewardsButtonText || "Buy with Rewards"))
 
                     if(gkt.settings.customer && gkt.settings.customer.rewardgiftcard && gkt.settings.customer.rewardgiftcard.balance > 0 && gkt.settings.customer.rewardgiftcard.decryptCode) {
-                        gktAccountWidgetBuyWithRewardsButton.on("click", gkt.gktAccountWidget.action.buyWithRewardsClicked)
+                        gktAccountWidgetBuyWithRewardsButton.on("click", gkt.gktAccountWidget.action.buyWithRewardsClicked);
+                        gktAccountWidgetBuyWithRewardsButton.removeClass("gktDisabled");
                     }else{
                         gktAccountWidgetBuyWithRewardsButton.addClass("gktDisabled");
                     }
@@ -2956,7 +2958,7 @@
                         gkt.gktAccountWidget.f.refreshRewardSection_and_RewardDetails()
                     }else{
                         gkt.$(this).children().text(gkt.utility.renderLanguageValue(gkt.settings.languageData.accountWidget.generalSettings.errorMessage) || "Error occured! Try again");
-                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        await new Promise(resolve => setTimeout(resolve, 1500));
 
                         gkt.$(this).on("click", gkt.gktAccountWidget.action.addGiftCardToRewardCode)
                          // setTimeout(function(){
