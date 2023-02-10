@@ -2723,7 +2723,7 @@
                                 }
                                 gktAccountWidgetRewardSectionBodyListItem.append(balanceFieldDiv)
                                 gktAccountWidgetRewardSectionBodyListItem.append(gkt.$("<div>").addClass("gktAccountWidgetRewardSectionBodyListItemExpirationDate").html(expiryDateFormatted || "-"))
-                                gktAccountWidgetRewardSectionBodyListItem.append(gkt.$("<div>").addClass("gktAccountWidgetRewardSectionBodyListItemRemarks").html(rewardTransaction.note))
+                                gktAccountWidgetRewardSectionBodyListItem.append(gkt.$("<div>").addClass("gktAccountWidgetRewardSectionBodyListItemRemarks").html(rewardTransaction.note).text())
                                 gktAccountWidgetRewardSectionBodyListHTML.append(gktAccountWidgetRewardSectionBodyListItem)
                                 gkt.gktAccountWidget.f.applyMainTextColorCSS(gktAccountWidgetRewardSectionBodyListItem);
                             })
