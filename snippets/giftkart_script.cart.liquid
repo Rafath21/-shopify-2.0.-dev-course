@@ -1046,6 +1046,14 @@
                 gkt.$('html > head').append(style);
                 return style;
             },
+            getLocalDateIn_YYYY_MM_DD: function (date=new Date()) {
+                const year = date.getFullYear();
+                const month = ('0' + (date.getMonth() + 1)).slice(-2);
+                const day = ('0' + date.getDate()).slice(-2)
+
+                const dateInLocalTimeZone = `${year}-${month}-${day}`;
+                return dateInLocalTimeZone;
+            },
         },
         storage: {
 
@@ -1840,7 +1848,8 @@
                     // a date picker 
                     let gktGiftCardDatePicker = gkt.$("<input>").attr("type", "date").addClass("gktGiftCardDatePicker"); 
                     //  todays date is the default value
-                    gktGiftCardDatePicker.attr("value", new Date().toISOString().slice(0, 10));  
+                    // gktGiftCardDatePicker.attr("value", new Date().toISOString().slice(0, 10));  
+                    gktGiftCardDatePicker.attr("value", gkt.utility.getLocalDateIn_YYYY_MM_DD());
                     let gktGiftCardMessageInputField = gkt.$("<textarea>").attr("type", "text").attr("placeholder", gkt.utility.renderLanguageValue(giftNotePlaceholder)).addClass("gktGiftCardMessageInputField").attr("rows", "4");
 
 
@@ -1908,11 +1917,21 @@
                     gktGiftCardEmailLabel.attr("required", true)
                     // gktGiftCardMessageLabel.attr("required", true)
                     // add todays date as default value
-                    gktGiftCardDatePicker.attr("value", new Date().toISOString().slice(0, 10))
+                    
+                    // gktGiftCardDatePicker.attr("value", new Date().toISOString().slice(0, 10))
+                    gktGiftCardDatePicker.attr("value", gkt.utility.getLocalDateIn_YYYY_MM_DD());
+                    
+
                     //attach a date min and max value attr to the date picker
-                    gktGiftCardDatePicker.attr("min", new Date().toISOString().slice(0, 10));
+                    // gktGiftCardDatePicker.attr("min", new Date().toISOString().slice(0, 10));
+                    gktGiftCardDatePicker.attr("min", gkt.utility.getLocalDateIn_YYYY_MM_DD());
+
+
                     // and max date is set to the 60 days after
-                    gktGiftCardDatePicker.attr("max", new Date(new Date().getTime() + 60 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10));
+                    // gktGiftCardDatePicker.attr("max", new Date(new Date().getTime() + 60 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10));
+
+                    const _maxDate = new Date(new Date().getTime() + 60 * 24 * 60 * 60 * 1000);
+                    gktGiftCardDatePicker.attr("max", gkt.utility.getLocalDateIn_YYYY_MM_DD(_maxDate));
 
                     // add all of these fields to a div
                     let gktGiftCardInputFieldsDiv = gkt.$("<div>").addClass("gktGiftCardInputFieldsDiv")
@@ -2242,12 +2261,15 @@
                     if(gkt.gktGiftCard.state.giftCardDeliveryOption == "sendNow"){
                         date = new Date();
                     }
-                    let today = new Date().toISOString().slice(0, 10)
-                    let dateToCompare = new Date(date).toISOString().slice(0, 10)
+                    // let today = new Date().toISOString().slice(0, 10)
+                    let today = gkt.utility.getLocalDateIn_YYYY_MM_DD();
+                    // let dateToCompare = new Date(date).toISOString().slice(0, 10)
+                    let dateToCompare = gkt.utility.getLocalDateIn_YYYY_MM_DD(new Date(date));
                     if (dateToCompare < today) {
                         return false
                     }
-                    else if (dateToCompare > new Date(new Date().getTime() + 60 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)) {
+                    // else if (dateToCompare > new Date(new Date().getTime() + 60 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)) {
+                    else if (dateToCompare > gkt.utility.getLocalDateIn_YYYY_MM_DD(new Date(new Date().getTime() + 60 * 24 * 60 * 60 * 1000))) {
                         return false
                     }
                     else {
