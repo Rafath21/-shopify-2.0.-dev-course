@@ -3643,7 +3643,7 @@
                                                                     "id": gkt.state.freeGiftcardVariantId,
                                                                     "quantity": 1,
                                                                     "properties": {
-                                                                        "Reward Value": currencySymbol + freeGiftcardValue
+                                                                        "Reward Value": freeGiftcardValue
 
                                                                     }
                                                                 }
@@ -3655,7 +3655,7 @@
                                 let resAddToCart = await gkt.utility.addToCartV2(itemObj)
                                 
                             }else{
-                                let rewardValue = currencySymbol + freeGiftcardValue
+                                let rewardValue = freeGiftcardValue
                                 if(item && item.properties && item.properties["Reward Value"] && item.properties["Reward Value"] != rewardValue){
                                     await gkt.utility.updateCart({ updates: { [item.id]: 0 }})
                                     let resAddToCart = await gkt.utility.addToCartV2(itemObj)
@@ -3665,6 +3665,20 @@
                         }
                     }
 
+                },
+                calculateFreeGiftCardValue: function(freeGiftcardValue, cartTotalPrice, freeGiftcardPopupData) {
+                    try {
+                        if(!freeGiftcardPopupData?.rewardMode ||  freeGiftcardPopupData.rewardMode == "FIXED") {
+                            let currencySymbol = gkt.settings.merchantInfo?.currencyInfo?.symbol ? gkt.settings.merchantInfo.currencyInfo.symbol : ""
+                            return currencySymbol + "" + freeGiftcardValue;
+                        } else {
+                            // let calculatedFreeGiftCardValue = (cartTotalPrice/100) * parseFloat(freeGiftcardValue);  // % of cartTotalWithoutDiscount;
+                            // calculatedFreeGiftCardValue = parseFloat(parseFloat(calculatedFreeGiftCardValue).toFixed(2))
+                            return freeGiftcardValue + "" + "%";
+                        }
+                    } catch(err) {
+                        console.log(err);
+                    }
                 },
                 getFreeGiftcardValue: function (cartTotalPrice, freeGiftcardPopupData){
                     try {
@@ -3676,7 +3690,7 @@
                             let cartValue = parseFloat(rule.cartValue * activeCurrencyRate).toFixed(2)
                             let freeGiftcardValue = rule.freeGiftcardValue
                             if(parseFloat(cartTotalPrice) >= parseFloat(cartValue) && parseFloat(freeGiftcardValue) > 0){
-                            resValue = freeGiftcardValue
+                                resValue = gkt.gktFreeGiftCardPopup.f.calculateFreeGiftCardValue(freeGiftcardValue, cartTotalPrice, freeGiftcardPopupData)
                             }
                         }
                         }
