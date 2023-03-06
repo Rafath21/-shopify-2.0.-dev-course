@@ -3624,6 +3624,7 @@
                         }
                         let freeGiftcardValue =  gkt.gktFreeGiftCardPopup.f.getFreeGiftcardValue(cartValue, gkt.settings.rewardCampaigns.campaignData)
                         let isProductConditionMet = gkt.gktFreeGiftCardPopup.f.isFreeGiftcardProductConditionMet(gkt.state.cartData, gkt.settings.rewardCampaigns.campaignData);
+                        // let isCustomerTagsConditionMet = gkt.gktFreeGiftCardPopup.f.isCustomerTagsConditionMet(gkt.settings.customer, gkt.settings.rewardCampaigns.campaignData);
                         
                         // if product conditions not met set free giftcard value to 0
                         if(!isProductConditionMet){
@@ -3759,6 +3760,22 @@
                         return false
                     }
                 },
+                // isCustomerTagsConditionMet: function(customerData,freeGiftcardPopupData) {
+                //     try{
+                //         let excludeCustomerTags = freeGiftcardPopupData?.campaignData?.excludeCustomerTags || [];
+                //         let currentCustomerTags = customerData?.tags?.split(","); //customer tags array
+                
+                //         for (let i = 0; i < currentCustomerTags.length; i++) {
+                //         let currentTag = currentCustomerTags[i];
+                //             if (currentTag.trim().length > 0 && excludeCustomerTags.includes(currentTag)) {
+                //                 return false;
+                //             }
+                //         }
+                //         return true;
+                //     } catch(err) {
+                //         console.log(err);
+                //     }
+                // },
                 registerEvents: function(){
                     gkt.$(document).on("click", ".gktFreeGiftcardPopupModalClose", gkt.gktFreeGiftCardPopup.action.onModalClose)
                 },
