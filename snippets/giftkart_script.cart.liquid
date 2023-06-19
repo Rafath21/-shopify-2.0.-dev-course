@@ -21,7 +21,15 @@
 
     //initialze liquid values 
     // check if window.shopifyLiquidValues EXISTS , if not then 
-     
+    //  if(window.shopifyLiquidValues){
+    //     console.log("window.shopifyLiquidValues is coming from theme-app-extension",window.shopifyLiquidValues);
+    //     return
+    //  }
+    
+    
+    // console.log(document?.currentScript?.src);
+    // old-code should execute when new code isnt prresent
+
     if(!window.shopifyLiquidValues){
         let shopifyLiquidValues = {
             product: { handle: {{ product.handle | json }} },
@@ -100,7 +108,8 @@
             freeGiftcardPopupModalCount : parseInt(sessionStorage.getItem("freeGiftcardPopupModalCount"))|| 0,
             freeGiftcardPopupModalMAXCount : 2,
             gktFreeGiftcardBuyMoreProductNotificationSubHeadingShown: false,
-            sendGiftcardOnPageBtnClicked: false
+            sendGiftcardOnPageBtnClicked: false,
+            activeCampaignName: "EMPTY",
         },
         constants: {
             themesIds: {
@@ -135,7 +144,7 @@
             },
             initDOMElements: function (settings) {
                 //insert the string skeletonDOM as html
-                const skeletonDOM = gkt.$.parseHTML('</div> <div class="gktModalWrapper" style="display:none;"> <div class="gktModal"> <div class="gktModalHeader"> <!-- <strong class="gktModalPopupHeading"> </strong> --> <!-- <div class="gktModalClose"> &times; </div> --> <div class="gktModalClose"> </div> </div> <div class="gktContentWrapper"> <div class="gktLeftContent"> <div class="gktJustifyCenter"> <label class="gktCheckboxLayout"> <input type="checkbox" checked="true" class="gktGiftMessageCheckbox"> <div class="gktMessageCheckboxHeading"> </div> </label> </div> <textarea class="gktMessageTextarea gktAlignCenter"> </textarea> </div> <div class="gktRightContent"> <div class="gktJustifyCenter"> <label class="gktCheckboxLayout"> <input type="checkbox" checked="true" class="gktGiftWrapCheckbox"> <div class="gktGiftWrapCheckboxHeading"> </div> </label> </div> <img class="gktGiftWrapImage gktAlignCenter" loading="lazy"> </div> </div> <div class="gktModalFooter"> <div class="gktModalSave"></div> </div> </div> </div> </div> <!-- modal for combo --> </div> <div class="gktComboModalWrapper"> <div class="gktComboModal"> <div class="gktComboModalHeader"> <strong class="gktComboModalPopupHeading"> </strong> <!-- <div class="gktModalClose"> &times; </div> --> <div class="gktComboModalClose"> </div> </div> <div class="gktComboContent"> <div class="gktComboContentHeader"></div> <div class="gktComboContentFooter"> <div class="gktComboContentFooterBtn1"></div> <div class="gktComboContentFooterBtn2"></div> </div> </div> </div> </div> </div> </div> <div class="gktGiftCardModalWrapper"> <div class="gktGiftCardModal">  <div class="gktGiftCardModalHeader"> <strong class="gktGiftCardModalPopupHeading"> </strong> <!-- <div class="gktModalClose"> &times; </div> --> <div class="gktGiftCardModalClose"> </div> </div> <div class="gktGiftCardContent"> <div class="gktGiftCardContentHeader"></div> <form> <div class="gktGiftCardGreetingCardContent"> </div> <div class="gktGiftCardDetailsContent"></div> <div class="gktGiftCardMessageContent"></div> </form> <div class="gktGiftCardContentFooter"> <div class="gktGiftCardContentFooterBtn1"></div> </div></div><div class="gktPoweredByBanner"></div> </div>  </div> <div class="gktFreeGiftcardPopupModalWrapper"> <div class="gktFreeGiftcardPopupModal"> </div> </div> </div> <div class="gktNotificationWrapper"></div> <!-- <div class="gktVideoMsgPlayerWrapper"></div> -->')
+                const skeletonDOM = gkt.$.parseHTML('<div><div class="gktModalWrapper" style="display:none;"><div class="gktModal"><div class="gktModalHeader"><div class="gktModalClose"></div></div><div class="gktContentWrapper"><div class="gktLeftContent"><div class="gktJustifyCenter"><label class="gktCheckboxLayout"><input type="checkbox" checked="true" class="gktGiftMessageCheckbox"><div class="gktMessageCheckboxHeading"></div></label></div><textarea class="gktMessageTextarea gktAlignCenter"></textarea></div><div class="gktRightContent"><div class="gktJustifyCenter"><label class="gktCheckboxLayout"><input type="checkbox" checked="true" class="gktGiftWrapCheckbox"><div class="gktGiftWrapCheckboxHeading"></div></label></div><img class="gktGiftWrapImage gktAlignCenter" loading="lazy"></div></div><div class="gktModalFooter"><div class="gktModalSave"></div></div></div></div></div><div class="gktComboModalWrapper"><div class="gktComboModal"><div class="gktComboModalHeader"><strong class="gktComboModalPopupHeading"></strong><div class="gktComboModalClose"></div></div><div class="gktComboContent"><div class="gktComboContentHeader"></div><div class="gktComboContentFooter"><div class="gktComboContentFooterBtn1"></div><div class="gktComboContentFooterBtn2"></div></div></div></div></div></div><div class="gktGiftCardModalWrapper"><div class="gktGiftCardModal"><div class="gktGiftCardModalHeader"><strong class="gktGiftCardModalPopupHeading"></strong><div class="gktGiftCardModalClose"></div></div><div class="gktGiftCardContent"><div class="gktGiftCardContentHeader"></div><form><div class="gktGiftCardGreetingCardContent"></div><div class="gktGiftCardDetailsContent"></div><div class="gktGiftCardMessageContent"></div></form><div class="gktGiftCardContentFooter"><div class="gktGiftCardContentFooterBtn1"></div></div></div><div class="gktPoweredByBanner"></div></div></div><div class="gktFreeGiftcardPopupModalWrapper"><div class="gktFreeGiftcardPopupModal"></div></div></div><div class="gktNotificationWrapper"></div></div>')
                 gkt.$("body").append(skeletonDOM);
                 // gkt.elements.productPageWrapperV2.append(skeletonDOM);
                 // gkt.elements.cartPageWrapperV2.append(skeletonDOM);
@@ -283,6 +292,7 @@
                     giftCards: tmpCartSettings.giftCards || [],
                     greetingCards : tmpCartSettings.greetingCardData,
                     rewardCampaigns: tmpCartSettings.rewardCampaignData,
+                    urlCampaignDataList: tmpCartSettings.urlCampaignDataList,
                     app: {
                         disableApp: tmpCartSettings.userData.customSettings.disableApp || false,
                         disableSideCart: tmpCartSettings.userData.customSettings.disableSideCart || false,
@@ -312,6 +322,7 @@
                         themeLabelFontFamily: tmpCartSettings.userData.customSettings.themeLabelFontFamily || "",
                         
                         hidePoweredByBanner: tmpCartSettings.userData.customSettings.hidePoweredByBanner || false,
+                        useGiftCardAddToCartButtonOverwrite2: tmpCartSettings.userData?.customSettings?.useGiftCardAddToCartButtonOverwrite2 || false,
 
                         buyNowBtn: tmpCartSettings.userData.customSettings.buyNowBtn || DEFAULT_buyNowBtn,
                         cartForm: tmpCartSettings.userData.customSettings.cartForm || DEFAULT_cartForm,
@@ -324,7 +335,8 @@
                     accountWidget: tmpCartSettings.userData.accountWidget,
                     merchantInfo: tmpCartSettings.userData,
                     languageData: tmpCartSettings.languageData,
-                    SERVER_URL: tmpCartSettings.SERVER_URL
+                    SERVER_URL: tmpCartSettings.SERVER_URL,
+                    urlSearchString: window.location.search ? window.location.search : ""
                 }
 
                 gkt.settings = cart_settings;
@@ -566,14 +578,14 @@
 
             getElements: function (settings) {
                 return {
-                    gktGiftMsgAndWrapWrapperParent: gkt.$(gkt.$.parseHTML('<div class="gktGiftMsgAndWrapHeader"><div class="gktGiftMsgAndWrapHeaderItem"><label for="gift-wrapping" class="gktGiftMsgAndWrapWrapperInnerEle"><input id="gift-wrapping" class="gktGiftOptionsCheckbox" type="checkbox" name="addGiftOptions"><span class="gktCustomWrapCheckboxCheckmark"></span><div class="gktGiftMsgAndWrapWrapperInnerEleHeading"></div></label> </div></div>')),
+                    gktGiftMsgAndWrapWrapperParent: gkt.$(gkt.$.parseHTML('<div class="gktGiftMsgAndWrapHeader"><div class="gktGiftMsgAndWrapHeaderItem"><label for="gift-wrapping" class="gktGiftMsgAndWrapWrapperInnerEle"><input id="gift-wrapping" class="gktGiftOptionsCheckbox" type="checkbox" name="addGiftOptions"><span class="gktCustomWrapCheckboxCheckmark"></span><div class="gktGiftMsgAndWrapWrapperInnerEleHeading"></div></label></div></div>')),
                     gktCartGiftMsgAndWrapWrapperParent: gkt.$(gkt.$.parseHTML('<div class="gktCartGiftMsgAndWrapHeader"><div class="gktCartGiftMsgAndWrapHeaderItem"><label for="gift-wrapping" class="gktGiftMsgAndWrapWrapperInnerEle"><input id="gift-wrapping" class="gktGiftOptionsCheckbox" type="checkbox" name="addGiftOptions"><span class="gktCustomWrapCheckboxCheckmark"></span><div class="gktGiftMsgAndWrapWrapperInnerEleHeading"></div></label></div></div>')),
                     addToCartBtn: gkt.$(document).find(gkt.selectors.addToCart),
                     addToCartButtonCloned: undefined,
                     checkoutBtn: gkt.$(document).find(gkt.selectors.checkoutBtn),
                     cartForm: gkt.$(document).find(gkt.selectors.cartForm),
-                    productPageWrapperV2: gkt.$(gkt.$.parseHTML('<div class="gktPageWrapper gktProductPageWrapperV2"> <div class="gktComboWrapper"></div> <div class="gktProductPageUpsellWrapper"></div>  <div class="gktGiftMsgAndWrapWrapper"></div> <div class="gktGiftMessageWrapper"></div> <div class="gktGiftCardWrapper"></div>  </div>')),
-                    cartPageWrapperV2: gkt.$(gkt.$.parseHTML('<div class="gktPageWrapper gktCartPageWrapperV2"> <div class="gktCartUpsellWrapper"></div> <div class="gktCartGiftMsgAndWrapWrapper"></div><div class="gktCartGiftMessageWrapper"></div> <div class="gktAccountWidgetWrapper"></div></div>')),
+                    productPageWrapperV2: gkt.$(gkt.$.parseHTML('<div class="gktPageWrapper gktProductPageWrapperV2"><div class="gktComboWrapper"></div><div class="gktProductPageUpsellWrapper"></div><div class="gktGiftMsgAndWrapWrapper"></div><div class="gktGiftMessageWrapper"></div><div class="gktGiftCardWrapper"></div></div>')),
+                    cartPageWrapperV2: gkt.$(gkt.$.parseHTML('<div class="gktPageWrapper gktCartPageWrapperV2"><div class="gktCartUpsellWrapper"></div><div class="gktCartGiftMsgAndWrapWrapper"></div><div class="gktCartGiftMessageWrapper"></div><div class="gktAccountWidgetWrapper"></div></div>')),
                     buyNowBtn: gkt.$(document).find(gkt.selectors.buyNowBtn)
                 }
             },
@@ -608,12 +620,18 @@
 
                     }
                 }
+                
+                if(gkt.state && gkt.state.activeCampaignName == "EMPTY"){
+                    gkt.utility.getUrlRewardCampaignName()
+                }
+
 
                 setInterval(async () => {
                     if (!isIntervalActive) {
                         // console.log("globalListener-active")
 
                         isIntervalActive = true
+
 
                         // insert productpage wrapper if productPage is initialized
                         if ("product" === gkt.state.page_type &&
@@ -639,9 +657,13 @@
 
                         // check if giftCard overwrite buyNowButton 
                         if (gkt.gktGiftCard.state.giftCardData) {
-                            if(!gkt.elements.addToCartBtn.is(':visible')){
+                            if(!gkt.elements.addToCartBtn.is(':visible') || gkt.settings.app.useGiftCardAddToCartButtonOverwrite2 == true){
                                 gkt.elements.addToCartBtn = gkt.$(document).find(gkt.selectors.addToCart)
-                                gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite(gkt.gktGiftCard.state.giftCardData.isEmbededOnPage)
+                                if(gkt.settings.app.useGiftCardAddToCartButtonOverwrite2 == true){
+                                    gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite2(gkt.gktGiftCard.state.giftCardData.isEmbededOnPage)
+                                }else{
+                                    gkt.gktGiftCard.f.giftCardAddToCartButtonOverwrite(gkt.gktGiftCard.state.giftCardData.isEmbededOnPage)
+                                }
                             }
                             gkt.gktGiftCard.f.giftCardBuyNowButtonOverwrite()
                             if(!gkt.state.sendGiftcardOnPageBtnClicked){
@@ -655,18 +677,36 @@
                             gkt.utility.overWriteBuyNowBtn()
                         }
                         
+                        if(gkt.state.activeCampaignName != ""  &&
+                        gkt.settings.urlCampaignDataList &&
+                        gkt.settings.urlCampaignDataList.length  && 
+                        gkt.settings.urlCampaignDataList.length > 0
+                        ){
+                            let urlRewardCampaignName  = gkt.state.activeCampaignName 
+                            let rewardCampaign = gkt.settings.urlCampaignDataList.find((campaign) => {
+                                let campaignData = campaign.campaignData
+                                return campaignData.urlBasedCampaign && campaignData.urlBasedCampaign.value && campaignData.urlBasedCampaign.value  == urlRewardCampaignName
+                            })
+                            gkt.settings.rewardCampaigns = rewardCampaign
+
+                            if(!gkt.state.setCampaignUrlattribute ){
+                                gkt.state.setCampaignUrlattribute = true
+                                await gkt.utility.updateCart({attributes:{"cb_campaign":gkt.state.activeCampaignName}})
+                            }
+
+                        }
+
                         if( (gkt.state.page_type == "cart" || "product" === gkt.state.page_type) && 
                             gkt.settings.rewardCampaigns &&
                             gkt.settings.rewardCampaigns.status == "ACTIVE" &&
                             gkt.settings.rewardCampaigns.campaignData &&
                             gkt.settings.rewardCampaigns.campaignData.freeGiftcardProduct &&
                             gkt.settings.rewardCampaigns.campaignData.freeGiftcardProduct.length &&
-                            gkt.settings.rewardCampaigns.campaignData.freeGiftcardProduct.length > 0
-                             ){ 
-
-                               await gkt.gktFreeGiftCardPopup.f.addFreeGiftcardProduct()
-                            }
-                             
+                            gkt.settings.rewardCampaigns.campaignData.freeGiftcardProduct.length > 0 
+                            
+                        ){ 
+                            await gkt.gktFreeGiftCardPopup.f.addFreeGiftcardProduct()
+                        }
 
                         isIntervalActive = false
 
@@ -1055,6 +1095,33 @@
                 const dateInLocalTimeZone = `${year}-${month}-${day}`;
                 return dateInLocalTimeZone;
             },
+            getUrlRewardCampaignName: function () {
+                let activeCampaignName = "";
+
+                if(gkt.state.activeCampaignName != "EMPTY"){
+                    return gkt.state.activeCampaignName;
+                }
+                if(sessionStorage.getItem("cb_campaign")){
+                    activeCampaignName = sessionStorage.getItem("cb_campaign")
+                    gkt.state.activeCampaignName = activeCampaignName;
+                    return activeCampaignName;
+                }
+
+               let campaginString = gkt.settings.urlSearchString.split("cb_campaign=")
+               if(campaginString && campaginString.length > 1){
+                    let campaignName = campaginString[1].split("&")[0]
+                    if(campaignName){
+                        gkt.state.activeCampaignName = campaignName;
+                        sessionStorage.setItem("cb_campaign", campaignName)
+                        return campaignName
+                    }else{
+                        return ""
+                    }
+               }else
+                {
+                     return ""
+                }
+            }
         },
         storage: {
 
@@ -1591,6 +1658,61 @@
                         })
 
                     }
+
+                },
+                giftCardAddToCartButtonOverwrite2: function (isEmbededOnPage) {
+                    // setTimeout(()=>{
+                
+                  if(gkt.$('.button--add-to-cart-gkt') && gkt.$('.button--add-to-cart-gkt').length && gkt.$('.button--add-to-cart-gkt').length == 1){
+                    return
+                  }
+                   
+                  // set required states 
+                  gkt.gktGiftCard.state.isGiftCardAddToCartButtonOverwrite = true
+                  
+                  gkt.elements.addToCartBtn.attr("type", "button")
+                  gkt.elements.addToCartBtn.attr("disabled", false)
+                  let oldbutton =  gkt.elements.addToCartBtn
+                  let cloneAddToCartBtn = gkt.$("<div>").addClass('button').addClass("button--add-to-cart").addClass("button--add-to-cart-gkt")
+                  cloneAddToCartBtn.append(gkt.$("<span>").text(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.addToCartButtonText)))      
+                  gkt.$(".gktProductPageWrapperV2").append(cloneAddToCartBtn)
+                  
+                      oldbutton.css("visibility", "hidden")
+                      oldbutton.css("height", "0")
+                      oldbutton.css("width", "0")
+                      oldbutton.css("padding", "0")
+                      oldbutton.css("margin", "0")
+                      oldbutton.css("line-height", "0");
+                      oldbutton.css("min-height", "0");
+                  
+
+                
+                  
+                  gkt.elements.addToCartBtn.unbind().unbind("click").off().off("click");
+
+                  if(isEmbededOnPage){
+                      gkt.elements.addToCartBtn.on("click",  function (event) {
+                          let formValid = gkt.gktGiftCard.f.performFormValidation();
+                          if(!formValid){
+                              return
+                          }
+                          gkt.$(this).attr("disabled", true);
+                          setTimeout(() => { gkt.$(this).attr("disabled", false); }, 4000)
+                          gkt.state.sendGiftcardOnPageBtnClicked = true
+                          gkt.$(this).html(gkt.utility.renderLanguageValue(gkt.settings.languageData.giftcardV2.purchasePageFields.buyNowButtonTextLoading));
+                          gkt.gktGiftCard.action.onMessageSubmit(event);
+                          
+                      })
+                  }else{
+                      cloneAddToCartBtn.on("click", function (event) {
+                          // gkt.$(this).attr("disabled", true);
+                          // setTimeout(() => { gkt.$(this).attr("disabled", false); }, 1000)
+                          gkt.gktGiftCard.action.giftCardAddToCartButton(event)
+                      })
+
+                  }
+
+                   // }, 500)
 
                 },
                 giftCardBuyNowButtonOverwrite: function () {
@@ -3655,13 +3777,13 @@
                             }
                             if(!item){
                                 let resAddToCart = await gkt.utility.addToCartV2(itemObj)
-                                
+                                document.documentElement.dispatchEvent( new CustomEvent("cart:refresh", {bubbles: true}));
                             }else{
                                 let rewardValue = freeGiftcardValue
                                 if(item && item.properties && item.properties["Reward Value"] && item.properties["Reward Value"] != rewardValue){
                                     await gkt.utility.updateCart({ updates: { [item.id]: 0 }})
                                     let resAddToCart = await gkt.utility.addToCartV2(itemObj)
-
+                                    document.documentElement.dispatchEvent( new CustomEvent("cart:refresh", {bubbles: true}));
                                 }
                             }
                         }
@@ -3761,22 +3883,7 @@
                         return false
                     }
                 },
-                // isCustomerTagsConditionMet: function(customerData,freeGiftcardPopupData) {
-                //     try{
-                //         let excludeCustomerTags = freeGiftcardPopupData?.campaignData?.excludeCustomerTags || [];
-                //         let currentCustomerTags = customerData?.tags?.split(","); //customer tags array
-                
-                //         for (let i = 0; i < currentCustomerTags.length; i++) {
-                //         let currentTag = currentCustomerTags[i];
-                //             if (currentTag.trim().length > 0 && excludeCustomerTags.includes(currentTag)) {
-                //                 return false;
-                //             }
-                //         }
-                //         return true;
-                //     } catch(err) {
-                //         console.log(err);
-                //     }
-                // },
+              
                 registerEvents: function(){
                     gkt.$(document).on("click", ".gktFreeGiftcardPopupModalClose", gkt.gktFreeGiftCardPopup.action.onModalClose)
                 },
@@ -3877,6 +3984,7 @@
             gkt.f.initialize(gkt.$);
         })
     })
+
 
 
 
