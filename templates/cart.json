@@ -8,6 +8,22 @@
         "padding_bottom": 36
       }
     },
+    "1691737922c5b62161": {
+      "type": "apps",
+      "blocks": {
+        "17e588b5-7f5f-4e2b-ad19-8b373f25d4e6": {
+          "type": "shopify:\/\/apps\/monk\/blocks\/embedded-cart-page-discount-code\/e949adb6-87ca-4b97-8f31-0e51bf507f2d",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "17e588b5-7f5f-4e2b-ad19-8b373f25d4e6"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "cart-footer": {
       "type": "main-cart-footer",
       "blocks": {
@@ -56,28 +72,12 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "1691737922c5b62161": {
-      "type": "apps",
-      "blocks": {
-        "17e588b5-7f5f-4e2b-ad19-8b373f25d4e6": {
-          "type": "shopify:\/\/apps\/monk\/blocks\/embedded-cart-page-discount-code\/e949adb6-87ca-4b97-8f31-0e51bf507f2d",
-          "settings": {
-          }
-        }
-      },
-      "block_order": [
-        "17e588b5-7f5f-4e2b-ad19-8b373f25d4e6"
-      ],
-      "settings": {
-        "include_margins": true
-      }
     }
   },
   "order": [
     "cart-items",
+    "1691737922c5b62161",
     "cart-footer",
-    "featured-collection",
-    "1691737922c5b62161"
+    "featured-collection"
   ]
 }
